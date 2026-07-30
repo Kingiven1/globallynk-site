@@ -1,24 +1,41 @@
+import { Link } from 'react-router-dom';
 import GradientOrb from '../components/GradientOrb';
 import { color, eyebrow, h1, h2, bodyLg, body, buttonPrimary, container, section, space, font, card, radius } from '../styles/tokens';
 
 const EMAIL = 'thegloballynk@gmail.com';
 
 const REASONS = [
-  { title: 'Partnerships & Sponsorships', copy: 'Brand partnerships, event sponsorships, or collaboration ideas.', mailto: `mailto:${EMAIL}?subject=Partnership%20Inquiry` },
-  { title: 'Book a DJ', copy: "Looking to book one of our alumni DJs for an event.", mailto: `mailto:${EMAIL}?subject=DJ%20Booking%20Inquiry` },
-  { title: 'Cohort & Workshop Questions', copy: 'Questions about applying, pricing, or what to expect.', mailto: `mailto:${EMAIL}?subject=Cohort%20%2F%20Workshop%20Question` },
-  { title: 'Press & Media', copy: 'Press inquiries, interviews, or media requests.', mailto: `mailto:${EMAIL}?subject=Press%20%2F%20Media%20Inquiry` },
-  { title: 'Donations & Cultural Exchange', copy: 'Questions about giving or our Mexico City exchange program.', mailto: `mailto:${EMAIL}?subject=Donation%20%2F%20Cultural%20Exchange%20Question` },
-  { title: 'Everything Else', copy: "Not sure where it fits? Send it our way — we'll route it right.", mailto: `mailto:${EMAIL}?subject=General%20Inquiry` },
+  { title: 'Partnerships & Sponsorships', copy: 'Brand partnerships, event sponsorships, or collaboration ideas.', href: `mailto:${EMAIL}?subject=Partnership%20Inquiry`, internal: false, cta: 'Email us →' },
+  { title: 'Book a DJ', copy: "Looking to book one of our alumni DJs for an event.", href: '/book-dj', internal: true, cta: 'Fill out booking form →' },
+  { title: 'Cohort & Workshop Questions', copy: 'Questions about applying, pricing, or what to expect.', href: `mailto:${EMAIL}?subject=Cohort%20%2F%20Workshop%20Question`, internal: false, cta: 'Email us →' },
+  { title: 'Press & Media', copy: 'Press inquiries, interviews, or media requests.', href: `mailto:${EMAIL}?subject=Press%20%2F%20Media%20Inquiry`, internal: false, cta: 'Email us →' },
+  { title: 'Donations & Cultural Exchange', copy: 'Questions about giving or our Mexico City exchange program.', href: `mailto:${EMAIL}?subject=Donation%20%2F%20Cultural%20Exchange%20Question`, internal: false, cta: 'Email us →' },
+  { title: 'Everything Else', copy: "Not sure where it fits? Send it our way — we'll route it right.", href: `mailto:${EMAIL}?subject=General%20Inquiry`, internal: false, cta: 'Email us →' },
 ];
+
+const cardStyle = { ...card, padding: space.lg, textDecoration: 'none', display: 'block', transition: 'transform 0.2s ease, box-shadow 0.2s ease' };
 
 function ContactCard(props) {
   const r = props.reason;
-  return (
-    <a key={r.title} href={r.mailto} className="lynk-contact-card" style={{ ...card, padding: space.lg, textDecoration: 'none', display: 'block', transition: 'transform 0.2s ease, box-shadow 0.2s ease' }}>
+  const inner = (
+    <>
       <h3 style={{ fontFamily: 'Space Grotesk, sans-serif', fontSize: '19px', color: color.white, marginBottom: '8px' }}>{r.title}</h3>
       <p style={{ ...body, fontSize: '14px', marginBottom: space.sm }}>{r.copy}</p>
-      <span style={{ fontFamily: font.mono, fontSize: '12px', color: color.cyan }}>Email us →</span>
+      <span style={{ fontFamily: font.mono, fontSize: '12px', color: color.cyan }}>{r.cta}</span>
+    </>
+  );
+
+  if (r.internal) {
+    return (
+      <Link to={r.href} className="lynk-contact-card" style={cardStyle}>
+        {inner}
+      </Link>
+    );
+  }
+
+  return (
+    <a href={r.href} className="lynk-contact-card" style={cardStyle}>
+      {inner}
     </a>
   );
 }
@@ -34,8 +51,7 @@ export default function Contact() {
             Let's talk.
           </h1>
           <p style={{ ...bodyLg, maxWidth: '540px', marginTop: space.md }}>
-            Partnerships, bookings, press, or just a question — pick what fits below
-            and it'll open a pre-filled email straight to us.
+            Partnerships, bookings, press, or just a question — pick what fits below.
           </p>
         </div>
       </section>

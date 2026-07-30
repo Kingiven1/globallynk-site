@@ -11,6 +11,7 @@ import Journey from './pages/Journey';
 import Donate from './pages/Donate';
 import AlumniDirectory from './pages/AlumniDirectory';
 import Contact from './pages/Contact';
+import BookDJ from './pages/BookDJ';
 import Login from './pages/Login';
 import Portal from './pages/Portal';
 import { page } from './styles/tokens';
@@ -30,6 +31,7 @@ export default function App() {
             <Route path="/donate" element={<Donate />} />
             <Route path="/alumni" element={<AlumniDirectory />} />
             <Route path="/contact" element={<Contact />} />
+            <Route path="/book-dj" element={<BookDJ />} />
             <Route path="/login" element={<Login />} />
             <Route
               path="/portal"

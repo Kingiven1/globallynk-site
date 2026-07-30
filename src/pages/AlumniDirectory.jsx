@@ -1,7 +1,6 @@
+import { Link } from 'react-router-dom';
 import GradientOrb from '../components/GradientOrb';
 import { color, eyebrow, h1, h2, bodyLg, body, buttonPrimary, buttonGhost, container, section, space, font, radius, card } from '../styles/tokens';
-
-const BOOKING_CONTACT = 'mailto:connect@indabooth.com?subject=DJ%20Booking%20Inquiry';
 
 const ALUMNI = [
   // { name: 'DJ Example', genres: ['Afrobeats', 'Amapiano'], mixUrl: '#', instagram: '@example', photo: null },
@@ -41,7 +40,7 @@ export default function AlumniDirectory() {
               <h2 style={{ ...h2, fontSize: '26px', marginBottom: '8px' }}>Want to book a GlobalLYNK DJ?</h2>
               <p style={body}>Send us the details — date, budget, and vibe — and we'll connect you with the right DJ.</p>
             </div>
-            <a href={BOOKING_CONTACT} style={buttonPrimary}>Book a DJ →</a>
+            <Link to="/book-dj" style={buttonPrimary}>Book a DJ →</Link>
           </div>
         </div>
       </section>

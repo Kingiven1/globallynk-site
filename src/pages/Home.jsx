@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import GradientOrb from '../components/GradientOrb';
 import heroPhoto from '../assets/images/481A8469.jpg';
+import winnersPhoto from '../assets/images/winners.jpg';
 import {
   color, eyebrow, h1, h2, bodyLg, body, card, radius,
   buttonPrimary, buttonGhost, container, section, space, font,
@@ -90,9 +91,16 @@ export default function Home() {
               </p>
               <Link to="/journey" style={buttonGhost}>Read the full story</Link>
             </div>
-            <div style={{ aspectRatio: '4/3', background: color.bgRaised, border: `1px solid ${color.line}`, borderRadius: radius.lg, display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: font.mono, fontSize: '12px', color: color.mutedDim, letterSpacing: '0.05em' }}>
-              Mexico City photo coming soon
-            </div>
+            <img
+              src={winnersPhoto}
+              alt="GlobalLYNK cultural exchange winners in Mexico City"
+              style={{
+                width: '100%',
+                aspectRatio: '4/3',
+                objectFit: 'cover',
+                borderRadius: radius.lg,
+              }}
+            />
           </div>
         </div>
       </section>

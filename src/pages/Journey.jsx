@@ -1,25 +1,28 @@
 import { Link } from 'react-router-dom';
 import GradientOrb from '../components/GradientOrb';
 import { color, eyebrow, h1, h2, bodyLg, body, buttonPrimary, container, section, space, font, radius, card } from '../styles/tokens';
+import competitionPhoto from '../assets/images/1-P1212434.jpg';
+import mexicoDjsPhoto from '../assets/images/dji_mimo_20260409_204128_20260409204129_1775791677525_photo.JPG';
+import winnersPhoto from '../assets/images/dji_mimo_20260410_111302_20260410111302_1775843160604_photo.JPG';
 
 const STORY_PARTS = [
   {
     label: 'How they earned it',
     title: 'A three-round competition',
     copy: "Two DJs earned the trip by winning a competition built to test more than just mixing. Round one was a timed cable-and-setup race — figure out the wiring, get the gear running, fastest time wins. Round two tested music and DJ culture knowledge. Round three came down to one thing: who could actually rock the crowd. One winner, one man and one woman, walked away with an all-expenses-paid trip to Mexico City.",
-    image: null,
+    image: competitionPhoto,
   },
   {
     label: 'What they experienced',
     title: "A week that expanded what's possible",
     copy: "Once there, it wasn't just sightseeing. They gave back through community service at a local orphanage, and spent time with Mexico City's own high-level DJs — the kind who've built and curated their own events and communities instead of waiting to get booked by someone else. That's the model GlobalLYNK wants every DJ to see is possible: build the community, don't just work for hire. Between the culture, the food, and the city itself, the trip closed with our students performing a DJ set of their own at a party we curated for the occasion.",
-    image: null,
+    image: mexicoDjsPhoto,
   },
   {
     label: "What's next",
     title: 'This year\u2019s winners become next year\u2019s guides',
     copy: "As GlobalLYNK grows, so does this program. Next year, this year's winners return — not as chaperones, but as guides. They'll help organize the competition, help fundraise, and travel back to Mexico City alongside the next generation of winners to show them what's possible, the same way it was shown to them.",
-    image: null,
+    image: winnersPhoto,
   },
 ];
 
@@ -117,21 +120,16 @@ export default function Journey() {
                   </h3>
                   <p style={{ ...body, maxWidth: '760px' }}>{part.copy}</p>
                 </div>
-                <div
+                <img
+                  src={part.image}
+                  alt={part.title}
                   style={{
+                    width: '100%',
                     aspectRatio: '4/3',
-                    background: color.bgRaised2,
+                    objectFit: 'cover',
                     borderRadius: radius.md,
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    fontFamily: font.mono,
-                    fontSize: '11px',
-                    color: color.mutedDim,
                   }}
-                >
-                  Photo coming soon
-                </div>
+                />
               </div>
             ))}
           </div>

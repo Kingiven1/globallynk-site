@@ -61,7 +61,7 @@ export default function Home() {
       <section style={section}>
         <div style={container}>
           <div style={eyebrow}><span>What we do</span></div>
-          <h2 style={{ ...h2, maxWidth: '640px', marginBottom: space.xl }}>Try it once. Go deeper if it's for you.</h2>
+          <h2 style={{ ...h2, maxWidth: '640px', marginBottom: space.xl }}>Try DJing once. Go deeper if it's for you.</h2>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: space.lg }} className="lynk-pillars-grid">
             {PILLARS.map((p) => (
               <div key={p.n} className="lynk-pillar-card" style={{ ...card, padding: space.lg, transition: 'transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease' }}>

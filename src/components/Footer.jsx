@@ -1,10 +1,26 @@
 import { Link } from 'react-router-dom';
 import { color, font, container, space } from '../styles/tokens';
 import logo from '../assets/images/Global-Lynk_Base-Logomark-White@4x.png';
+import MailingListSignup from './MailingListSignup';
 
 export default function Footer() {
   return (
     <footer style={{ borderTop: `1px solid ${color.line}`, padding: `${space.xl} 0 ${space.lg}` }}>
+      <div
+        style={{
+          ...container,
+          display: 'grid',
+          gridTemplateColumns: '1fr 1fr',
+          gap: space.xl,
+          marginBottom: space.xl,
+          paddingBottom: space.xl,
+          borderBottom: `1px solid ${color.line}`,
+        }}
+        className="lynk-footer-top"
+      >
+        <MailingListSignup />
+      </div>
+
       <div style={{ ...container, display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between', gap: space.lg }}>
         <div style={{ maxWidth: '340px' }}>
           <img src={logo} alt="GlobalLYNK" style={{ height: '28px', width: 'auto', marginBottom: '12px' }} />
@@ -17,7 +33,7 @@ export default function Footer() {
               { label: 'TikTok', href: 'https://www.tiktok.com/@globallynk' },
               { label: 'Threads', href: 'https://www.threads.com/@globallynk' },
             ].map((s) => (
-              <a key={s.label} href={s.href} target="_blank" rel="noreferrer" style={{ fontFamily: font.mono, fontSize: '12px', letterSpacing: '0.08em', color: color.cyan, textDecoration: 'none' }}>
+              <a key={s.label} href={s.href} target="_blank" rel="noreferrer" style={{ fontFamily: font.mono, fontSize: '12px', letterSpacing: '0.01em', color: color.cyan, textDecoration: 'none' }}>
                 {s.label}
               </a>
             ))}
@@ -51,6 +67,12 @@ export default function Footer() {
       <div style={{ ...container, marginTop: space.lg, paddingTop: space.md, borderTop: `1px solid ${color.line}`, fontFamily: font.mono, fontSize: '11px', letterSpacing: '0.04em', color: color.mutedDim }}>
         © 2026 GlobalLYNK × AmpSpot · All Rights Reserved
       </div>
+
+      <style>{`
+        @media (max-width: 780px) {
+          .lynk-footer-top { grid-template-columns: 1fr !important; }
+        }
+      `}</style>
     </footer>
   );
 }
@@ -58,8 +80,7 @@ export default function Footer() {
 const footerLabel = {
   fontFamily: font.mono,
   fontSize: '11px',
-  letterSpacing: '0.1em',
-  textTransform: 'uppercase',
+  letterSpacing: '0.01em',
   color: color.mutedDim,
   marginBottom: '14px',
 };

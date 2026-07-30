@@ -1,8 +1,11 @@
-import Waveform from '../components/Waveform';
-import { color, eyebrow, h1, body, buttonPrimary, buttonGhost, container, section, space, font } from '../styles/tokens';
+import GradientOrb from '../components/GradientOrb';
+import { color, eyebrow, h1, body, buttonPrimary, buttonGhost, container, section, space, font, radius } from '../styles/tokens';
 
-// TODO: replace with live data — either fetch from Posh's API/embed,
-// or hand-maintain this array until the portal's `events` table exists.
+// TODO: replace poshUrl values with live Posh links, and add an `image`
+// field once you've dropped flyers into src/assets/images/ — e.g.
+//   import workshopFlyer from '../assets/images/workshop-flyer.jpg';
+//   then add `image: workshopFlyer` to that event's object below.
+// Any event without an `image` field falls back to the placeholder box.
 const EVENTS = [
   {
     date: 'SEP 12',
@@ -11,6 +14,7 @@ const EVENTS = [
     copy: '8 weeks, Saturdays 11AM–1PM, Charlotte. Applications open now — 15 spots.',
     poshUrl: '/cohort',
     internal: true,
+    image: null,
   },
   {
     date: 'ONGOING',
@@ -18,6 +22,7 @@ const EVENTS = [
     title: 'Intro to DJ Workshop',
     copy: 'Beginner-friendly, hands-on sessions built for curiosity, creativity, and connection. No experience or gear required.',
     poshUrl: 'https://posh.vip/series/intro-to-dj-workshop',
+    image: null,
   },
   {
     date: 'UPCOMING',
@@ -25,14 +30,16 @@ const EVENTS = [
     title: 'Prism Social — Global Dance',
     copy: 'A night of sets from GlobalLYNK DJs. Open to everyone, no experience needed to attend.',
     poshUrl: 'https://posh.vip/e/prism-social-global-dance-',
+    image: null,
   },
 ];
 
 export default function Events() {
   return (
     <div>
-      <section style={{ padding: `${space.xxl} 0 ${space.lg}` }}>
-        <div style={container}>
+      <section style={{ position: 'relative', padding: `${space.xxl} 0 ${space.lg}`, overflow: 'hidden' }}>
+        <GradientOrb seed={13} size={420} style={{ position: 'absolute', top: '-120px', left: '-100px', zIndex: 0 }} />
+        <div style={{ ...container, position: 'relative', zIndex: 1 }}>
           <div style={eyebrow}><span>Events</span></div>
           <h1 style={{ ...h1, fontSize: 'clamp(36px, 6vw, 64px)', maxWidth: '760px' }}>
             Workshops, dance nights, and everything else we've got going on.
@@ -40,42 +47,66 @@ export default function Events() {
         </div>
       </section>
 
-      <div style={container}><Waveform seed={13} /></div>
-
       <section style={section}>
         <div style={container}>
-          {EVENTS.map((ev, i) => (
-            <div
-              key={i}
-              style={{
-                display: 'grid',
-                gridTemplateColumns: '120px 1fr auto',
-                gap: space.lg,
-                alignItems: 'center',
-                padding: `${space.lg} 0`,
-                borderBottom: `1px solid ${color.line}`,
-              }}
-              className="lynk-event-row"
-            >
-              <div style={{ fontFamily: font.mono, fontSize: '13px', color: color.cyanDim, letterSpacing: '0.06em' }}>
-                {ev.date}
-              </div>
-              <div>
-                <div style={{ fontFamily: font.mono, fontSize: '11px', letterSpacing: '0.1em', textTransform: 'uppercase', color: color.mutedDim, marginBottom: '6px' }}>
-                  {ev.type}
+          <div style={{ display: 'flex', flexDirection: 'column', gap: space.lg }}>
+            {EVENTS.map((ev, i) => (
+              <div
+                key={i}
+                style={{
+                  display: 'grid',
+                  gridTemplateColumns: '160px 1fr auto',
+                  gap: space.lg,
+                  alignItems: 'center',
+                  padding: space.md,
+                  background: color.bgRaised,
+                  border: `1px solid ${color.line}`,
+                  borderRadius: radius.lg,
+                }}
+                className="lynk-event-row"
+              >
+                {ev.image ? (
+                  <img
+                    src={ev.image}
+                    alt={ev.title}
+                    style={{ width: '100%', aspectRatio: '1/1', objectFit: 'cover', borderRadius: radius.md }}
+                  />
+                ) : (
+                  <div
+                    style={{
+                      width: '100%',
+                      aspectRatio: '1/1',
+                      background: color.bgRaised2,
+                      borderRadius: radius.md,
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      fontFamily: font.mono,
+                      fontSize: '10px',
+                      color: color.mutedDim,
+                      textAlign: 'center',
+                    }}
+                  >
+                    [ Flyer ]
+                  </div>
+                )}
+                <div>
+                  <div style={{ fontFamily: font.mono, fontSize: '11px', letterSpacing: '0.1em', textTransform: 'uppercase', color: color.cyanDim, marginBottom: '6px' }}>
+                    {ev.date} · {ev.type}
+                  </div>
+                  <h3 style={{ fontFamily: 'Space Grotesk, sans-serif', fontSize: '22px', color: color.white, marginBottom: '6px' }}>
+                    {ev.title}
+                  </h3>
+                  <p style={{ ...body, maxWidth: '520px' }}>{ev.copy}</p>
                 </div>
-                <h3 style={{ fontFamily: 'Space Grotesk, sans-serif', fontSize: '22px', color: color.white, marginBottom: '6px' }}>
-                  {ev.title}
-                </h3>
-                <p style={{ ...body, maxWidth: '520px' }}>{ev.copy}</p>
+                {ev.internal ? (
+                  <a href={ev.poshUrl} style={buttonGhost}>Learn more</a>
+                ) : (
+                  <a href={ev.poshUrl} target="_blank" rel="noreferrer" style={buttonPrimary}>RSVP on Posh →</a>
+                )}
               </div>
-              {ev.internal ? (
-                <a href={ev.poshUrl} style={buttonGhost}>Learn more</a>
-              ) : (
-                <a href={ev.poshUrl} target="_blank" rel="noreferrer" style={buttonPrimary}>RSVP on Posh →</a>
-              )}
-            </div>
-          ))}
+            ))}
+          </div>
 
           <p style={{ ...body, marginTop: space.lg, fontSize: '13px' }}>
             More events posted regularly — follow{' '}
@@ -89,7 +120,7 @@ export default function Events() {
 
       <style>{`
         @media (max-width: 700px) {
-          .lynk-event-row { grid-template-columns: 1fr !important; gap: 12px !important; }
+          .lynk-event-row { grid-template-columns: 1fr !important; }
         }
       `}</style>
     </div>

@@ -1,17 +1,22 @@
 // GlobalLYNK design tokens
-// Palette, type, and spacing derived from the brand's editorial/minimalist identity.
+// Direction: iMac G3 optimism (translucent color, soft glow, rounded shapes)
+// filtered through modern Apple minimalism (whitespace, restraint, one
+// confident visual moment per screen). Black bg + cyan stay as brand
+// anchors; purple/pink are the "candy" accents that carry the gradient orb.
 
 export const color = {
-  bg: '#0D0D0D',        // primary background
-  bgRaised: '#161616',  // card / raised surface
-  bgRaised2: '#1D1D1D', // hover / deeper raised surface
-  line: '#2A2A2A',      // hairline dividers
-  white: '#F5F5F3',     // primary text (soft white, not pure white)
-  muted: '#8C8C88',     // secondary text
-  mutedDim: '#5C5C58',  // tertiary / disabled text
-  cyan: '#00C2D4',      // primary accent
-  cyanDim: '#0A8A96',   // accent hover / secondary accent
-  cyanFaint: 'rgba(0,194,212,0.08)', // accent wash for backgrounds
+  bg: '#0D0D0D',
+  bgRaised: '#161616',
+  bgRaised2: '#1D1D1D',
+  line: '#2A2A2A',
+  white: '#F5F5F3',
+  muted: '#8C8C88',
+  mutedDim: '#5C5C58',
+  cyan: '#00C2D4',
+  cyanDim: '#0A8A96',
+  cyanFaint: 'rgba(0,194,212,0.08)',
+  purple: '#9D5CFF',
+  pink: '#FF5CA8',
 };
 
 export const font = {
@@ -31,11 +36,12 @@ export const space = {
 };
 
 export const radius = {
-  sm: '2px',
-  md: '4px',
+  sm: '10px',
+  md: '16px',
+  lg: '24px',
+  pill: '999px',
 };
 
-// Shared style fragments reused across pages
 export const eyebrow = {
   fontFamily: font.mono,
   fontSize: '12px',
@@ -102,13 +108,13 @@ export const buttonPrimary = {
   background: color.cyan,
   border: 'none',
   padding: '16px 28px',
-  borderRadius: radius.sm,
+  borderRadius: radius.pill,
   cursor: 'pointer',
   display: 'inline-flex',
   alignItems: 'center',
   gap: '10px',
   textDecoration: 'none',
-  transition: 'background 0.15s ease, transform 0.15s ease',
+  transition: 'transform 0.15s ease, box-shadow 0.15s ease',
 };
 
 export const buttonGhost = {
@@ -120,13 +126,19 @@ export const buttonGhost = {
   background: 'transparent',
   border: `1px solid ${color.line}`,
   padding: '16px 28px',
-  borderRadius: radius.sm,
+  borderRadius: radius.pill,
   cursor: 'pointer',
   display: 'inline-flex',
   alignItems: 'center',
   gap: '10px',
   textDecoration: 'none',
   transition: 'border-color 0.15s ease',
+};
+
+export const card = {
+  background: color.bgRaised,
+  border: `1px solid ${color.line}`,
+  borderRadius: radius.lg,
 };
 
 export const page = {

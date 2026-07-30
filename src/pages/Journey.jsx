@@ -7,16 +7,19 @@ const STORY_PARTS = [
     label: 'How they earned it',
     title: 'A three-round competition',
     copy: "Two DJs earned the trip by winning a competition built to test more than just mixing. Round one was a timed cable-and-setup race — figure out the wiring, get the gear running, fastest time wins. Round two tested music and DJ culture knowledge. Round three came down to one thing: who could actually rock the crowd. One winner, one man and one woman, walked away with an all-expenses-paid trip to Mexico City.",
+    image: null,
   },
   {
     label: 'What they experienced',
     title: "A week that expanded what's possible",
     copy: "Once there, it wasn't just sightseeing. They gave back through community service at a local orphanage, and spent time with Mexico City's own high-level DJs — the kind who've built and curated their own events and communities instead of waiting to get booked by someone else. That's the model GlobalLYNK wants every DJ to see is possible: build the community, don't just work for hire. Between the culture, the food, and the city itself, the trip closed with our students performing a DJ set of their own at a party we curated for the occasion.",
+    image: null,
   },
   {
     label: "What's next",
     title: 'This year\u2019s winners become next year\u2019s guides',
     copy: "As GlobalLYNK grows, so does this program. Next year, this year's winners return — not as chaperones, but as guides. They'll help organize the competition, help fundraise, and travel back to Mexico City alongside the next generation of winners to show them what's possible, the same way it was shown to them.",
+    image: null,
   },
 ];
 
@@ -31,9 +34,31 @@ export default function Journey() {
             Creativity is the highest form of wealth.
           </h1>
           <p style={{ ...bodyLg, maxWidth: '560px', marginTop: space.md }}>
-            GlobalLYNK is a nonprofit built around DJ culture — education, community,
+            GlobalLYNK is built around DJ culture — education, community,
             live programming, and cultural exchange, all pointed at the same thing:
             helping people build something with what they create.
+          </p>
+        </div>
+      </section>
+
+      <section style={section}>
+        <div style={container}>
+          <div style={eyebrow}><span>Why we exist</span></div>
+          <h2 style={{ ...h2, maxWidth: '720px', marginBottom: space.md }}>
+            Everyone has a creative bone in their body.
+          </h2>
+          <p style={{ ...bodyLg, maxWidth: '700px', marginBottom: space.md }}>
+            Growing up comes with responsibilities, and somewhere along the way,
+            most people lose touch with whatever creative spark they had as a kid.
+            GlobalLYNK exists to help people find that spark again — whether they're
+            already working creatives or picking up a controller for the first time.
+          </p>
+          <p style={{ ...body, maxWidth: '700px' }}>
+            Maybe it stays a hobby. Maybe it turns into a side gig. Maybe it becomes
+            something real. Either way, there's a place for it here — and we're
+            starting with DJing, but DJing is just the entry point. As GlobalLYNK
+            grows, we're expanding into other creative mediums too, because this
+            was never meant to be about one skill.
           </p>
         </div>
       </section>
@@ -82,14 +107,31 @@ export default function Journey() {
 
           <div style={{ display: 'flex', flexDirection: 'column', gap: space.lg }}>
             {STORY_PARTS.map((part) => (
-              <div key={part.title} style={{ ...card, padding: space.lg }}>
-                <div style={{ fontFamily: font.mono, fontSize: '12px', letterSpacing: '0.02em', color: color.cyanDim, marginBottom: space.sm }}>
-                  {part.label}
+              <div key={part.title} style={{ ...card, padding: space.lg, display: 'grid', gridTemplateColumns: '1fr 1fr', gap: space.lg, alignItems: 'center' }} className="lynk-story-card">
+                <div>
+                  <div style={{ fontFamily: font.mono, fontSize: '12px', letterSpacing: '0.02em', color: color.cyanDim, marginBottom: space.sm }}>
+                    {part.label}
+                  </div>
+                  <h3 style={{ fontFamily: 'Space Grotesk, sans-serif', fontSize: '20px', color: color.white, marginBottom: '10px' }}>
+                    {part.title}
+                  </h3>
+                  <p style={{ ...body, maxWidth: '760px' }}>{part.copy}</p>
                 </div>
-                <h3 style={{ fontFamily: 'Space Grotesk, sans-serif', fontSize: '20px', color: color.white, marginBottom: '10px' }}>
-                  {part.title}
-                </h3>
-                <p style={{ ...body, maxWidth: '760px' }}>{part.copy}</p>
+                <div
+                  style={{
+                    aspectRatio: '4/3',
+                    background: color.bgRaised2,
+                    borderRadius: radius.md,
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    fontFamily: font.mono,
+                    fontSize: '11px',
+                    color: color.mutedDim,
+                  }}
+                >
+                  Photo coming soon
+                </div>
               </div>
             ))}
           </div>
@@ -135,9 +177,9 @@ export default function Journey() {
         >
           <div>
             <h2 style={{ ...h2, fontSize: '30px', marginBottom: '8px' }}>
-              Help us take more students further.
+              Help send the next winners to Mexico City.
             </h2>
-            <p style={body}>Donations go directly toward workshops, cohort scholarships, and exchange trips.</p>
+            <p style={body}>Donations go directly toward flights, lodging, and experiences for our cultural exchange program.</p>
           </div>
           <Link to="/donate" style={buttonPrimary}>Donate →</Link>
         </div>
@@ -146,6 +188,7 @@ export default function Journey() {
       <style>{`
         @media (max-width: 780px) {
           .lynk-journey-grid { grid-template-columns: 1fr !important; }
+          .lynk-story-card { grid-template-columns: 1fr !important; }
         }
       `}</style>
     </div>

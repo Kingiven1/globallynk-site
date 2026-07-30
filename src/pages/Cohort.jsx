@@ -1,5 +1,6 @@
 import GradientOrb from '../components/GradientOrb';
 import { color, eyebrow, h1, h2, bodyLg, body, buttonPrimary, container, section, space, font, radius, card } from '../styles/tokens';
+import cohortFlyer from '../assets/images/cohortflyer.png';
 
 const APPLY_URL = 'https://tally.so/r/D4Ye65';
 
@@ -25,9 +26,12 @@ export default function Cohort() {
         <GradientOrb seed={19} size={480} style={{ position: 'absolute', top: '-140px', right: '-140px', zIndex: 0 }} />
         <div style={{ ...container, position: 'relative', zIndex: 1 }}>
           <div style={eyebrow}><span>Cohort</span></div>
-          <h1 style={{ ...h1, fontSize: 'clamp(36px, 6vw, 64px)', maxWidth: '760px' }}>8 weeks. Small class. A real skill by graduation.</h1>
+          <h1 style={{ ...h1, fontSize: 'clamp(36px, 6vw, 64px)', maxWidth: '760px' }}>
+            8 weeks. Small class. A real skill by graduation.
+          </h1>
           <p style={{ ...bodyLg, maxWidth: '560px', marginTop: space.md }}>
-            An 8-week DJ program in Charlotte, NC for beginners ready to get serious about their craft, brand, and career. Sept 12 – Oct 31 · Every Saturday 11AM–1PM · 15 spots.
+            An 8-week DJ program in Charlotte, NC for beginners ready to get serious about
+            their craft, brand, and career. Sept 12 – Oct 31 · Every Saturday 11AM–1PM · 15 spots.
           </p>
           <div style={{ marginTop: space.lg }}>
             <a href={APPLY_URL} target="_blank" rel="noreferrer" style={buttonPrimary}>Apply now →</a>
@@ -37,14 +41,39 @@ export default function Cohort() {
 
       <section style={{ padding: `0 0 ${space.lg}` }}>
         <div style={container}>
-          <div style={{ aspectRatio: '21/9', background: color.bgRaised, border: `1px solid ${color.line}`, borderRadius: radius.lg, display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: font.mono, fontSize: '12px', color: color.mutedDim }}>
-            Cohort flyer coming soon
+          <div
+            style={{
+              display: 'flex',
+              justifyContent: 'center',
+              background: color.bgRaised,
+              border: `1px solid ${color.line}`,
+              borderRadius: radius.lg,
+              padding: space.lg,
+            }}
+          >
+            <img
+              src={cohortFlyer}
+              alt="Fall 2026 DJ Cohort flyer"
+              style={{
+                maxWidth: '480px',
+                width: '100%',
+                height: 'auto',
+                borderRadius: radius.md,
+              }}
+            />
           </div>
         </div>
       </section>
 
       <section style={{ padding: `${space.lg} 0` }}>
-        <div style={{ ...container, display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(160px, 1fr))', gap: space.md }}>
+        <div
+          style={{
+            ...container,
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(160px, 1fr))',
+            gap: space.md,
+          }}
+        >
           {[
             { label: 'Length', value: '8 weeks' },
             { label: 'When', value: 'Sat, 11AM–1PM' },

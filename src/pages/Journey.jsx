@@ -2,8 +2,8 @@ import { Link } from 'react-router-dom';
 import GradientOrb from '../components/GradientOrb';
 import { color, eyebrow, h1, h2, bodyLg, body, buttonPrimary, container, section, space, font, radius, card } from '../styles/tokens';
 import competitionPhoto from '../assets/images/1-P1212434.jpg';
-import mexicoDjsPhoto from '../assets/images/dji_mimo_20260409_204128_20260409204129_1775791677525_photo.JPG';
-import winnersPhoto from '../assets/images/dji_mimo_20260410_111302_20260410111302_1775843160604_photo.JPG';
+import mexicoDjsPhoto from '../assets/images/djcrew.jpg';
+import winnersPhoto from '../assets/images/winners.jpg';
 
 const STORY_PARTS = [
   {

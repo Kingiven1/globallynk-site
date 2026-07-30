@@ -4,6 +4,7 @@ import { color, font, container } from '../styles/tokens';
 import logo from '../assets/images/Global-Lynk_Base-Logomark-White@4x.png';
 
 const LINKS = [
+  { to: '/', label: 'Home' },
   { to: '/events', label: 'Events' },
   { to: '/cohort', label: 'Cohort' },
   { to: '/journey', label: 'Our Journey' },
@@ -40,8 +41,7 @@ export default function Nav() {
               style={{
                 fontFamily: font.mono,
                 fontSize: '13px',
-                letterSpacing: '0.06em',
-                textTransform: 'uppercase',
+                letterSpacing: '0.01em',
                 textDecoration: 'none',
                 color: location.pathname === link.to ? color.cyan : color.muted,
                 paddingBottom: '4px',
@@ -64,8 +64,7 @@ export default function Nav() {
             padding: '8px 12px',
             fontFamily: font.mono,
             fontSize: '12px',
-            letterSpacing: '0.08em',
-            textTransform: 'uppercase',
+            letterSpacing: '0.01em',
             cursor: 'pointer',
           }}
         >
@@ -83,8 +82,7 @@ export default function Nav() {
               style={{
                 fontFamily: font.mono,
                 fontSize: '14px',
-                letterSpacing: '0.06em',
-                textTransform: 'uppercase',
+                letterSpacing: '0.01em',
                 textDecoration: 'none',
                 color: location.pathname === link.to ? color.cyan : color.white,
               }}

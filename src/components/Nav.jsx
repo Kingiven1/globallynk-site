@@ -9,6 +9,7 @@ const LINKS = [
   { to: '/cohort', label: 'Cohort' },
   { to: '/journey', label: 'Our Journey' },
   { to: '/alumni', label: 'DJs' },
+  { to: '/contact', label: 'Contact' },
   { to: '/donate', label: 'Donate' },
   { to: '/login', label: 'Sign In' },
 ];
@@ -33,7 +34,7 @@ export default function Nav() {
           <img src={logo} alt="GlobalLYNK" style={{ height: '32px', width: 'auto' }} />
         </Link>
 
-        <nav style={{ display: 'flex', gap: '36px' }} className="lynk-nav-desktop">
+        <nav style={{ display: 'flex', gap: '26px' }} className="lynk-nav-desktop">
           {LINKS.map((link) => (
             <Link
               key={link.to}
@@ -46,6 +47,7 @@ export default function Nav() {
                 color: location.pathname === link.to ? color.cyan : color.muted,
                 paddingBottom: '4px',
                 borderBottom: location.pathname === link.to ? `1px solid ${color.cyan}` : '1px solid transparent',
+                whiteSpace: 'nowrap',
               }}
             >
               {link.label}
@@ -94,7 +96,7 @@ export default function Nav() {
       )}
 
       <style>{`
-        @media (max-width: 780px) {
+        @media (max-width: 900px) {
           .lynk-nav-desktop { display: none !important; }
           .lynk-nav-toggle { display: inline-flex !important; }
         }

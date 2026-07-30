@@ -10,6 +10,7 @@ import Cohort from './pages/Cohort';
 import Journey from './pages/Journey';
 import Donate from './pages/Donate';
 import AlumniDirectory from './pages/AlumniDirectory';
+import Contact from './pages/Contact';
 import Login from './pages/Login';
 import Portal from './pages/Portal';
 import { page } from './styles/tokens';
@@ -28,6 +29,7 @@ export default function App() {
             <Route path="/journey" element={<Journey />} />
             <Route path="/donate" element={<Donate />} />
             <Route path="/alumni" element={<AlumniDirectory />} />
+            <Route path="/contact" element={<Contact />} />
             <Route path="/login" element={<Login />} />
             <Route
               path="/portal"

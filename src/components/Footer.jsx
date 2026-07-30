@@ -54,11 +54,9 @@ export default function Footer() {
           </div>
           <div>
             <div style={footerLabel}>Contact</div>
-            <a href="mailto:connect@indabooth.com" style={{ display: 'block', fontFamily: font.body, fontSize: '14px', color: color.muted, textDecoration: 'none', marginBottom: '10px' }}>
-              connect@indabooth.com
-            </a>
-            <a href="mailto:connect@indabooth.com?subject=Partner%20Inquiry" style={{ display: 'block', fontFamily: font.body, fontSize: '14px', color: color.muted, textDecoration: 'none' }}>
-              Partner / Inquire
+            <FooterLink to="/contact">Contact us</FooterLink>
+            <a href="mailto:thegloballynk@gmail.com" style={{ display: 'block', fontFamily: font.body, fontSize: '14px', color: color.muted, textDecoration: 'none' }}>
+              thegloballynk@gmail.com
             </a>
           </div>
         </div>

@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import GradientOrb from '../components/GradientOrb';
+import heroPhoto from '../assets/images/481A8469.jpg';
 import {
   color, eyebrow, h1, h2, bodyLg, body, card, radius,
   buttonPrimary, buttonGhost, container, section, space, font,
@@ -24,39 +25,36 @@ export default function Home() {
     <div>
       <section style={{ position: 'relative', padding: `${space.xxl} 0 ${space.xl}`, overflow: 'hidden' }}>
         <GradientOrb seed={3} size={560} style={{ position: 'absolute', top: '-160px', right: '-120px', zIndex: 0 }} />
-        <div style={{ ...container, position: 'relative', zIndex: 1 }}>
-          <div style={eyebrow}><span>Charlotte, NC — Expanding 2026</span></div>
-          <h1 style={{ ...h1, maxWidth: '920px' }}>
-            Where music, culture &amp; <span style={{ color: color.cyan }}>creative community grow together.</span>
-          </h1>
-          <p style={{ ...bodyLg, maxWidth: '560px', marginTop: space.md }}>
-            DJ sets, hands-on workshops, and community experiences designed to spark
-            creativity, build real skills, and keep people connected long after the first event.
-          </p>
-          <div style={{ display: 'flex', gap: space.sm, marginTop: space.lg, flexWrap: 'wrap' }}>
-            <Link to="/events" style={buttonPrimary}>See upcoming events →</Link>
-            <Link to="/cohort" style={buttonGhost}>Explore the cohort</Link>
+        <div
+          style={{ ...container, position: 'relative', zIndex: 1, display: 'grid', gridTemplateColumns: '1.1fr 0.9fr', gap: space.xl, alignItems: 'center' }}
+          className="lynk-hero-grid"
+        >
+          <div>
+            <div style={eyebrow}><span>Charlotte, NC — Expanding 2026</span></div>
+            <h1 style={{ ...h1, fontSize: 'clamp(36px, 5.5vw, 68px)' }}>
+              Where music, culture &amp; <span style={{ color: color.cyan }}>creative community grow together.</span>
+            </h1>
+            <p style={{ ...bodyLg, marginTop: space.md }}>
+              DJ sets, hands-on workshops, and community experiences designed to spark
+              creativity, build real skills, and keep people connected long after the first event.
+            </p>
+            <div style={{ display: 'flex', gap: space.sm, marginTop: space.lg, flexWrap: 'wrap' }}>
+              <Link to="/events" style={buttonPrimary}>See upcoming events →</Link>
+              <Link to="/cohort" style={buttonGhost}>Explore the cohort</Link>
+            </div>
           </div>
-        </div>
 
-        <div style={{ ...container, position: 'relative', zIndex: 1, marginTop: space.xl }}>
-          <div
+          <img
+            src={heroPhoto}
+            alt="GlobalLYNK DJ"
             style={{
               width: '100%',
-              aspectRatio: '21/9',
-              background: 'linear-gradient(160deg, #1A1A1A, #101010)',
+              aspectRatio: '4/5',
+              objectFit: 'cover',
               borderRadius: radius.lg,
               boxShadow: '0 30px 80px rgba(0,0,0,0.45)',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              fontFamily: font.mono,
-              fontSize: '12px',
-              color: color.mutedDim,
             }}
-          >
-            Hero photo coming soon
-          </div>
+          />
         </div>
       </section>
 
@@ -132,6 +130,7 @@ export default function Home() {
       <style>{`
         @media (max-width: 780px) {
           .lynk-cultural-grid { grid-template-columns: 1fr !important; }
+          .lynk-hero-grid { grid-template-columns: 1fr !important; }
         }
         .lynk-pillar-card:hover {
           transform: translateY(-2px);

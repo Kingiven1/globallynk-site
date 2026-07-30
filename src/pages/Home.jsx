@@ -13,10 +13,10 @@ const RADIO_VOLUMES = [
 ];
 
 const PILLARS = [
-  { n: '01', title: 'Learn', copy: 'Beginner-friendly Intro Workshops — hands-on sessions built for curiosity, creativity, and connection.', to: '/events', cta: 'See upcoming workshops' },
-  { n: '02', title: 'Grow', copy: 'Go deeper in a Multi-Week Cohort — structured learning, accountability, real skill development.', to: '/cohort', cta: 'How the cohort works' },
-  { n: '03', title: 'Stay Connected', copy: 'Graduation is the beginning. Alumni stay plugged into showcases, collaborations, and future opportunities.', to: '/alumni', cta: 'Meet our alumni' },
-  { n: '04', title: 'Discover', copy: 'DJ sets, showcases, and cultural experiences — the events that started this whole thing in the first place.', to: '/journey', cta: 'See our journey' },
+  { n: '01', title: 'Learn', copy: 'Beginner-friendly Intro Workshops — hands-on sessions built for curiosity, creativity, and connection.', to: '/events', cta: 'See upcoming workshops', accent: color.cyan, gradient: `linear-gradient(135deg, ${color.cyan}, #6FE3EE)` },
+  { n: '02', title: 'Grow', copy: 'Go deeper in a Multi-Week Cohort — structured learning, accountability, real skill development.', to: '/cohort', cta: 'How the cohort works', accent: color.purple, gradient: `linear-gradient(135deg, ${color.purple}, #C7A5FF)` },
+  { n: '03', title: 'Stay Connected', copy: 'Graduation is the beginning. Alumni stay plugged into showcases, collaborations, and future opportunities.', to: '/alumni', cta: 'Meet our alumni', accent: color.pink, gradient: `linear-gradient(135deg, ${color.pink}, #FFA8CC)` },
+  { n: '04', title: 'Discover', copy: 'DJ sets, showcases, and cultural experiences — the events that started this whole thing in the first place.', to: '/journey', cta: 'See our journey', accent: color.cyan, gradient: `linear-gradient(135deg, ${color.cyan}, #6FE3EE)` },
 ];
 
 export default function Home() {
@@ -46,11 +46,13 @@ export default function Home() {
           <h2 style={{ ...h2, maxWidth: '640px', marginBottom: space.xl }}>Try it once. Go deeper if it's for you.</h2>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: space.lg }}>
             {PILLARS.map((p) => (
-              <div key={p.n} style={{ ...card, padding: space.lg }}>
-                <div style={{ fontFamily: font.mono, fontSize: '13px', color: color.cyanDim, marginBottom: space.sm }}>{p.n}</div>
+              <div key={p.n} className="lynk-pillar-card" style={{ ...card, padding: space.lg, transition: 'transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease' }}>
+                <div style={{ width: '44px', height: '44px', borderRadius: radius.sm, background: p.gradient, display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: space.md, boxShadow: `0 4px 14px ${p.accent}33` }}>
+                  <span style={{ fontFamily: font.mono, fontSize: '14px', color: color.bg, fontWeight: 600 }}>{p.n}</span>
+                </div>
                 <h3 style={{ fontFamily: 'Space Grotesk, sans-serif', fontSize: '22px', color: color.white, marginBottom: '10px' }}>{p.title}</h3>
                 <p style={{ ...body, marginBottom: space.md }}>{p.copy}</p>
-                <Link to={p.to} style={{ fontFamily: font.mono, fontSize: '12px', letterSpacing: '0.01em', color: color.cyan, textDecoration: 'none' }}>
+                <Link to={p.to} style={{ fontFamily: font.mono, fontSize: '12px', letterSpacing: '0.01em', color: p.accent, textDecoration: 'none' }}>
                   {p.cta} →
                 </Link>
               </div>
@@ -110,6 +112,10 @@ export default function Home() {
       <style>{`
         @media (max-width: 780px) {
           .lynk-cultural-grid { grid-template-columns: 1fr !important; }
+        }
+        .lynk-pillar-card:hover {
+          transform: translateY(-2px);
+          box-shadow: 0 8px 24px rgba(0,0,0,0.25);
         }
       `}</style>
     </div>

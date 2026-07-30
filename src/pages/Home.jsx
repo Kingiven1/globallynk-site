@@ -8,10 +8,10 @@ import {
 } from '../styles/tokens';
 
 const RADIO_VOLUMES = [
-  { vol: '006', artist: 'Jarzu', genres: 'Afrohouse, Latin, Soca', href: 'https://www.patreon.com/globallynk' },
-  { vol: '005', artist: 'KØR!', genres: 'R&B, Soul, Funk', href: 'https://www.patreon.com/globallynk' },
-  { vol: '004', artist: 'Chase That Taste', genres: '', href: 'https://youtu.be/YPM00VvEwCo' },
-  { vol: '003', artist: 'DJ Jahmaka', genres: 'Live Set', href: 'https://www.patreon.com/globallynk' },
+  { vol: '006', artist: 'Jarzu', genres: 'Afrohouse, Latin, Soca', href: 'https://www.patreon.com/globallynk', cover: null },
+  { vol: '005', artist: 'KØR!', genres: 'R&B, Soul, Funk', href: 'https://www.patreon.com/globallynk', cover: null },
+  { vol: '004', artist: 'Chase That Taste', genres: '', href: 'https://youtu.be/YPM00VvEwCo', cover: 'https://img.youtube.com/vi/YPM00VvEwCo/hqdefault.jpg' },
+  { vol: '003', artist: 'DJ Jahmaka', genres: 'Live Set', href: 'https://www.patreon.com/globallynk', cover: null },
 ];
 
 const PILLARS = [
@@ -111,16 +111,26 @@ export default function Home() {
           <h2 style={{ ...h2, maxWidth: '640px', marginBottom: '8px' }}>Exclusive sets from the GlobalLYNK community and beyond.</h2>
           <p style={{ ...body, marginBottom: space.xl }}>New volumes drop regularly — full sets, artist by artist.</p>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: space.md }}>
-            {RADIO_VOLUMES.map((r) => (
-              <a key={r.vol} href={r.href} target="_blank" rel="noreferrer" style={{ textDecoration: 'none', display: 'block' }}>
-                <div style={{ aspectRatio: '1/1', background: color.bgRaised, border: `1px solid ${color.line}`, borderRadius: radius.md, display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: font.mono, fontSize: '11px', color: color.mutedDim, marginBottom: '10px' }}>
-                  Cover art coming soon
-                </div>
-                <div style={{ fontFamily: font.mono, fontSize: '11px', color: color.cyanDim, marginBottom: '4px' }}>VOL. {r.vol}</div>
-                <div style={{ fontFamily: 'Space Grotesk, sans-serif', fontSize: '15px', color: color.white, marginBottom: '2px' }}>{r.artist}</div>
-                <div style={{ ...body, fontSize: '13px' }}>{r.genres}</div>
-              </a>
-            ))}
+            {RADIO_VOLUMES.map((r) => {
+              return (
+                <a key={r.vol} href={r.href} target="_blank" rel="noreferrer" style={{ textDecoration: 'none', display: 'block' }}>
+                  {r.cover ? (
+                    <img
+                      src={r.cover}
+                      alt={`${r.artist} — Let's Lynk Radio Vol. ${r.vol}`}
+                      style={{ width: '100%', aspectRatio: '1/1', objectFit: 'cover', borderRadius: radius.md, marginBottom: '10px' }}
+                    />
+                  ) : (
+                    <div style={{ aspectRatio: '1/1', background: color.bgRaised, border: `1px solid ${color.line}`, borderRadius: radius.md, display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: font.mono, fontSize: '11px', color: color.mutedDim, marginBottom: '10px' }}>
+                      Cover art coming soon
+                    </div>
+                  )}
+                  <div style={{ fontFamily: font.mono, fontSize: '11px', color: color.cyanDim, marginBottom: '4px' }}>VOL. {r.vol}</div>
+                  <div style={{ fontFamily: 'Space Grotesk, sans-serif', fontSize: '15px', color: color.white, marginBottom: '2px' }}>{r.artist}</div>
+                  <div style={{ ...body, fontSize: '13px' }}>{r.genres}</div>
+                </a>
+              );
+            })}
           </div>
         </div>
       </section>

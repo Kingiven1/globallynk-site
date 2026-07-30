@@ -2,6 +2,7 @@ import GradientOrb from '../components/GradientOrb';
 import { color, eyebrow, h1, body, buttonPrimary, buttonGhost, container, section, space, font, radius } from '../styles/tokens';
 import cohortFlyer from '../assets/images/cohortflyer.png';
 import workshopFlyer from '../assets/images/workshopflyer.png';
+import prismFlyer from '../assets/images/prism.png';
 
 const EVENTS = [
   {
@@ -27,7 +28,7 @@ const EVENTS = [
     title: 'Prism Social — Global Dance',
     copy: 'A night of sets from GlobalLYNK DJs. Open to everyone, no experience needed to attend.',
     poshUrl: 'https://posh.vip/e/prism-social-global-dance-',
-    image: null,
+    image: prismFlyer,
   },
 ];
 

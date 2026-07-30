@@ -24,44 +24,33 @@ export default function Cohort() {
     <div>
       <section style={{ position: 'relative', padding: `${space.xxl} 0 ${space.lg}`, overflow: 'hidden' }}>
         <GradientOrb seed={19} size={480} style={{ position: 'absolute', top: '-140px', right: '-140px', zIndex: 0 }} />
-        <div style={{ ...container, position: 'relative', zIndex: 1 }}>
-          <div style={eyebrow}><span>Cohort</span></div>
-          <h1 style={{ ...h1, fontSize: 'clamp(36px, 6vw, 64px)', maxWidth: '760px' }}>
-            8 weeks. Small class. A real skill by graduation.
-          </h1>
-          <p style={{ ...bodyLg, maxWidth: '560px', marginTop: space.md }}>
-            An 8-week DJ program in Charlotte, NC for beginners ready to get serious about
-            their craft, brand, and career. Sept 12 – Oct 31 · Every Saturday 11AM–1PM · 15 spots.
-          </p>
-          <div style={{ marginTop: space.lg }}>
-            <a href={APPLY_URL} target="_blank" rel="noreferrer" style={buttonPrimary}>Apply now →</a>
+        <div
+          style={{ ...container, position: 'relative', zIndex: 1, display: 'grid', gridTemplateColumns: '1.1fr 0.9fr', gap: space.xl, alignItems: 'center' }}
+          className="lynk-cohort-hero-grid"
+        >
+          <div>
+            <div style={eyebrow}><span>Cohort</span></div>
+            <h1 style={{ ...h1, fontSize: 'clamp(36px, 6vw, 64px)' }}>
+              8 weeks. Small class. A real skill by graduation.
+            </h1>
+            <p style={{ ...bodyLg, marginTop: space.md }}>
+              An 8-week DJ program in Charlotte, NC for beginners ready to get serious about
+              their craft, brand, and career. Sept 12 – Oct 31 · Every Saturday 11AM–1PM · 15 spots.
+            </p>
+            <div style={{ marginTop: space.lg }}>
+              <a href={APPLY_URL} target="_blank" rel="noreferrer" style={buttonPrimary}>Apply now →</a>
+            </div>
           </div>
-        </div>
-      </section>
-
-      <section style={{ padding: `0 0 ${space.lg}` }}>
-        <div style={container}>
-          <div
+          <img
+            src={cohortFlyer}
+            alt="Fall 2026 DJ Cohort flyer"
             style={{
-              display: 'flex',
-              justifyContent: 'center',
-              background: color.bgRaised,
-              border: `1px solid ${color.line}`,
+              width: '100%',
+              height: 'auto',
               borderRadius: radius.lg,
-              padding: space.lg,
+              boxShadow: '0 30px 80px rgba(0,0,0,0.45)',
             }}
-          >
-            <img
-              src={cohortFlyer}
-              alt="Fall 2026 DJ Cohort flyer"
-              style={{
-                maxWidth: '480px',
-                width: '100%',
-                height: 'auto',
-                borderRadius: radius.md,
-              }}
-            />
-          </div>
+          />
         </div>
       </section>
 
@@ -134,6 +123,12 @@ export default function Cohort() {
           <a href={APPLY_URL} target="_blank" rel="noreferrer" style={buttonPrimary}>Apply now →</a>
         </div>
       </section>
+
+      <style>{`
+        @media (max-width: 780px) {
+          .lynk-cohort-hero-grid { grid-template-columns: 1fr !important; }
+        }
+      `}</style>
     </div>
   );
 }

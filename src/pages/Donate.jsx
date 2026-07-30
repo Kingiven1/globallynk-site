@@ -1,7 +1,7 @@
 import GradientOrb from '../components/GradientOrb';
 import { color, eyebrow, h1, bodyLg, body, buttonPrimary, container, section, space, font, card } from '../styles/tokens';
 
-const GIVEBUTTER_URL = 'https://givebutter.com/globallynk';
+const GIVEBUTTER_URL = 'https://givebutter.com/globallynkexchange';
 
 export default function Donate() {
   return (

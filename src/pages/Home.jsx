@@ -86,7 +86,7 @@ export default function Home() {
               <div style={eyebrow}><span>GlobalLYNK Nonprofit</span></div>
               <h2 style={{ ...h2, marginBottom: space.md }}>Our first cultural exchange took students to Mexico City.</h2>
               <p style={{ ...bodyLg, marginBottom: space.md }}>
-                A week of learning the culture, eating the food, and living it — capped off with our students playing a DJ set of their own. This is the nonprofit side of GlobalLYNK: creativity as a bridge, not just a skill.
+                Two DJs earned an all-expenses-paid trip by winning a three-round competition — then spent a week learning the culture, giving back through community service, and closing it out with a DJ set of their own.
               </p>
               <Link to="/journey" style={buttonGhost}>Read the full story</Link>
             </div>

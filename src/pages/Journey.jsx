@@ -2,6 +2,24 @@ import { Link } from 'react-router-dom';
 import GradientOrb from '../components/GradientOrb';
 import { color, eyebrow, h1, h2, bodyLg, body, buttonPrimary, container, section, space, font, radius, card } from '../styles/tokens';
 
+const STORY_PARTS = [
+  {
+    label: 'How they earned it',
+    title: 'A three-round competition',
+    copy: "Two DJs earned the trip by winning a competition built to test more than just mixing. Round one was a timed cable-and-setup race — figure out the wiring, get the gear running, fastest time wins. Round two tested music and DJ culture knowledge. Round three came down to one thing: who could actually rock the crowd. One winner, one man and one woman, walked away with an all-expenses-paid trip to Mexico City.",
+  },
+  {
+    label: 'What they experienced',
+    title: "A week that expanded what's possible",
+    copy: "Once there, it wasn't just sightseeing. They gave back through community service at a local orphanage, and spent time with Mexico City's own high-level DJs — the kind who've built and curated their own events and communities instead of waiting to get booked by someone else. That's the model GlobalLYNK wants every DJ to see is possible: build the community, don't just work for hire. Between the culture, the food, and the city itself, the trip closed with our students performing a DJ set of their own at a party we curated for the occasion.",
+  },
+  {
+    label: "What's next",
+    title: 'This year\u2019s winners become next year\u2019s guides',
+    copy: "As GlobalLYNK grows, so does this program. Next year, this year's winners return — not as chaperones, but as guides. They'll help organize the competition, help fundraise, and travel back to Mexico City alongside the next generation of winners to show them what's possible, the same way it was shown to them.",
+  },
+];
+
 export default function Journey() {
   return (
     <div>
@@ -37,20 +55,22 @@ export default function Journey() {
               marginBottom: space.xl,
             }}
           >
-            [ Mexico City cultural exchange — photo ]
+            Mexico City exchange photo coming soon
           </div>
 
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 2fr', gap: space.xl }} className="lynk-journey-grid">
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 2fr', gap: space.xl, marginBottom: space.xl }} className="lynk-journey-grid">
             <div style={eyebrow}><span>2026 — Mexico City</span></div>
             <div>
               <h2 style={{ ...h2, marginBottom: space.md }}>
                 Our first cultural exchange
               </h2>
               <p style={{ ...bodyLg, marginBottom: space.md }}>
-                We took a group of students to Mexico City for a week — learning the
-                culture, eating the food, and living the experience firsthand.
-                The trip closed with our students playing a DJ set of their own,
-                built from what they'd learned in the cohort back home.
+                We believe travel expands how creatives think. Seeing another scene,
+                another culture, another way of building a career changes what feels
+                possible — that's been true throughout our founder's own path, and
+                it's why cultural exchange is core to GlobalLYNK's mission: making
+                sure the creatives in our community get that same chance to grow
+                beyond what's in front of them.
               </p>
               <p style={body}>
                 This is what "creative community" means at GlobalLYNK — it's not
@@ -58,6 +78,20 @@ export default function Journey() {
                 somewhere it matters.
               </p>
             </div>
+          </div>
+
+          <div style={{ display: 'flex', flexDirection: 'column', gap: space.lg }}>
+            {STORY_PARTS.map((part) => (
+              <div key={part.title} style={{ ...card, padding: space.lg }}>
+                <div style={{ fontFamily: font.mono, fontSize: '12px', letterSpacing: '0.02em', color: color.cyanDim, marginBottom: space.sm }}>
+                  {part.label}
+                </div>
+                <h3 style={{ fontFamily: 'Space Grotesk, sans-serif', fontSize: '20px', color: color.white, marginBottom: '10px' }}>
+                  {part.title}
+                </h3>
+                <p style={{ ...body, maxWidth: '760px' }}>{part.copy}</p>
+              </div>
+            ))}
           </div>
         </div>
       </section>

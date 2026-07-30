@@ -1,4 +1,3 @@
-cat > src/pages/Contact.jsx << 'EOF'
 import GradientOrb from '../components/GradientOrb';
 import { color, eyebrow, h1, h2, bodyLg, body, buttonPrimary, container, section, space, font, card, radius } from '../styles/tokens';
 
@@ -84,4 +83,3 @@ export default function Contact() {
     </div>
   );
 }
-EOF

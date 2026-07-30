@@ -4,6 +4,7 @@ import { color, eyebrow, h1, h2, bodyLg, body, buttonPrimary, container, section
 import competitionPhoto from '../assets/images/1-P1212434.jpg';
 import mexicoDjsPhoto from '../assets/images/djcrew.jpg';
 import winnersPhoto from '../assets/images/winners.jpg';
+import meechiePhoto from '../assets/images/meechie.jpg';
 
 const STORY_PARTS = [
   {
@@ -68,27 +69,20 @@ export default function Journey() {
 
       <section style={section}>
         <div style={container}>
-          <div
-            style={{
-              aspectRatio: '21/9',
-              background: color.bgRaised,
-              border: `1px solid ${color.line}`,
-              borderRadius: radius.lg,
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              fontFamily: font.mono,
-              fontSize: '12px',
-              color: color.mutedDim,
-              marginBottom: space.xl,
-            }}
-          >
-            Mexico City exchange photo coming soon
-          </div>
-
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 2fr', gap: space.xl, marginBottom: space.xl }} className="lynk-journey-grid">
-            <div style={eyebrow}><span>2026 — Mexico City</span></div>
+          <div style={{ display: 'grid', gridTemplateColumns: '0.8fr 1.2fr', gap: space.xl, marginBottom: space.xl, alignItems: 'center' }} className="lynk-journey-grid">
+            <img
+              src={meechiePhoto}
+              alt="Meechie warming up at the cultural exchange"
+              style={{
+                width: '100%',
+                aspectRatio: '4/5',
+                objectFit: 'cover',
+                borderRadius: radius.lg,
+                boxShadow: '0 30px 80px rgba(0,0,0,0.45)',
+              }}
+            />
             <div>
+              <div style={eyebrow}><span>2026 — Mexico City</span></div>
               <h2 style={{ ...h2, marginBottom: space.md }}>
                 Our first cultural exchange
               </h2>

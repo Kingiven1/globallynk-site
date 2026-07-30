@@ -110,7 +110,7 @@ export default function Journey() {
 
           <div style={{ display: 'flex', flexDirection: 'column', gap: space.lg }}>
             {STORY_PARTS.map((part) => (
-              <div key={part.title} style={{ ...card, padding: space.lg, display: 'grid', gridTemplateColumns: '1fr 1fr', gap: space.lg, alignItems: 'center' }} className="lynk-story-card">
+              <div key={part.title} style={{ ...card, padding: space.lg, display: 'grid', gridTemplateColumns: '1fr 1fr', gap: space.lg, alignItems: 'start' }} className="lynk-story-card">
                 <div>
                   <div style={{ fontFamily: font.mono, fontSize: '12px', letterSpacing: '0.02em', color: color.cyanDim, marginBottom: space.sm }}>
                     {part.label}

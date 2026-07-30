@@ -2,31 +2,9 @@ import GradientOrb from '../components/GradientOrb';
 import { color, eyebrow, h1, body, buttonPrimary, buttonGhost, container, section, space, font, radius } from '../styles/tokens';
 
 const EVENTS = [
-  {
-    date: 'SEP 12',
-    type: 'Cohort',
-    title: 'Fall 2026 DJ Cohort Begins',
-    copy: '8 weeks, Saturdays 11AM–1PM, Charlotte. Applications open now — 15 spots.',
-    poshUrl: '/cohort',
-    internal: true,
-    image: null,
-  },
-  {
-    date: 'ONGOING',
-    type: 'Workshop',
-    title: 'Intro to DJ Workshop',
-    copy: 'Beginner-friendly, hands-on sessions built for curiosity, creativity, and connection. No experience or gear required.',
-    poshUrl: 'https://posh.vip/series/intro-to-dj-workshop',
-    image: null,
-  },
-  {
-    date: 'UPCOMING',
-    type: 'Dance Night',
-    title: 'Prism Social — Global Dance',
-    copy: 'A night of sets from GlobalLYNK DJs. Open to everyone, no experience needed to attend.',
-    poshUrl: 'https://posh.vip/e/prism-social-global-dance-',
-    image: null,
-  },
+  { date: 'SEP 12', type: 'Cohort', title: 'Fall 2026 DJ Cohort Begins', copy: '8 weeks, Saturdays 11AM–1PM, Charlotte. Applications open now — 15 spots.', poshUrl: '/cohort', internal: true, image: null },
+  { date: 'ONGOING', type: 'Workshop', title: 'Intro to DJ Workshop', copy: 'Beginner-friendly, hands-on sessions built for curiosity, creativity, and connection. No experience or gear required.', poshUrl: 'https://posh.vip/series/intro-to-dj-workshop', image: null },
+  { date: 'UPCOMING', type: 'Dance Night', title: 'Prism Social — Global Dance', copy: 'A night of sets from GlobalLYNK DJs. Open to everyone, no experience needed to attend.', poshUrl: 'https://posh.vip/e/prism-social-global-dance-', image: null },
 ];
 
 export default function Events() {
@@ -61,32 +39,14 @@ export default function Events() {
                 className="lynk-event-row"
               >
                 {ev.image ? (
-                  <img
-                    src={ev.image}
-                    alt={ev.title}
-                    style={{ width: '100%', aspectRatio: '1/1', objectFit: 'cover', borderRadius: radius.md }}
-                  />
+                  <img src={ev.image} alt={ev.title} style={{ width: '100%', aspectRatio: '1/1', objectFit: 'cover', borderRadius: radius.md }} />
                 ) : (
-                  <div
-                    style={{
-                      width: '100%',
-                      aspectRatio: '1/1',
-                      background: color.bgRaised2,
-                      borderRadius: radius.md,
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      fontFamily: font.mono,
-                      fontSize: '10px',
-                      color: color.mutedDim,
-                      textAlign: 'center',
-                    }}
-                  >
-                    [ Flyer ]
+                  <div style={{ width: '100%', aspectRatio: '1/1', background: color.bgRaised2, borderRadius: radius.md, display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: font.mono, fontSize: '10px', color: color.mutedDim, textAlign: 'center' }}>
+                    Flyer
                   </div>
                 )}
                 <div>
-                  <div style={{ fontFamily: font.mono, fontSize: '11px', letterSpacing: '0.1em', textTransform: 'uppercase', color: color.cyanDim, marginBottom: '6px' }}>
+                  <div style={{ fontFamily: font.mono, fontSize: '11px', letterSpacing: '0.02em', color: color.cyanDim, marginBottom: '6px' }}>
                     {ev.date} · {ev.type}
                   </div>
                   <h3 style={{ fontFamily: 'Space Grotesk, sans-serif', fontSize: '22px', color: color.white, marginBottom: '6px' }}>
@@ -105,9 +65,7 @@ export default function Events() {
 
           <p style={{ ...body, marginTop: space.lg, fontSize: '13px' }}>
             More events posted regularly — follow{' '}
-            <a href="https://instagram.com/globallynk" target="_blank" rel="noreferrer" style={{ color: color.cyan, textDecoration: 'none' }}>
-              @globallynk
-            </a>{' '}
+            <a href="https://instagram.com/globallynk" target="_blank" rel="noreferrer" style={{ color: color.cyan, textDecoration: 'none' }}>@globallynk</a>{' '}
             for the latest.
           </p>
         </div>

@@ -1,9 +1,3 @@
-// GlobalLYNK design tokens
-// Direction: iMac G3 optimism (translucent color, soft glow, rounded shapes)
-// filtered through modern Apple minimalism (whitespace, restraint, one
-// confident visual moment per screen). Black bg + cyan stay as brand
-// anchors; purple/pink are the "candy" accents that carry the gradient orb.
-
 export const color = {
   bg: '#0D0D0D',
   bgRaised: '#161616',
@@ -22,7 +16,7 @@ export const color = {
 export const font = {
   display: "'Space Grotesk', -apple-system, sans-serif",
   body: "'Inter', -apple-system, sans-serif",
-  mono: "'Space Mono', 'IBM Plex Mono', monospace",
+  mono: "'Space Grotesk', -apple-system, sans-serif",
 };
 
 export const space = {
@@ -44,9 +38,8 @@ export const radius = {
 
 export const eyebrow = {
   fontFamily: font.mono,
-  fontSize: '12px',
-  letterSpacing: '0.18em',
-  textTransform: 'uppercase',
+  fontSize: '13px',
+  letterSpacing: '0.02em',
   color: color.cyan,
   display: 'flex',
   alignItems: 'center',
@@ -102,8 +95,7 @@ export const bodyLg = {
 export const buttonPrimary = {
   fontFamily: font.mono,
   fontSize: '13px',
-  letterSpacing: '0.1em',
-  textTransform: 'uppercase',
+  letterSpacing: '0.01em',
   color: color.bg,
   background: color.cyan,
   border: 'none',
@@ -120,8 +112,7 @@ export const buttonPrimary = {
 export const buttonGhost = {
   fontFamily: font.mono,
   fontSize: '13px',
-  letterSpacing: '0.1em',
-  textTransform: 'uppercase',
+  letterSpacing: '0.01em',
   color: color.white,
   background: 'transparent',
   border: `1px solid ${color.line}`,

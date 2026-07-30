@@ -47,10 +47,10 @@ export default function Home() {
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: space.lg }}>
             {PILLARS.map((p) => (
               <div key={p.n} style={{ ...card, padding: space.lg }}>
-                <div style={{ fontFamily: 'Space Mono, monospace', fontSize: '13px', color: color.cyanDim, marginBottom: space.sm }}>{p.n}</div>
+                <div style={{ fontFamily: font.mono, fontSize: '13px', color: color.cyanDim, marginBottom: space.sm }}>{p.n}</div>
                 <h3 style={{ fontFamily: 'Space Grotesk, sans-serif', fontSize: '22px', color: color.white, marginBottom: '10px' }}>{p.title}</h3>
                 <p style={{ ...body, marginBottom: space.md }}>{p.copy}</p>
-                <Link to={p.to} style={{ fontFamily: 'Space Mono, monospace', fontSize: '12px', letterSpacing: '0.08em', textTransform: 'uppercase', color: color.cyan, textDecoration: 'none' }}>
+                <Link to={p.to} style={{ fontFamily: font.mono, fontSize: '12px', letterSpacing: '0.01em', color: color.cyan, textDecoration: 'none' }}>
                   {p.cta} →
                 </Link>
               </div>
@@ -70,8 +70,8 @@ export default function Home() {
               </p>
               <Link to="/journey" style={buttonGhost}>Read the full story</Link>
             </div>
-            <div style={{ aspectRatio: '4/3', background: color.bgRaised, border: `1px solid ${color.line}`, borderRadius: radius.lg, display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: 'Space Mono, monospace', fontSize: '12px', color: color.mutedDim, letterSpacing: '0.05em' }}>
-              [ Mexico City photo ]
+            <div style={{ aspectRatio: '4/3', background: color.bgRaised, border: `1px solid ${color.line}`, borderRadius: radius.lg, display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: font.mono, fontSize: '12px', color: color.mutedDim, letterSpacing: '0.05em' }}>
+              Mexico City photo coming soon
             </div>
           </div>
         </div>
@@ -83,18 +83,16 @@ export default function Home() {
           <h2 style={{ ...h2, maxWidth: '640px', marginBottom: '8px' }}>Exclusive sets from the GlobalLYNK community and beyond.</h2>
           <p style={{ ...body, marginBottom: space.xl }}>New volumes drop regularly — full sets, artist by artist.</p>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: space.md }}>
-            {RADIO_VOLUMES.map((r) => {
-              return (
-                <a key={r.vol} href={r.href} target="_blank" rel="noreferrer" style={{ textDecoration: 'none', display: 'block' }}>
-                  <div style={{ aspectRatio: '1/1', background: color.bgRaised, border: `1px solid ${color.line}`, borderRadius: radius.md, display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: font.mono, fontSize: '11px', color: color.mutedDim, marginBottom: '10px' }}>
-                    [ Cover art ]
-                  </div>
-                  <div style={{ fontFamily: font.mono, fontSize: '11px', color: color.cyanDim, marginBottom: '4px' }}>VOL. {r.vol}</div>
-                  <div style={{ fontFamily: 'Space Grotesk, sans-serif', fontSize: '15px', color: color.white, marginBottom: '2px' }}>{r.artist}</div>
-                  <div style={{ ...body, fontSize: '13px' }}>{r.genres}</div>
-                </a>
-              );
-            })}
+            {RADIO_VOLUMES.map((r) => (
+              <a key={r.vol} href={r.href} target="_blank" rel="noreferrer" style={{ textDecoration: 'none', display: 'block' }}>
+                <div style={{ aspectRatio: '1/1', background: color.bgRaised, border: `1px solid ${color.line}`, borderRadius: radius.md, display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: font.mono, fontSize: '11px', color: color.mutedDim, marginBottom: '10px' }}>
+                  Cover art coming soon
+                </div>
+                <div style={{ fontFamily: font.mono, fontSize: '11px', color: color.cyanDim, marginBottom: '4px' }}>VOL. {r.vol}</div>
+                <div style={{ fontFamily: 'Space Grotesk, sans-serif', fontSize: '15px', color: color.white, marginBottom: '2px' }}>{r.artist}</div>
+                <div style={{ ...body, fontSize: '13px' }}>{r.genres}</div>
+              </a>
+            ))}
           </div>
         </div>
       </section>

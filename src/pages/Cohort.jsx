@@ -25,12 +25,9 @@ export default function Cohort() {
         <GradientOrb seed={19} size={480} style={{ position: 'absolute', top: '-140px', right: '-140px', zIndex: 0 }} />
         <div style={{ ...container, position: 'relative', zIndex: 1 }}>
           <div style={eyebrow}><span>Cohort</span></div>
-          <h1 style={{ ...h1, fontSize: 'clamp(36px, 6vw, 64px)', maxWidth: '760px' }}>
-            8 weeks. Small class. A real skill by graduation.
-          </h1>
+          <h1 style={{ ...h1, fontSize: 'clamp(36px, 6vw, 64px)', maxWidth: '760px' }}>8 weeks. Small class. A real skill by graduation.</h1>
           <p style={{ ...bodyLg, maxWidth: '560px', marginTop: space.md }}>
-            An 8-week DJ program in Charlotte, NC for beginners ready to get serious about
-            their craft, brand, and career. Sept 12 – Oct 31 · Every Saturday 11AM–1PM · 15 spots.
+            An 8-week DJ program in Charlotte, NC for beginners ready to get serious about their craft, brand, and career. Sept 12 – Oct 31 · Every Saturday 11AM–1PM · 15 spots.
           </p>
           <div style={{ marginTop: space.lg }}>
             <a href={APPLY_URL} target="_blank" rel="noreferrer" style={buttonPrimary}>Apply now →</a>
@@ -40,34 +37,14 @@ export default function Cohort() {
 
       <section style={{ padding: `0 0 ${space.lg}` }}>
         <div style={container}>
-          <div
-            style={{
-              aspectRatio: '21/9',
-              background: color.bgRaised,
-              border: `1px solid ${color.line}`,
-              borderRadius: radius.lg,
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              fontFamily: font.mono,
-              fontSize: '12px',
-              color: color.mutedDim,
-            }}
-          >
-            [ Cohort flyer ]
+          <div style={{ aspectRatio: '21/9', background: color.bgRaised, border: `1px solid ${color.line}`, borderRadius: radius.lg, display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: font.mono, fontSize: '12px', color: color.mutedDim }}>
+            Cohort flyer coming soon
           </div>
         </div>
       </section>
 
       <section style={{ padding: `${space.lg} 0` }}>
-        <div
-          style={{
-            ...container,
-            display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(160px, 1fr))',
-            gap: space.md,
-          }}
-        >
+        <div style={{ ...container, display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(160px, 1fr))', gap: space.md }}>
           {[
             { label: 'Length', value: '8 weeks' },
             { label: 'When', value: 'Sat, 11AM–1PM' },
@@ -75,7 +52,7 @@ export default function Cohort() {
             { label: 'Class size', value: '15 spots' },
           ].map((f) => (
             <div key={f.label} style={{ borderLeft: `2px solid ${color.cyan}`, paddingLeft: space.sm }}>
-              <div style={{ fontFamily: font.mono, fontSize: '11px', letterSpacing: '0.08em', textTransform: 'uppercase', color: color.mutedDim, marginBottom: '4px' }}>
+              <div style={{ fontFamily: font.mono, fontSize: '11px', letterSpacing: '0.02em', color: color.mutedDim, marginBottom: '4px' }}>
                 {f.label}
               </div>
               <div style={{ fontFamily: 'Space Grotesk, sans-serif', fontSize: '20px', color: color.white }}>
@@ -92,21 +69,10 @@ export default function Cohort() {
           <h2 style={{ ...h2, marginBottom: space.xl }}>From application to alumni</h2>
           <div>
             {STEPS.map((s) => (
-              <div
-                key={s.n}
-                style={{
-                  display: 'grid',
-                  gridTemplateColumns: '60px 1fr',
-                  gap: space.md,
-                  padding: `${space.md} 0`,
-                  borderBottom: `1px solid ${color.line}`,
-                }}
-              >
+              <div key={s.n} style={{ display: 'grid', gridTemplateColumns: '60px 1fr', gap: space.md, padding: `${space.md} 0`, borderBottom: `1px solid ${color.line}` }}>
                 <div style={{ fontFamily: font.mono, fontSize: '13px', color: color.cyanDim }}>{s.n}</div>
                 <div>
-                  <h3 style={{ fontFamily: 'Space Grotesk, sans-serif', fontSize: '18px', color: color.white, marginBottom: '4px' }}>
-                    {s.title}
-                  </h3>
+                  <h3 style={{ fontFamily: 'Space Grotesk, sans-serif', fontSize: '18px', color: color.white, marginBottom: '4px' }}>{s.title}</h3>
                   <p style={{ ...body, fontSize: '14px', maxWidth: '480px' }}>{s.copy}</p>
                 </div>
               </div>
@@ -122,9 +88,7 @@ export default function Cohort() {
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: space.lg }}>
             {TRACKS.map((t) => (
               <div key={t.title} style={{ ...card, padding: space.md }}>
-                <h3 style={{ fontFamily: 'Space Grotesk, sans-serif', fontSize: '18px', color: color.white, marginBottom: '8px' }}>
-                  {t.title}
-                </h3>
+                <h3 style={{ fontFamily: 'Space Grotesk, sans-serif', fontSize: '18px', color: color.white, marginBottom: '8px' }}>{t.title}</h3>
                 <p style={{ ...body, fontSize: '14px' }}>{t.copy}</p>
               </div>
             ))}
@@ -133,18 +97,7 @@ export default function Cohort() {
       </section>
 
       <section style={{ ...section, paddingBottom: space.xxxl }}>
-        <div
-          style={{
-            ...container,
-            ...card,
-            padding: space.xl,
-            display: 'flex',
-            flexWrap: 'wrap',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-            gap: space.md,
-          }}
-        >
+        <div style={{ ...container, ...card, padding: space.xl, display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between', alignItems: 'center', gap: space.md }}>
           <div>
             <h2 style={{ ...h2, fontSize: '30px', marginBottom: '8px' }}>Applications reviewed on a rolling basis.</h2>
             <p style={body}>15 seats. Once they're gone, you're on the list for the next cohort.</p>

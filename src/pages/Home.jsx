@@ -62,7 +62,7 @@ export default function Home() {
         <div style={container}>
           <div style={eyebrow}><span>What we do</span></div>
           <h2 style={{ ...h2, maxWidth: '640px', marginBottom: space.xl }}>Try it once. Go deeper if it's for you.</h2>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: space.lg }}>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: space.lg }} className="lynk-pillars-grid">
             {PILLARS.map((p) => (
               <div key={p.n} className="lynk-pillar-card" style={{ ...card, padding: space.lg, transition: 'transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease' }}>
                 <div style={{ width: '44px', height: '44px', borderRadius: radius.sm, background: p.gradient, display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: space.md, boxShadow: `0 4px 14px ${p.accent}33` }}>
@@ -131,6 +131,7 @@ export default function Home() {
         @media (max-width: 780px) {
           .lynk-cultural-grid { grid-template-columns: 1fr !important; }
           .lynk-hero-grid { grid-template-columns: 1fr !important; }
+          .lynk-pillars-grid { grid-template-columns: 1fr !important; }
         }
         .lynk-pillar-card:hover {
           transform: translateY(-2px);

@@ -38,6 +38,26 @@ export default function Home() {
             <Link to="/cohort" style={buttonGhost}>Explore the cohort</Link>
           </div>
         </div>
+
+        <div style={{ ...container, position: 'relative', zIndex: 1, marginTop: space.xl }}>
+          <div
+            style={{
+              width: '100%',
+              aspectRatio: '21/9',
+              background: 'linear-gradient(160deg, #1A1A1A, #101010)',
+              borderRadius: radius.lg,
+              boxShadow: '0 30px 80px rgba(0,0,0,0.45)',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              fontFamily: font.mono,
+              fontSize: '12px',
+              color: color.mutedDim,
+            }}
+          >
+            Hero photo coming soon
+          </div>
+        </div>
       </section>
 
       <section style={section}>

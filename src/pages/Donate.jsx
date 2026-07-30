@@ -1,58 +1,87 @@
-import Waveform from '../components/Waveform';
-import { color, eyebrow, h1, bodyLg, body, buttonPrimary, container, section, space, font } from '../styles/tokens';
+import GradientOrb from '../components/GradientOrb';
+import { color, eyebrow, h1, bodyLg, body, buttonGhost, container, section, space, font, radius } from '../styles/tokens';
 
-// Swap GIVEBUTTER_URL for the real campaign link once it's set up.
-// Givebutter also supports an embeddable widget (<script> snippet from
-// their dashboard) — drop it into the box below in place of the button
-// if you'd rather donors give without leaving the site.
-const GIVEBUTTER_URL = 'https://givebutter.com/globallynk';
+const ALUMNI = [
+  // { name: 'DJ Example', genres: ['Afrobeats', 'Amapiano'], mixUrl: '#', instagram: '@example', photo: null },
+];
 
-export default function Donate() {
+export default function AlumniDirectory() {
   return (
     <div>
-      <section style={{ padding: `${space.xxl} 0 ${space.lg}` }}>
-        <div style={container}>
-          <div style={eyebrow}><span>Donate</span></div>
+      <section style={{ position: 'relative', padding: `${space.xxl} 0 ${space.lg}`, overflow: 'hidden' }}>
+        <GradientOrb seed={62} size={420} style={{ position: 'absolute', top: '-120px', right: '-100px', zIndex: 0 }} />
+        <div style={{ ...container, position: 'relative', zIndex: 1 }}>
+          <div style={eyebrow}><span>DJs</span></div>
           <h1 style={{ ...h1, fontSize: 'clamp(36px, 6vw, 64px)', maxWidth: '700px' }}>
-            Fund the next workshop, cohort, or cultural exchange.
+            GlobalLYNK alumni, available to book.
           </h1>
           <p style={{ ...bodyLg, maxWidth: '540px', marginTop: space.md }}>
-            GlobalLYNK is a nonprofit. Every donation goes toward keeping workshops
-            accessible, funding cohort scholarships, and running programs like our
-            Mexico City cultural exchange.
+            Every DJ here graduated from a GlobalLYNK cohort. Browse profiles, check
+            genres and mixes, and reach out directly to book.
           </p>
         </div>
       </section>
 
-      <div style={container}><Waveform seed={51} /></div>
-
       <section style={section}>
         <div style={container}>
-          <div
-            style={{
-              border: `1px solid ${color.line}`,
-              padding: space.xl,
-              display: 'flex',
-              flexWrap: 'wrap',
-              justifyContent: 'space-between',
-              alignItems: 'center',
-              gap: space.md,
-            }}
-          >
-            <div>
-              <h2 style={{ fontFamily: 'Space Grotesk, sans-serif', fontSize: '24px', color: color.white, marginBottom: '8px' }}>
-                Give through Givebutter
-              </h2>
-              <p style={body}>Secure, third-party donation processing — one-time or recurring.</p>
+          {ALUMNI.length === 0 ? (
+            <div
+              style={{
+                border: `1px dashed ${color.line}`,
+                borderRadius: radius.lg,
+                padding: space.xxl,
+                textAlign: 'center',
+              }}
+            >
+              <div style={{ fontFamily: font.mono, fontSize: '13px', letterSpacing: '0.06em', textTransform: 'uppercase', color: color.cyanDim, marginBottom: space.sm }}>
+                First graduating class — November 2026
+              </div>
+              <p style={{ ...body, maxWidth: '440px', margin: '0 auto' }}>
+                Our first cohort graduates in November. This page goes live with
+                real profiles right after — check back then, or follow{' '}
+                <a href="https://instagram.com/globallynk" target="_blank" rel="noreferrer" style={{ color: color.cyan, textDecoration: 'none' }}>
+                  @globallynk
+                </a>{' '}
+                for updates.
+              </p>
             </div>
-            <a href={GIVEBUTTER_URL} target="_blank" rel="noreferrer" style={buttonPrimary}>
-              Donate on Givebutter →
-            </a>
-          </div>
-
-          <p style={{ fontFamily: font.mono, fontSize: '12px', color: color.mutedDim, marginTop: space.sm }}>
-            You'll leave globallynk.club to complete your donation securely on Givebutter.
-          </p>
+          ) : (
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: space.lg }}>
+              {ALUMNI.map((dj) => (
+                <div key={dj.name} style={{ border: `1px solid ${color.line}`, borderRadius: radius.lg, overflow: 'hidden' }}>
+                  <div
+                    style={{
+                      aspectRatio: '1/1',
+                      background: color.bgRaised,
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      fontFamily: font.mono,
+                      fontSize: '11px',
+                      color: color.mutedDim,
+                    }}
+                  >
+                    {dj.photo ? (
+                      <img src={dj.photo} alt={dj.name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                    ) : (
+                      '[ Photo ]'
+                    )}
+                  </div>
+                  <div style={{ padding: space.md }}>
+                    <h3 style={{ fontFamily: 'Space Grotesk, sans-serif', fontSize: '18px', color: color.white, marginBottom: '6px' }}>
+                      {dj.name}
+                    </h3>
+                    <p style={{ ...body, fontSize: '13px', marginBottom: space.sm }}>
+                      {dj.genres?.join(' · ')}
+                    </p>
+                    <a href={`/dj/${dj.name.toLowerCase().replace(/\s+/g, '-')}`} style={buttonGhost}>
+                      View profile
+                    </a>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
         </div>
       </section>
     </div>

@@ -1,5 +1,5 @@
-import Waveform from '../components/Waveform';
-import { color, eyebrow, h1, h2, bodyLg, body, buttonPrimary, container, section, space, font } from '../styles/tokens';
+import GradientOrb from '../components/GradientOrb';
+import { color, eyebrow, h1, h2, bodyLg, body, buttonPrimary, container, section, space, font, radius, card } from '../styles/tokens';
 
 const APPLY_URL = 'https://tally.so/r/D4Ye65';
 
@@ -21,8 +21,9 @@ const TRACKS = [
 export default function Cohort() {
   return (
     <div>
-      <section style={{ padding: `${space.xxl} 0 ${space.lg}` }}>
-        <div style={container}>
+      <section style={{ position: 'relative', padding: `${space.xxl} 0 ${space.lg}`, overflow: 'hidden' }}>
+        <GradientOrb seed={19} size={480} style={{ position: 'absolute', top: '-140px', right: '-140px', zIndex: 0 }} />
+        <div style={{ ...container, position: 'relative', zIndex: 1 }}>
           <div style={eyebrow}><span>Cohort</span></div>
           <h1 style={{ ...h1, fontSize: 'clamp(36px, 6vw, 64px)', maxWidth: '760px' }}>
             8 weeks. Small class. A real skill by graduation.
@@ -37,9 +38,27 @@ export default function Cohort() {
         </div>
       </section>
 
-      <div style={container}><Waveform seed={19} /></div>
+      <section style={{ padding: `0 0 ${space.lg}` }}>
+        <div style={container}>
+          <div
+            style={{
+              aspectRatio: '21/9',
+              background: color.bgRaised,
+              border: `1px solid ${color.line}`,
+              borderRadius: radius.lg,
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              fontFamily: font.mono,
+              fontSize: '12px',
+              color: color.mutedDim,
+            }}
+          >
+            [ Cohort flyer ]
+          </div>
+        </div>
+      </section>
 
-      {/* Quick facts */}
       <section style={{ padding: `${space.lg} 0` }}>
         <div
           style={{
@@ -67,9 +86,6 @@ export default function Cohort() {
         </div>
       </section>
 
-      <div style={container}><Waveform seed={26} /></div>
-
-      {/* Timeline — a real sequence, so numbering earns its place */}
       <section style={section}>
         <div style={container}>
           <div style={eyebrow}><span>How it works</span></div>
@@ -99,14 +115,13 @@ export default function Cohort() {
         </div>
       </section>
 
-      {/* Tracks */}
       <section style={section}>
         <div style={container}>
           <div style={eyebrow}><span>Tracks</span></div>
           <h2 style={{ ...h2, marginBottom: space.xl }}>Choose a direction</h2>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: space.lg }}>
             {TRACKS.map((t) => (
-              <div key={t.title} style={{ background: color.bgRaised, border: `1px solid ${color.line}`, padding: space.md }}>
+              <div key={t.title} style={{ ...card, padding: space.md }}>
                 <h3 style={{ fontFamily: 'Space Grotesk, sans-serif', fontSize: '18px', color: color.white, marginBottom: '8px' }}>
                   {t.title}
                 </h3>
@@ -121,7 +136,7 @@ export default function Cohort() {
         <div
           style={{
             ...container,
-            border: `1px solid ${color.line}`,
+            ...card,
             padding: space.xl,
             display: 'flex',
             flexWrap: 'wrap',

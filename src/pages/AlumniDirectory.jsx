@@ -1,8 +1,6 @@
-import Waveform from '../components/Waveform';
-import { color, eyebrow, h1, bodyLg, body, buttonGhost, container, section, space, font } from '../styles/tokens';
+import GradientOrb from '../components/GradientOrb';
+import { color, eyebrow, h1, bodyLg, body, buttonGhost, container, section, space, font, radius } from '../styles/tokens';
 
-// Placeholder shape for what a Supabase `dj_profiles` row will look like.
-// Swap ALUMNI for a fetch from Supabase once the alumni role/table exists.
 const ALUMNI = [
   // { name: 'DJ Example', genres: ['Afrobeats', 'Amapiano'], mixUrl: '#', instagram: '@example', photo: null },
 ];
@@ -10,8 +8,9 @@ const ALUMNI = [
 export default function AlumniDirectory() {
   return (
     <div>
-      <section style={{ padding: `${space.xxl} 0 ${space.lg}` }}>
-        <div style={container}>
+      <section style={{ position: 'relative', padding: `${space.xxl} 0 ${space.lg}`, overflow: 'hidden' }}>
+        <GradientOrb seed={62} size={420} style={{ position: 'absolute', top: '-120px', right: '-100px', zIndex: 0 }} />
+        <div style={{ ...container, position: 'relative', zIndex: 1 }}>
           <div style={eyebrow}><span>DJs</span></div>
           <h1 style={{ ...h1, fontSize: 'clamp(36px, 6vw, 64px)', maxWidth: '700px' }}>
             GlobalLYNK alumni, available to book.
@@ -23,14 +22,13 @@ export default function AlumniDirectory() {
         </div>
       </section>
 
-      <div style={container}><Waveform seed={62} /></div>
-
       <section style={section}>
         <div style={container}>
           {ALUMNI.length === 0 ? (
             <div
               style={{
                 border: `1px dashed ${color.line}`,
+                borderRadius: radius.lg,
                 padding: space.xxl,
                 textAlign: 'center',
               }}
@@ -50,7 +48,7 @@ export default function AlumniDirectory() {
           ) : (
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: space.lg }}>
               {ALUMNI.map((dj) => (
-                <div key={dj.name} style={{ border: `1px solid ${color.line}` }}>
+                <div key={dj.name} style={{ border: `1px solid ${color.line}`, borderRadius: radius.lg, overflow: 'hidden' }}>
                   <div
                     style={{
                       aspectRatio: '1/1',

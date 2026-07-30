@@ -1,11 +1,6 @@
 import GradientOrb from '../components/GradientOrb';
 import { color, eyebrow, h1, body, buttonPrimary, buttonGhost, container, section, space, font, radius } from '../styles/tokens';
 
-// TODO: replace poshUrl values with live Posh links, and add an `image`
-// field once you've dropped flyers into src/assets/images/ — e.g.
-//   import workshopFlyer from '../assets/images/workshop-flyer.jpg';
-//   then add `image: workshopFlyer` to that event's object below.
-// Any event without an `image` field falls back to the placeholder box.
 const EVENTS = [
   {
     date: 'SEP 12',

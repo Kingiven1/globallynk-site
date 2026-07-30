@@ -1,12 +1,13 @@
 import { Link } from 'react-router-dom';
-import Waveform from '../components/Waveform';
-import { color, eyebrow, h1, h2, bodyLg, body, buttonPrimary, container, section, space, font } from '../styles/tokens';
+import GradientOrb from '../components/GradientOrb';
+import { color, eyebrow, h1, h2, bodyLg, body, buttonPrimary, container, section, space, font, radius, card } from '../styles/tokens';
 
 export default function Journey() {
   return (
     <div>
-      <section style={{ padding: `${space.xxl} 0 ${space.lg}` }}>
-        <div style={container}>
+      <section style={{ position: 'relative', padding: `${space.xxl} 0 ${space.lg}`, overflow: 'hidden' }}>
+        <GradientOrb seed={31} size={480} style={{ position: 'absolute', top: '-140px', left: '-100px', zIndex: 0 }} />
+        <div style={{ ...container, position: 'relative', zIndex: 1 }}>
           <div style={eyebrow}><span>Our Journey</span></div>
           <h1 style={{ ...h1, fontSize: 'clamp(36px, 6vw, 68px)', maxWidth: '780px' }}>
             Creativity is the highest form of wealth.
@@ -19,9 +20,6 @@ export default function Journey() {
         </div>
       </section>
 
-      <div style={container}><Waveform seed={31} /></div>
-
-      {/* Cultural exchange feature */}
       <section style={section}>
         <div style={container}>
           <div
@@ -29,6 +27,7 @@ export default function Journey() {
               aspectRatio: '21/9',
               background: color.bgRaised,
               border: `1px solid ${color.line}`,
+              borderRadius: radius.lg,
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
@@ -63,9 +62,6 @@ export default function Journey() {
         </div>
       </section>
 
-      <div style={container}><Waveform seed={44} /></div>
-
-      {/* Stats / what we've built, kept honest — no unverifiable numbers */}
       <section style={section}>
         <div style={container}>
           <div style={eyebrow}><span>What we've built</span></div>
@@ -94,7 +90,7 @@ export default function Journey() {
         <div
           style={{
             ...container,
-            border: `1px solid ${color.line}`,
+            ...card,
             padding: space.xl,
             display: 'flex',
             flexWrap: 'wrap',

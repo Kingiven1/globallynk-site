@@ -5,7 +5,7 @@ import cohortFlyer from '../assets/images/cohortflyer.png';
 const APPLY_URL = 'https://tally.so/r/D4Ye65';
 
 const STEPS = [
-  { n: '01', title: 'Apply', copy: 'Fill out the application. We review manually — expect a response in 24–48 hours.' },
+  { n: '01', title: 'Apply', copy: 'Fill out the application. Once applications close, we review manually — expect a response within 24–48 hours.' },
   { n: '02', title: 'Get accepted', copy: 'Acceptance letter, program details, and a payment link land in your inbox.' },
   { n: '03', title: 'Register & pay', copy: 'Secure your seat. 15 students per cohort, so seats go fast.' },
   { n: '04', title: 'Get ready', copy: 'Before class starts, we send a guide — what to expect, and where to get a controller if you need one.' },

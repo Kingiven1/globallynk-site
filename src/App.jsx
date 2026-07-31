@@ -3,6 +3,7 @@ import Nav from './components/Nav';
 import Footer from './components/Footer';
 import ProtectedRoute from './components/ProtectedRoute';
 import ScrollToTop from './components/ScrollToTop';
+import MailingListPopup from './components/MailingListPopup';
 import { AuthProvider } from './context/AuthContext';
 import Home from './pages/Home';
 import Events from './pages/Events';
@@ -44,6 +45,7 @@ export default function App() {
           </Routes>
           <Footer />
         </div>
+        <MailingListPopup />
       </BrowserRouter>
     </AuthProvider>
   );

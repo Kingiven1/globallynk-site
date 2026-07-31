@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import GradientOrb from '../components/GradientOrb';
 import heroPhoto from '../assets/images/481A8469.jpg';
 import winnersPhoto from '../assets/images/winners.jpg';
+import workshopFlyer from '../assets/images/workshopflyer.png';
 import {
   color, eyebrow, h1, h2, bodyLg, body, card, radius,
   buttonPrimary, buttonGhost, container, section, space, font,
@@ -56,6 +57,47 @@ export default function Home() {
               boxShadow: '0 30px 80px rgba(0,0,0,0.45)',
             }}
           />
+        </div>
+      </section>
+
+      <section style={{ ...section, paddingTop: 0 }}>
+        <div style={container}>
+          <div
+            style={{
+              ...card,
+              display: 'grid',
+              gridTemplateColumns: '0.85fr 1.15fr',
+              gap: space.xl,
+              alignItems: 'center',
+              padding: space.xl,
+              border: `1px solid ${color.cyanDim}`,
+              boxShadow: `0 0 0 1px ${color.cyanFaint}`,
+            }}
+            className="lynk-featured-grid"
+          >
+            <img
+              src={workshopFlyer}
+              alt="Intro to DJ Workshop flyer"
+              style={{ width: '100%', height: 'auto', borderRadius: radius.md }}
+            />
+            <div>
+              <div style={eyebrow}><span>Most popular · Start here</span></div>
+              <h2 style={{ ...h2, fontSize: 'clamp(26px, 3.5vw, 36px)', marginBottom: space.sm }}>
+                Intro to DJ Workshop
+              </h2>
+              <p style={{ ...bodyLg, marginBottom: space.md }}>
+                The easiest way into GlobalLYNK. One beginner-friendly session in
+                Charlotte, hands-on gear, no experience required — this is where
+                most people start.
+              </p>
+              <div style={{ display: 'flex', gap: space.sm, flexWrap: 'wrap' }}>
+                <a href="https://posh.vip/series/intro-to-dj-workshop" target="_blank" rel="noreferrer" style={buttonPrimary}>
+                  Get tickets →
+                </a>
+                <Link to="/events" style={buttonGhost}>See all dates</Link>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -150,6 +192,7 @@ export default function Home() {
           .lynk-cultural-grid { grid-template-columns: 1fr !important; }
           .lynk-hero-grid { grid-template-columns: 1fr !important; }
           .lynk-pillars-grid { grid-template-columns: 1fr !important; }
+          .lynk-featured-grid { grid-template-columns: 1fr !important; }
         }
         .lynk-pillar-card:hover {
           transform: translateY(-2px);

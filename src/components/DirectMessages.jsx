@@ -73,26 +73,27 @@ export default function DirectMessages(props) {
   }
 
   return (
-    <div style={{ border: `1px solid ${color.line}`, borderRadius: radius.lg, display: 'flex', flexDirection: 'column', height: '420px' }}>
-      <div style={{ padding: space.sm, borderBottom: `1px solid ${color.line}` }}>
-        <div style={{ fontFamily: font.mono, fontSize: '12px', letterSpacing: '0.02em', color: color.cyanDim, marginBottom: '6px' }}>
+    <div style={{ background: color.bgRaised, border: `1px solid ${color.line}`, borderRadius: radius.lg, display: 'flex', flexDirection: 'column', height: '440px', overflow: 'hidden' }}>
+      <div style={{ padding: space.md, borderBottom: `1px solid ${color.line}` }}>
+        <div style={{ fontFamily: 'Space Grotesk, sans-serif', fontSize: '15px', color: color.white, marginBottom: '8px' }}>
           Direct Messages
         </div>
         {roster.length === 0 ? (
           <p style={{ fontFamily: font.body, fontSize: '13px', color: color.mutedDim }}>No one to message yet.</p>
         ) : (
           <select
+            className="lynk-input"
             value={recipientId}
             onChange={(e) => setRecipientId(e.target.value)}
             style={{
               width: '100%',
               fontFamily: font.body,
-              fontSize: '13px',
+              fontSize: '14px',
               color: color.white,
-              background: color.bgRaised,
+              background: color.bg,
               border: `1px solid ${color.line}`,
-              borderRadius: radius.sm,
-              padding: '8px 10px',
+              borderRadius: radius.md,
+              padding: '10px 12px',
               outline: 'none',
             }}
           >
@@ -103,26 +104,23 @@ export default function DirectMessages(props) {
         )}
       </div>
 
-      <div style={{ flex: 1, overflowY: 'auto', padding: space.sm, display: 'flex', flexDirection: 'column', gap: '10px' }}>
+      <div style={{ flex: 1, overflowY: 'auto', padding: space.md, display: 'flex', flexDirection: 'column', gap: '12px' }}>
         {messages.length === 0 && (
-          <p style={{ fontFamily: font.body, fontSize: '13px', color: color.mutedDim }}>No messages yet.</p>
+          <p style={{ fontFamily: font.body, fontSize: '14px', color: color.mutedDim }}>No messages yet.</p>
         )}
         {messages.map((m) => {
           const isMine = m.sender_id === profile.id;
           return (
-            <div key={m.id} style={{ alignSelf: isMine ? 'flex-end' : 'flex-start', maxWidth: '80%' }}>
-              <div style={{ fontFamily: font.mono, fontSize: '10px', color: color.mutedDim, marginBottom: '2px', textAlign: isMine ? 'right' : 'left' }}>
-                {isMine ? 'You' : m.sender_name}
-              </div>
+            <div key={m.id} style={{ alignSelf: isMine ? 'flex-end' : 'flex-start', maxWidth: '78%' }}>
               <div
                 style={{
-                  background: isMine ? color.cyanFaint : color.bgRaised2,
-                  border: `1px solid ${isMine ? color.cyanDim : color.line}`,
-                  borderRadius: radius.md,
-                  padding: '8px 12px',
+                  background: isMine ? color.cyan : color.bgRaised2,
+                  color: isMine ? color.bg : color.white,
+                  borderRadius: isMine ? '18px 18px 4px 18px' : '18px 18px 18px 4px',
+                  padding: '10px 16px',
                   fontFamily: font.body,
                   fontSize: '14px',
-                  color: color.white,
+                  lineHeight: 1.4,
                 }}
               >
                 {m.body}
@@ -135,6 +133,7 @@ export default function DirectMessages(props) {
 
       <form onSubmit={handleSend} style={{ display: 'flex', gap: '8px', padding: space.sm, borderTop: `1px solid ${color.line}` }}>
         <input
+          className="lynk-input"
           value={text}
           onChange={(e) => setText(e.target.value)}
           placeholder="Message…"
@@ -143,23 +142,24 @@ export default function DirectMessages(props) {
             fontFamily: font.body,
             fontSize: '14px',
             color: color.white,
-            background: color.bgRaised,
+            background: color.bg,
             border: `1px solid ${color.line}`,
-            borderRadius: radius.sm,
-            padding: '10px 12px',
+            borderRadius: radius.pill,
+            padding: '10px 16px',
             outline: 'none',
           }}
         />
         <button
           type="submit"
           style={{
-            fontFamily: font.mono,
-            fontSize: '12px',
+            fontFamily: font.body,
+            fontWeight: 600,
+            fontSize: '14px',
             color: color.bg,
             background: color.cyan,
             border: 'none',
-            borderRadius: radius.sm,
-            padding: '10px 16px',
+            borderRadius: radius.pill,
+            padding: '10px 20px',
             cursor: 'pointer',
           }}
         >

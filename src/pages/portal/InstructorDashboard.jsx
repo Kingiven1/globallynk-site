@@ -3,7 +3,8 @@ import { useAuth } from '../../context/AuthContext';
 import { supabase } from '../../lib/supabaseClient';
 import ClassChat from '../../components/ClassChat';
 import DirectMessages from '../../components/DirectMessages';
-import { color, eyebrow, h1, h2, body, card, buttonPrimary, buttonGhost, container, space, font } from '../../styles/tokens';
+import GradientOrb from '../../components/GradientOrb';
+import { color, eyebrow, h1, h2, body, card, radius, buttonPrimary, buttonGhost, container, space, font } from '../../styles/tokens';
 
 const WEEK_OPTIONS = [1, 2, 3, 4, 5, 6, 7, 8, 'Graduation'];
 
@@ -172,18 +173,20 @@ export default function InstructorDashboard() {
   }));
 
   return (
-    <div style={{ padding: `${space.xxl} 0 ${space.xxxl}` }}>
-      <div style={container}>
+    <div style={{ position: 'relative', padding: `${space.xxl} 0 ${space.xxxl}`, overflow: 'hidden' }}>
+      <GradientOrb seed={27} size={480} style={{ position: 'absolute', top: '-140px', right: '-120px', zIndex: 0 }} />
+      <div style={{ ...container, position: 'relative', zIndex: 1 }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
           <div>
             <div style={eyebrow}><span>Instructor Portal</span></div>
-            <h1 style={{ ...h1, fontSize: '36px' }}>Run your class.</h1>
+            <h1 style={{ ...h1, fontSize: '38px' }}>Run your class.</h1>
           </div>
-          <button onClick={signOut} style={signOutStyle}>Sign out</button>
+          <button onClick={signOut} style={buttonGhost}>Sign out</button>
         </div>
 
         {cohorts.length > 0 && (
           <select
+            className="lynk-input"
             value={selectedCohort}
             onChange={(e) => setSelectedCohort(e.target.value)}
             style={{ ...selectStyle, marginTop: space.lg }}
@@ -196,38 +199,42 @@ export default function InstructorDashboard() {
 
         <div style={{ display: 'grid', gridTemplateColumns: '1.3fr 1fr', gap: space.xl, marginTop: space.lg }} className="lynk-instructor-grid">
           <div>
-            <h2 style={{ ...h2, fontSize: '20px', marginBottom: space.sm }}>Post a weekly update</h2>
-            <form onSubmit={postMaterial} style={{ display: 'flex', flexDirection: 'column', gap: space.sm, maxWidth: '520px', marginBottom: space.xl }}>
-              <select value={weekNumber} onChange={(e) => setWeekNumber(e.target.value)} style={inputStyle}>
-                {WEEK_OPTIONS.map((w) => (
-                  <option key={w} value={weekValue(w)}>{weekLabel(weekValue(w))}</option>
-                ))}
-              </select>
-              <input type="text" placeholder="Title (e.g. 'What to expect this week')" value={title} onChange={(e) => setTitle(e.target.value)} required style={inputStyle} />
-              <textarea placeholder="Notes for this file, or a recap/announcement…" value={contentText} onChange={(e) => setContentText(e.target.value)} rows={4} style={{ ...inputStyle, resize: 'vertical', fontFamily: font.body }} />
-              <input type="file" onChange={(e) => setMaterialFile(e.target.files[0])} style={{ fontFamily: font.body, fontSize: '13px', color: color.muted }} />
-              <button type="submit" disabled={posting} style={{ ...buttonPrimary, justifyContent: 'center' }}>
-                {posting ? 'Posting…' : 'Post update'}
-              </button>
-              {message && <p style={{ fontFamily: font.mono, fontSize: '12px', color: color.cyan }}>{message}</p>}
-            </form>
+            <div style={{ ...card, padding: space.lg, marginBottom: space.lg }}>
+              <h2 style={{ ...h2, fontSize: '19px', marginBottom: space.sm }}>Post a weekly update</h2>
+              <form onSubmit={postMaterial} style={{ display: 'flex', flexDirection: 'column', gap: space.sm }}>
+                <select className="lynk-input" value={weekNumber} onChange={(e) => setWeekNumber(e.target.value)} style={inputStyle}>
+                  {WEEK_OPTIONS.map((w) => (
+                    <option key={w} value={weekValue(w)}>{weekLabel(weekValue(w))}</option>
+                  ))}
+                </select>
+                <input className="lynk-input" type="text" placeholder="Title (e.g. 'What to expect this week')" value={title} onChange={(e) => setTitle(e.target.value)} required style={inputStyle} />
+                <textarea className="lynk-input" placeholder="Notes for this file, or a recap/announcement…" value={contentText} onChange={(e) => setContentText(e.target.value)} rows={4} style={{ ...inputStyle, resize: 'vertical' }} />
+                <input type="file" onChange={(e) => setMaterialFile(e.target.files[0])} style={{ fontFamily: font.body, fontSize: '13px', color: color.muted }} />
+                <button type="submit" disabled={posting} style={{ ...buttonPrimary, justifyContent: 'center' }}>
+                  {posting ? 'Posting…' : 'Post update'}
+                </button>
+                {message && <p style={{ fontFamily: font.body, fontSize: '13px', color: color.cyan }}>{message}</p>}
+              </form>
+            </div>
 
-            <h2 style={{ ...h2, fontSize: '20px', marginBottom: space.sm }}>Post homework</h2>
-            <form onSubmit={postAssignment} style={{ display: 'flex', flexDirection: 'column', gap: space.sm, maxWidth: '520px', marginBottom: space.xl }}>
-              <select value={hwWeek} onChange={(e) => setHwWeek(e.target.value)} style={inputStyle}>
-                {WEEK_OPTIONS.map((w) => (
-                  <option key={w} value={weekValue(w)}>{weekLabel(weekValue(w))}</option>
-                ))}
-              </select>
-              <input type="text" placeholder="Assignment title" value={hwTitle} onChange={(e) => setHwTitle(e.target.value)} required style={inputStyle} />
-              <textarea placeholder="Notes for this file, or instructions…" value={hwInstructions} onChange={(e) => setHwInstructions(e.target.value)} rows={3} style={{ ...inputStyle, resize: 'vertical', fontFamily: font.body }} />
-              <input type="date" value={hwDueDate} onChange={(e) => setHwDueDate(e.target.value)} style={inputStyle} />
-              <input type="file" onChange={(e) => setHwFile(e.target.files[0])} style={{ fontFamily: font.body, fontSize: '13px', color: color.muted }} />
-              <button type="submit" disabled={hwPosting} style={{ ...buttonPrimary, justifyContent: 'center' }}>
-                {hwPosting ? 'Posting…' : 'Post homework'}
-              </button>
-              {hwMessage && <p style={{ fontFamily: font.mono, fontSize: '12px', color: color.cyan }}>{hwMessage}</p>}
-            </form>
+            <div style={{ ...card, padding: space.lg, marginBottom: space.lg }}>
+              <h2 style={{ ...h2, fontSize: '19px', marginBottom: space.sm }}>Post homework</h2>
+              <form onSubmit={postAssignment} style={{ display: 'flex', flexDirection: 'column', gap: space.sm }}>
+                <select className="lynk-input" value={hwWeek} onChange={(e) => setHwWeek(e.target.value)} style={inputStyle}>
+                  {WEEK_OPTIONS.map((w) => (
+                    <option key={w} value={weekValue(w)}>{weekLabel(weekValue(w))}</option>
+                  ))}
+                </select>
+                <input className="lynk-input" type="text" placeholder="Assignment title" value={hwTitle} onChange={(e) => setHwTitle(e.target.value)} required style={inputStyle} />
+                <textarea className="lynk-input" placeholder="Notes for this file, or instructions…" value={hwInstructions} onChange={(e) => setHwInstructions(e.target.value)} rows={3} style={{ ...inputStyle, resize: 'vertical' }} />
+                <input className="lynk-input" type="date" value={hwDueDate} onChange={(e) => setHwDueDate(e.target.value)} style={inputStyle} />
+                <input type="file" onChange={(e) => setHwFile(e.target.files[0])} style={{ fontFamily: font.body, fontSize: '13px', color: color.muted }} />
+                <button type="submit" disabled={hwPosting} style={{ ...buttonPrimary, justifyContent: 'center' }}>
+                  {hwPosting ? 'Posting…' : 'Post homework'}
+                </button>
+                {hwMessage && <p style={{ fontFamily: font.body, fontSize: '13px', color: color.cyan }}>{hwMessage}</p>}
+              </form>
+            </div>
 
             <h2 style={{ ...h2, fontSize: '20px', marginBottom: space.md }}>Submission status</h2>
             {assignments.length === 0 ? (
@@ -237,20 +244,20 @@ export default function InstructorDashboard() {
                 const submitted = submissionsByAssignment[a.id] || new Set();
                 const notSubmitted = students.filter((s) => !submitted.has(s.student_id));
                 return (
-                  <div key={a.id} style={{ ...card, padding: space.md, marginBottom: space.md }}>
-                    <h3 style={{ fontFamily: 'Space Grotesk, sans-serif', fontSize: '15px', color: color.white, marginBottom: '6px' }}>
+                  <div key={a.id} style={{ ...card, padding: space.lg, marginBottom: space.md }}>
+                    <h3 style={{ fontFamily: 'Space Grotesk, sans-serif', fontSize: '16px', color: color.white, marginBottom: '8px' }}>
                       {weekLabel(a.week_number)} — {a.title}
                     </h3>
-                    <p style={{ fontFamily: font.mono, fontSize: '12px', color: color.cyanDim, marginBottom: '8px' }}>
+                    <div style={{ display: 'inline-block', fontFamily: font.body, fontSize: '12px', fontWeight: 600, color: color.cyan, background: color.cyanFaint, borderRadius: radius.pill, padding: '4px 12px', marginBottom: space.sm }}>
                       {submitted.size} / {students.length} submitted
-                    </p>
+                    </div>
                     {notSubmitted.length > 0 && (
                       <div>
-                        <div style={{ fontFamily: font.mono, fontSize: '11px', color: '#E05252', marginBottom: '4px' }}>
+                        <div style={{ fontFamily: font.body, fontSize: '12px', fontWeight: 600, color: '#E05252', marginBottom: '4px' }}>
                           Not submitted:
                         </div>
                         {notSubmitted.map((s) => (
-                          <div key={s.student_id} style={{ fontFamily: font.body, fontSize: '13px', color: color.muted }}>
+                          <div key={s.student_id} style={{ fontFamily: font.body, fontSize: '14px', color: color.muted }}>
                             {s.profiles?.full_name || s.profiles?.email}
                           </div>
                         ))}
@@ -265,11 +272,13 @@ export default function InstructorDashboard() {
             {students.length === 0 ? (
               <p style={body}>No students enrolled in this cohort yet.</p>
             ) : (
-              students.map((s) => (
-                <div key={s.student_id} style={{ borderBottom: `1px solid ${color.line}`, padding: `${space.xs} 0`, fontFamily: font.body, fontSize: '14px', color: color.muted }}>
-                  {s.profiles?.full_name || 'Unnamed'} — {s.profiles?.email}
-                </div>
-              ))
+              <div style={{ ...card, padding: space.md }}>
+                {students.map((s) => (
+                  <div key={s.student_id} style={{ padding: `${space.xs} 0`, fontFamily: font.body, fontSize: '14px', color: color.muted, borderBottom: `1px solid ${color.line}` }}>
+                    {s.profiles?.full_name || 'Unnamed'} — {s.profiles?.email}
+                  </div>
+                ))}
+              </div>
             )}
           </div>
 
@@ -291,31 +300,25 @@ export default function InstructorDashboard() {
         @media (max-width: 900px) {
           .lynk-instructor-grid { grid-template-columns: 1fr !important; }
         }
+        .lynk-input:focus {
+          border-color: ${color.cyan} !important;
+          box-shadow: 0 0 0 3px ${color.cyanFaint};
+        }
       `}</style>
     </div>
   );
 }
 
-const signOutStyle = {
-  fontFamily: font.mono,
-  fontSize: '12px',
-  letterSpacing: '0.02em',
-  color: color.mutedDim,
-  background: 'none',
-  border: `1px solid ${color.line}`,
-  padding: '10px 16px',
-  cursor: 'pointer',
-};
-
 const inputStyle = {
   fontFamily: font.body,
   fontSize: '15px',
   color: color.white,
-  background: color.bgRaised,
+  background: color.bg,
   border: `1px solid ${color.line}`,
-  borderRadius: '10px',
-  padding: '14px 16px',
+  borderRadius: radius.md,
+  padding: '12px 14px',
   outline: 'none',
+  transition: 'border-color 0.15s ease, box-shadow 0.15s ease',
 };
 
 const selectStyle = {
@@ -324,13 +327,14 @@ const selectStyle = {
 };
 
 const tabActive = {
-  fontFamily: font.mono,
-  fontSize: '12px',
+  fontFamily: font.body,
+  fontWeight: 600,
+  fontSize: '13px',
   color: color.bg,
   background: color.cyan,
   border: 'none',
-  borderRadius: '999px',
-  padding: '8px 14px',
+  borderRadius: radius.pill,
+  padding: '8px 16px',
   cursor: 'pointer',
 };
 

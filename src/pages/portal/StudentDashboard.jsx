@@ -3,7 +3,8 @@ import { useAuth } from '../../context/AuthContext';
 import { supabase } from '../../lib/supabaseClient';
 import ClassChat from '../../components/ClassChat';
 import DirectMessages from '../../components/DirectMessages';
-import { color, eyebrow, h1, h2, body, card, radius, buttonPrimary, container, space, font } from '../../styles/tokens';
+import GradientOrb from '../../components/GradientOrb';
+import { color, eyebrow, h1, h2, body, card, radius, buttonPrimary, buttonGhost, container, space, font } from '../../styles/tokens';
 
 function weekLabel(n) {
   return n === 9 ? 'Graduation' : `Week ${n}`;
@@ -99,16 +100,17 @@ export default function StudentDashboard() {
   }
 
   return (
-    <div style={{ padding: `${space.xxl} 0 ${space.xxxl}` }}>
-      <div style={container}>
+    <div style={{ position: 'relative', padding: `${space.xxl} 0 ${space.xxxl}`, overflow: 'hidden' }}>
+      <GradientOrb seed={13} size={480} style={{ position: 'absolute', top: '-140px', right: '-120px', zIndex: 0 }} />
+      <div style={{ ...container, position: 'relative', zIndex: 1 }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
           <div>
             <div style={eyebrow}><span>Student Portal</span></div>
-            <h1 style={{ ...h1, fontSize: '36px' }}>
+            <h1 style={{ ...h1, fontSize: '38px' }}>
               Welcome, {profile?.full_name || 'there'}.
             </h1>
           </div>
-          <button onClick={signOut} style={signOutStyle}>Sign out</button>
+          <button onClick={signOut} style={buttonGhost}>Sign out</button>
         </div>
 
         {loading ? (
@@ -119,7 +121,7 @@ export default function StudentDashboard() {
           </p>
         ) : (
           <>
-            <div style={{ ...card, padding: space.md, marginTop: space.xl, marginBottom: space.xl }}>
+            <div style={{ ...card, padding: space.lg, marginTop: space.xl, marginBottom: space.xl }}>
               <h2 style={{ ...h2, fontSize: '20px', marginBottom: '4px' }}>{cohort.name}</h2>
               <p style={{ ...body, fontSize: '14px' }}>
                 {cohort.meeting_day}s, {cohort.meeting_time} · {cohort.start_date} to {cohort.end_date}
@@ -136,25 +138,26 @@ export default function StudentDashboard() {
                     const existing = submissions[a.id];
                     const status = submitStatus[a.id];
                     return (
-                      <div key={a.id} style={{ ...card, padding: space.md, marginBottom: space.md }}>
-                        <div style={{ fontFamily: font.mono, fontSize: '11px', color: color.cyanDim, marginBottom: '4px' }}>
+                      <div key={a.id} style={{ ...card, padding: space.lg, marginBottom: space.md }}>
+                        <div style={{ display: 'inline-block', fontFamily: font.body, fontSize: '12px', fontWeight: 600, color: color.cyan, background: color.cyanFaint, borderRadius: radius.pill, padding: '4px 12px', marginBottom: space.sm }}>
                           {weekLabel(a.week_number)} {a.due_date ? `· Due ${a.due_date}` : ''}
                         </div>
-                        <h3 style={{ fontFamily: 'Space Grotesk, sans-serif', fontSize: '16px', color: color.white, marginBottom: '6px' }}>
+                        <h3 style={{ fontFamily: 'Space Grotesk, sans-serif', fontSize: '17px', color: color.white, marginBottom: '6px' }}>
                           {a.title}
                         </h3>
                         {a.instructions && <p style={{ ...body, fontSize: '14px', marginBottom: space.sm }}>{a.instructions}</p>}
                         {a.file_url && (
-                          <a href={a.file_url} target="_blank" rel="noreferrer" style={{ display: 'inline-block', color: color.cyan, fontSize: '13px', fontFamily: font.mono, marginBottom: space.sm }}>
+                          <a href={a.file_url} target="_blank" rel="noreferrer" style={{ display: 'inline-block', color: color.cyan, fontSize: '13px', fontFamily: font.body, fontWeight: 600, marginBottom: space.sm }}>
                             View file →
                           </a>
                         )}
 
                         {existing ? (
-                          <p style={{ fontFamily: font.mono, fontSize: '12px', color: color.cyan }}>✓ Submitted</p>
+                          <p style={{ fontFamily: font.body, fontSize: '13px', fontWeight: 600, color: color.cyan }}>✓ Submitted</p>
                         ) : (
                           <div>
                             <textarea
+                              className="lynk-input"
                               rows={3}
                               placeholder="Your response…"
                               value={submitText[a.id] || ''}
@@ -164,10 +167,10 @@ export default function StudentDashboard() {
                                 fontFamily: font.body,
                                 fontSize: '14px',
                                 color: color.white,
-                                background: color.bgRaised,
+                                background: color.bg,
                                 border: `1px solid ${color.line}`,
-                                borderRadius: radius.sm,
-                                padding: '10px 12px',
+                                borderRadius: radius.md,
+                                padding: '12px 14px',
                                 outline: 'none',
                                 resize: 'vertical',
                                 marginBottom: space.xs,
@@ -188,8 +191,8 @@ export default function StudentDashboard() {
                   <p style={body}>Nothing posted yet — check back after your first class.</p>
                 ) : (
                   materials.map((m) => (
-                    <div key={m.id} style={{ borderBottom: `1px solid ${color.line}`, padding: `${space.sm} 0` }}>
-                      <div style={{ fontFamily: font.mono, fontSize: '11px', color: color.cyanDim, marginBottom: '4px' }}>
+                    <div key={m.id} style={{ ...card, padding: space.lg, marginBottom: space.sm }}>
+                      <div style={{ display: 'inline-block', fontFamily: font.body, fontSize: '12px', fontWeight: 600, color: color.cyan, background: color.cyanFaint, borderRadius: radius.pill, padding: '4px 12px', marginBottom: space.sm }}>
                         {weekLabel(m.week_number)}
                       </div>
                       <h3 style={{ fontFamily: 'Space Grotesk, sans-serif', fontSize: '17px', color: color.white, marginBottom: '4px' }}>
@@ -197,7 +200,7 @@ export default function StudentDashboard() {
                       </h3>
                       {m.content && <p style={{ ...body, fontSize: '14px' }}>{m.content}</p>}
                       {m.file_url && (
-                        <a href={m.file_url} target="_blank" rel="noreferrer" style={{ color: color.cyan, fontSize: '13px', fontFamily: font.mono }}>
+                        <a href={m.file_url} target="_blank" rel="noreferrer" style={{ color: color.cyan, fontSize: '13px', fontFamily: font.body, fontWeight: 600 }}>
                           View file →
                         </a>
                       )}
@@ -226,30 +229,24 @@ export default function StudentDashboard() {
         @media (max-width: 900px) {
           .lynk-student-grid { grid-template-columns: 1fr !important; }
         }
+        .lynk-input:focus {
+          border-color: ${color.cyan} !important;
+          box-shadow: 0 0 0 3px ${color.cyanFaint};
+        }
       `}</style>
     </div>
   );
 }
 
-const signOutStyle = {
-  fontFamily: font.mono,
-  fontSize: '12px',
-  letterSpacing: '0.02em',
-  color: color.mutedDim,
-  background: 'none',
-  border: `1px solid ${color.line}`,
-  padding: '10px 16px',
-  cursor: 'pointer',
-};
-
 const tabActive = {
-  fontFamily: font.mono,
-  fontSize: '12px',
+  fontFamily: font.body,
+  fontWeight: 600,
+  fontSize: '13px',
   color: color.bg,
   background: color.cyan,
   border: 'none',
-  borderRadius: '999px',
-  padding: '8px 14px',
+  borderRadius: radius.pill,
+  padding: '8px 16px',
   cursor: 'pointer',
 };
 

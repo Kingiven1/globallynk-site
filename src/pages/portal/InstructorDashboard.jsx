@@ -2,7 +2,18 @@ import { useEffect, useState } from 'react';
 import { useAuth } from '../../context/AuthContext';
 import { supabase } from '../../lib/supabaseClient';
 import ClassChat from '../../components/ClassChat';
-import { color, eyebrow, h1, h2, body, card, buttonPrimary, container, space, font } from '../../styles/tokens';
+import DirectMessages from '../../components/DirectMessages';
+import { color, eyebrow, h1, h2, body, card, buttonPrimary, buttonGhost, container, space, font } from '../../styles/tokens';
+
+const WEEK_OPTIONS = [1, 2, 3, 4, 5, 6, 7, 8, 'Graduation'];
+
+function weekValue(w) {
+  return w === 'Graduation' ? 9 : w;
+}
+
+function weekLabel(n) {
+  return n === 9 ? 'Graduation' : `Week ${n}`;
+}
 
 export default function InstructorDashboard() {
   const { profile, signOut } = useAuth();
@@ -11,10 +22,13 @@ export default function InstructorDashboard() {
   const [students, setStudents] = useState([]);
   const [assignments, setAssignments] = useState([]);
   const [submissionsByAssignment, setSubmissionsByAssignment] = useState({});
+  const [chatMode, setChatMode] = useState('class');
 
   const [weekNumber, setWeekNumber] = useState(1);
   const [title, setTitle] = useState('');
   const [contentText, setContentText] = useState('');
+  const [materialFile, setMaterialFile] = useState(null);
+  const [materialFileUrl, setMaterialFileUrl] = useState('');
   const [posting, setPosting] = useState(false);
   const [message, setMessage] = useState('');
 
@@ -22,6 +36,8 @@ export default function InstructorDashboard() {
   const [hwTitle, setHwTitle] = useState('');
   const [hwInstructions, setHwInstructions] = useState('');
   const [hwDueDate, setHwDueDate] = useState('');
+  const [hwFile, setHwFile] = useState(null);
+  const [hwFileUrl, setHwFileUrl] = useState('');
   const [hwPosting, setHwPosting] = useState(false);
   const [hwMessage, setHwMessage] = useState('');
 
@@ -73,15 +89,36 @@ export default function InstructorDashboard() {
     }
   }
 
+  async function uploadFile(file) {
+    const path = `${selectedCohort}/${Date.now()}-${file.name}`;
+    const { error } = await supabase.storage.from('course-files').upload(path, file);
+    if (error) throw error;
+    const { data } = supabase.storage.from('course-files').getPublicUrl(path);
+    return data.publicUrl;
+  }
+
   async function postMaterial(e) {
     e.preventDefault();
     setPosting(true);
     setMessage('');
+
+    let fileUrl = materialFileUrl;
+    try {
+      if (materialFile) {
+        setMessage('Uploading file…');
+        fileUrl = await uploadFile(materialFile);
+      }
+    } catch (err) {
+      setPosting(false);
+      return setMessage('File upload failed: ' + err.message);
+    }
+
     const { error } = await supabase.from('weekly_materials').insert({
       cohort_id: selectedCohort,
       week_number: Number(weekNumber),
       title,
       content: contentText,
+      file_url: fileUrl || null,
       posted_by: profile.id,
     });
     setPosting(false);
@@ -89,18 +126,33 @@ export default function InstructorDashboard() {
     setMessage('Posted.');
     setTitle('');
     setContentText('');
+    setMaterialFile(null);
+    setMaterialFileUrl('');
   }
 
   async function postAssignment(e) {
     e.preventDefault();
     setHwPosting(true);
     setHwMessage('');
+
+    let fileUrl = hwFileUrl;
+    try {
+      if (hwFile) {
+        setHwMessage('Uploading file…');
+        fileUrl = await uploadFile(hwFile);
+      }
+    } catch (err) {
+      setHwPosting(false);
+      return setHwMessage('File upload failed: ' + err.message);
+    }
+
     const { error } = await supabase.from('assignments').insert({
       cohort_id: selectedCohort,
       week_number: Number(hwWeek),
       title: hwTitle,
       instructions: hwInstructions,
       due_date: hwDueDate || null,
+      file_url: fileUrl || null,
       posted_by: profile.id,
     });
     setHwPosting(false);
@@ -109,8 +161,15 @@ export default function InstructorDashboard() {
     setHwTitle('');
     setHwInstructions('');
     setHwDueDate('');
+    setHwFile(null);
+    setHwFileUrl('');
     loadAssignments(selectedCohort);
   }
+
+  const roster = students.map((s) => ({
+    id: s.student_id,
+    name: s.profiles?.full_name || s.profiles?.email || 'Student',
+  }));
 
   return (
     <div style={{ padding: `${space.xxl} 0 ${space.xxxl}` }}>
@@ -139,9 +198,14 @@ export default function InstructorDashboard() {
           <div>
             <h2 style={{ ...h2, fontSize: '20px', marginBottom: space.sm }}>Post a weekly update</h2>
             <form onSubmit={postMaterial} style={{ display: 'flex', flexDirection: 'column', gap: space.sm, maxWidth: '520px', marginBottom: space.xl }}>
-              <input type="number" placeholder="Week number" value={weekNumber} onChange={(e) => setWeekNumber(e.target.value)} required style={inputStyle} />
+              <select value={weekNumber} onChange={(e) => setWeekNumber(e.target.value)} style={inputStyle}>
+                {WEEK_OPTIONS.map((w) => (
+                  <option key={w} value={weekValue(w)}>{weekLabel(weekValue(w))}</option>
+                ))}
+              </select>
               <input type="text" placeholder="Title (e.g. 'What to expect this week')" value={title} onChange={(e) => setTitle(e.target.value)} required style={inputStyle} />
-              <textarea placeholder="Recap, notes, or announcement…" value={contentText} onChange={(e) => setContentText(e.target.value)} rows={4} style={{ ...inputStyle, resize: 'vertical', fontFamily: font.body }} />
+              <textarea placeholder="Notes for this file, or a recap/announcement…" value={contentText} onChange={(e) => setContentText(e.target.value)} rows={4} style={{ ...inputStyle, resize: 'vertical', fontFamily: font.body }} />
+              <input type="file" onChange={(e) => setMaterialFile(e.target.files[0])} style={{ fontFamily: font.body, fontSize: '13px', color: color.muted }} />
               <button type="submit" disabled={posting} style={{ ...buttonPrimary, justifyContent: 'center' }}>
                 {posting ? 'Posting…' : 'Post update'}
               </button>
@@ -150,10 +214,15 @@ export default function InstructorDashboard() {
 
             <h2 style={{ ...h2, fontSize: '20px', marginBottom: space.sm }}>Post homework</h2>
             <form onSubmit={postAssignment} style={{ display: 'flex', flexDirection: 'column', gap: space.sm, maxWidth: '520px', marginBottom: space.xl }}>
-              <input type="number" placeholder="Week number" value={hwWeek} onChange={(e) => setHwWeek(e.target.value)} required style={inputStyle} />
+              <select value={hwWeek} onChange={(e) => setHwWeek(e.target.value)} style={inputStyle}>
+                {WEEK_OPTIONS.map((w) => (
+                  <option key={w} value={weekValue(w)}>{weekLabel(weekValue(w))}</option>
+                ))}
+              </select>
               <input type="text" placeholder="Assignment title" value={hwTitle} onChange={(e) => setHwTitle(e.target.value)} required style={inputStyle} />
-              <textarea placeholder="Instructions…" value={hwInstructions} onChange={(e) => setHwInstructions(e.target.value)} rows={3} style={{ ...inputStyle, resize: 'vertical', fontFamily: font.body }} />
+              <textarea placeholder="Notes for this file, or instructions…" value={hwInstructions} onChange={(e) => setHwInstructions(e.target.value)} rows={3} style={{ ...inputStyle, resize: 'vertical', fontFamily: font.body }} />
               <input type="date" value={hwDueDate} onChange={(e) => setHwDueDate(e.target.value)} style={inputStyle} />
+              <input type="file" onChange={(e) => setHwFile(e.target.files[0])} style={{ fontFamily: font.body, fontSize: '13px', color: color.muted }} />
               <button type="submit" disabled={hwPosting} style={{ ...buttonPrimary, justifyContent: 'center' }}>
                 {hwPosting ? 'Posting…' : 'Post homework'}
               </button>
@@ -170,7 +239,7 @@ export default function InstructorDashboard() {
                 return (
                   <div key={a.id} style={{ ...card, padding: space.md, marginBottom: space.md }}>
                     <h3 style={{ fontFamily: 'Space Grotesk, sans-serif', fontSize: '15px', color: color.white, marginBottom: '6px' }}>
-                      Week {a.week_number} — {a.title}
+                      {weekLabel(a.week_number)} — {a.title}
                     </h3>
                     <p style={{ fontFamily: font.mono, fontSize: '12px', color: color.cyanDim, marginBottom: '8px' }}>
                       {submitted.size} / {students.length} submitted
@@ -205,8 +274,15 @@ export default function InstructorDashboard() {
           </div>
 
           <div>
-            <h2 style={{ ...h2, fontSize: '20px', marginBottom: space.md }}>Talk to your class</h2>
-            {selectedCohort && <ClassChat cohortId={selectedCohort} />}
+            <div style={{ display: 'flex', gap: '8px', marginBottom: space.sm }}>
+              <button onClick={() => setChatMode('class')} style={chatMode === 'class' ? tabActive : tabInactive}>Class Chat</button>
+              <button onClick={() => setChatMode('dm')} style={chatMode === 'dm' ? tabActive : tabInactive}>Direct Messages</button>
+            </div>
+            {chatMode === 'class' ? (
+              selectedCohort && <ClassChat cohortId={selectedCohort} />
+            ) : (
+              selectedCohort && <DirectMessages cohortId={selectedCohort} roster={roster} />
+            )}
           </div>
         </div>
       </div>
@@ -245,4 +321,22 @@ const inputStyle = {
 const selectStyle = {
   ...inputStyle,
   maxWidth: '320px',
+};
+
+const tabActive = {
+  fontFamily: font.mono,
+  fontSize: '12px',
+  color: color.bg,
+  background: color.cyan,
+  border: 'none',
+  borderRadius: '999px',
+  padding: '8px 14px',
+  cursor: 'pointer',
+};
+
+const tabInactive = {
+  ...tabActive,
+  color: color.muted,
+  background: 'transparent',
+  border: `1px solid ${color.line}`,
 };

@@ -4,10 +4,13 @@ import { supabase } from '../../lib/supabaseClient';
 import ClassChat from '../../components/ClassChat';
 import DirectMessages from '../../components/DirectMessages';
 import GradientOrb from '../../components/GradientOrb';
+import GettingStarted from '../../components/GettingStarted';
 import { color, eyebrow, h1, h2, body, card, radius, buttonPrimary, buttonGhost, container, space, font } from '../../styles/tokens';
 
 function weekLabel(n) {
-  return n === 9 ? 'Graduation' : `Week ${n}`;
+  if (n === 0) return 'Pre-Class';
+  if (n === 9) return 'Graduation';
+  return `Week ${n}`;
 }
 
 export default function StudentDashboard() {
@@ -127,6 +130,8 @@ export default function StudentDashboard() {
                 {cohort.meeting_day}s, {cohort.meeting_time} · {cohort.start_date} to {cohort.end_date}
               </p>
             </div>
+
+            <GettingStarted />
 
             <div style={{ display: 'grid', gridTemplateColumns: '1.3fr 1fr', gap: space.xl }} className="lynk-student-grid">
               <div>

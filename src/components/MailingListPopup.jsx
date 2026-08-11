@@ -1,11 +1,27 @@
 import { useState, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import MailingListSignup from './MailingListSignup';
 import { color, radius, space } from '../styles/tokens';
 
+const EXCLUDED_PATHS = ['/login', '/portal'];
+
+// Shows once per browser session (not once per page — sessionStorage
+// persists across navigation until the tab closes), a few seconds after
+// landing, so it doesn't ambush people the instant the page loads.
+// Skipped entirely on login/portal — signing in isn't the moment to
+// also ask someone to join a mailing list.
 export default function MailingListPopup() {
+  const location = useLocation();
   const [visible, setVisible] = useState(false);
 
+  const isExcluded = EXCLUDED_PATHS.some((path) => location.pathname.startsWith(path));
+
   useEffect(() => {
+    if (isExcluded) {
+      setVisible(false);
+      return;
+    }
+
     const alreadyShown = sessionStorage.getItem('lynk-mailing-popup-shown');
     if (alreadyShown) return;
 
@@ -15,9 +31,9 @@ export default function MailingListPopup() {
     }, 4000);
 
     return () => clearTimeout(timer);
-  }, []);
+  }, [isExcluded]);
 
-  if (!visible) return null;
+  if (!visible || isExcluded) return null;
 
   function close() {
     setVisible(false);

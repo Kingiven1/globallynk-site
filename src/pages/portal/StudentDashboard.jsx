@@ -13,6 +13,35 @@ function weekLabel(n) {
   return `Week ${n}`;
 }
 
+// Turns any URL sitting in plain text (like a pasted Google Drive or
+// Dropbox link) into an actual clickable link, since instructors paste
+// links into free-text notes fields rather than a dedicated URL field.
+function Linkified(props) {
+  const text = props.text || '';
+  const parts = text.split(/(https?:\/\/[^\s]+)/g);
+
+  return (
+    <>
+      {parts.map((part, i) => {
+        if (part.match(/^https?:\/\//)) {
+          return (
+            <a
+              key={i}
+              href={part}
+              target="_blank"
+              rel="noreferrer"
+              style={{ color: color.cyan, wordBreak: 'break-all' }}
+            >
+              {part}
+            </a>
+          );
+        }
+        return <span key={i}>{part}</span>;
+      })}
+    </>
+  );
+}
+
 export default function StudentDashboard() {
   const { profile, signOut } = useAuth();
   const [cohort, setCohort] = useState(null);
@@ -150,11 +179,16 @@ export default function StudentDashboard() {
                         <h3 style={{ fontFamily: 'Space Grotesk, sans-serif', fontSize: '17px', color: color.white, marginBottom: '6px' }}>
                           {a.title}
                         </h3>
-                        {a.instructions && <p style={{ ...body, fontSize: '14px', marginBottom: space.sm }}>{a.instructions}</p>}
+                        {a.instructions && <p style={{ ...body, fontSize: '14px', marginBottom: space.sm }}><Linkified text={a.instructions} /></p>}
                         {a.file_url && (
-                          <a href={a.file_url} target="_blank" rel="noreferrer" style={{ display: 'inline-block', color: color.cyan, fontSize: '13px', fontFamily: font.body, fontWeight: 600, marginBottom: space.sm }}>
-                            View file →
-                          </a>
+                          <div style={{ display: 'flex', gap: '14px', marginBottom: space.sm }}>
+                            <a href={a.file_url} target="_blank" rel="noreferrer" style={{ color: color.cyan, fontSize: '13px', fontFamily: font.body, fontWeight: 600 }}>
+                              View file →
+                            </a>
+                            <a href={`${a.file_url}?download`} download target="_blank" rel="noreferrer" style={{ color: color.cyan, fontSize: '13px', fontFamily: font.body, fontWeight: 600 }}>
+                              Download →
+                            </a>
+                          </div>
                         )}
 
                         {existing ? (
@@ -203,11 +237,16 @@ export default function StudentDashboard() {
                       <h3 style={{ fontFamily: 'Space Grotesk, sans-serif', fontSize: '17px', color: color.white, marginBottom: '4px' }}>
                         {m.title}
                       </h3>
-                      {m.content && <p style={{ ...body, fontSize: '14px' }}>{m.content}</p>}
+                      {m.content && <p style={{ ...body, fontSize: '14px' }}><Linkified text={m.content} /></p>}
                       {m.file_url && (
-                        <a href={m.file_url} target="_blank" rel="noreferrer" style={{ color: color.cyan, fontSize: '13px', fontFamily: font.body, fontWeight: 600 }}>
-                          View file →
-                        </a>
+                        <div style={{ display: 'flex', gap: '14px' }}>
+                          <a href={m.file_url} target="_blank" rel="noreferrer" style={{ color: color.cyan, fontSize: '13px', fontFamily: font.body, fontWeight: 600 }}>
+                            View file →
+                          </a>
+                          <a href={`${m.file_url}?download`} download target="_blank" rel="noreferrer" style={{ color: color.cyan, fontSize: '13px', fontFamily: font.body, fontWeight: 600 }}>
+                            Download →
+                          </a>
+                        </div>
                       )}
                     </div>
                   ))

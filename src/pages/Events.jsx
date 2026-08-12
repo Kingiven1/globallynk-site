@@ -9,7 +9,7 @@ const EVENTS = [
     date: 'SEP 12',
     type: 'Cohort',
     title: 'Fall 2026 DJ Cohort Begins',
-    copy: '8 weeks, Saturdays 11AM–1PM, Charlotte. Applications open now — 15 spots.',
+    copy: '8 weeks, Saturdays 11AM–1PM, Charlotte. Applications are full — join the mailing list for the next cohort.',
     poshUrl: '/cohort',
     internal: true,
     image: cohortFlyer,

@@ -98,7 +98,7 @@ export default function GettingStarted() {
                     <div style={{ fontFamily: font.mono, fontSize: '12px', color: color.cyan, marginBottom: '6px' }}>
                       {item.price}
                     </div>
-                    <p style={{ ...body, fontSize: '13px' }}>{item.note}</p>
+                    <p style={{ ...body, fontSize: '15px', color: color.white, lineHeight: 1.6 }}>{item.note}</p>
                   </a>
                 ))}
               </div>
@@ -109,7 +109,7 @@ export default function GettingStarted() {
             <div style={{ fontFamily: font.mono, fontSize: '12px', color: color.cyanDim, marginBottom: '6px' }}>
               NO CREDIT NEEDED
             </div>
-            <p style={{ ...body, fontSize: '13px', marginBottom: space.xs }}>
+            <p style={{ ...body, fontSize: '15px', color: color.white, lineHeight: 1.6, marginBottom: space.xs }}>
               Look for items marked "No Credit Check" on zZounds, add to cart, and select that payment plan at checkout. No SSN, no paperwork, no interest, no late fees.
             </p>
             <a href="https://www.zzounds.com/cat--Computer-DJ--4039" target="_blank" rel="noreferrer" style={{ color: color.cyan, fontFamily: font.mono, fontSize: '12px' }}>
@@ -124,7 +124,7 @@ export default function GettingStarted() {
               <div style={{ fontFamily: 'Space Grotesk, sans-serif', fontSize: '15px', color: color.white, marginBottom: '2px' }}>
                 {step.title}
               </div>
-              <p style={{ ...body, fontSize: '13px' }}>{step.copy}</p>
+              <p style={{ ...body, fontSize: '15px', color: color.white, lineHeight: 1.6 }}>{step.copy}</p>
             </div>
           ))}
         </div>

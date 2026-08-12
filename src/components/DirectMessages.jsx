@@ -10,7 +10,7 @@ export default function DirectMessages(props) {
   const [recipientId, setRecipientId] = useState('');
   const [messages, setMessages] = useState([]);
   const [text, setText] = useState('');
-  const bottomRef = useRef(null);
+  const messagesRef = useRef(null);
 
   useEffect(() => {
     if (roster.length && !recipientId) setRecipientId(roster[0].id);
@@ -42,7 +42,9 @@ export default function DirectMessages(props) {
   }, [cohortId, recipientId]);
 
   useEffect(() => {
-    bottomRef.current?.scrollIntoView({ behavior: 'smooth' });
+    if (messagesRef.current) {
+      messagesRef.current.scrollTop = messagesRef.current.scrollHeight;
+    }
   }, [messages]);
 
   async function loadMessages() {
@@ -104,7 +106,7 @@ export default function DirectMessages(props) {
         )}
       </div>
 
-      <div style={{ flex: 1, overflowY: 'auto', padding: space.md, display: 'flex', flexDirection: 'column', gap: '12px' }}>
+      <div ref={messagesRef} style={{ flex: 1, overflowY: 'auto', padding: space.md, display: 'flex', flexDirection: 'column', gap: '12px' }}>
         {messages.length === 0 && (
           <p style={{ fontFamily: font.body, fontSize: '14px', color: color.mutedDim }}>No messages yet.</p>
         )}
@@ -128,7 +130,6 @@ export default function DirectMessages(props) {
             </div>
           );
         })}
-        <div ref={bottomRef} />
       </div>
 
       <form onSubmit={handleSend} style={{ display: 'flex', gap: '8px', padding: space.sm, borderTop: `1px solid ${color.line}` }}>

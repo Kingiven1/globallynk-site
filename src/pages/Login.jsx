@@ -24,7 +24,10 @@ export default function Login() {
       const { error } = await supabase.auth.signUp({
         email,
         password,
-        options: { data: { full_name: fullName, access_code: accessCode } },
+        options: {
+          data: { full_name: fullName, access_code: accessCode },
+          emailRedirectTo: `${window.location.origin}/portal`,
+        },
       });
       setLoading(false);
       if (error) return setError(error.message);

@@ -6,14 +6,18 @@ import DirectMessages from '../../components/DirectMessages';
 import GradientOrb from '../../components/GradientOrb';
 import { color, eyebrow, h1, h2, body, card, radius, buttonPrimary, buttonGhost, container, space, font } from '../../styles/tokens';
 
-const WEEK_OPTIONS = [1, 2, 3, 4, 5, 6, 7, 8, 'Graduation'];
+const WEEK_OPTIONS = ['Pre-Class', 1, 2, 3, 4, 5, 6, 7, 8, 'Graduation'];
 
 function weekValue(w) {
-  return w === 'Graduation' ? 9 : w;
+  if (w === 'Pre-Class') return 0;
+  if (w === 'Graduation') return 9;
+  return w;
 }
 
 function weekLabel(n) {
-  return n === 9 ? 'Graduation' : `Week ${n}`;
+  if (n === 0) return 'Pre-Class';
+  if (n === 9) return 'Graduation';
+  return `Week ${n}`;
 }
 
 export default function InstructorDashboard() {

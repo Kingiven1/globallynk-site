@@ -18,13 +18,32 @@ export default function Nav() {
   const [open, setOpen] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
-  const { session, signOut } = useAuth();
+  const { session, profile, signOut } = useAuth();
 
   async function handleSignOut() {
     await signOut();
     setOpen(false);
     navigate('/');
   }
+
+  const linkStyle = (path) => ({
+    fontFamily: font.mono,
+    fontSize: '13px',
+    letterSpacing: '0.01em',
+    textDecoration: 'none',
+    color: location.pathname === path ? color.cyan : color.muted,
+    paddingBottom: '4px',
+    borderBottom: location.pathname === path ? `1px solid ${color.cyan}` : '1px solid transparent',
+    whiteSpace: 'nowrap',
+  });
+
+  const mobileLinkStyle = (path) => ({
+    fontFamily: font.mono,
+    fontSize: '14px',
+    letterSpacing: '0.01em',
+    textDecoration: 'none',
+    color: location.pathname === path ? color.cyan : color.white,
+  });
 
   return (
     <header
@@ -52,44 +71,21 @@ export default function Nav() {
 
         <nav style={{ display: 'flex', alignItems: 'center', gap: '26px' }} className="lynk-nav-desktop">
           {BASE_LINKS.map((link) => (
-            <Link
-              key={link.to}
-              to={link.to}
-              style={{
-                fontFamily: font.mono,
-                fontSize: '13px',
-                letterSpacing: '0.01em',
-                textDecoration: 'none',
-                color: location.pathname === link.to ? color.cyan : color.muted,
-                paddingBottom: '4px',
-                borderBottom:
-                  location.pathname === link.to
-                    ? `1px solid ${color.cyan}`
-                    : '1px solid transparent',
-                whiteSpace: 'nowrap',
-              }}
-            >
+            <Link key={link.to} to={link.to} style={linkStyle(link.to)}>
               {link.label}
             </Link>
           ))}
 
           {session ? (
             <>
-              <Link
-                to="/portal"
-                style={{
-                  fontFamily: font.mono,
-                  fontSize: '13px',
-                  letterSpacing: '0.01em',
-                  textDecoration: 'none',
-                  color: location.pathname === '/portal' ? color.cyan : color.muted,
-                  paddingBottom: '4px',
-                  borderBottom: location.pathname === '/portal' ? `1px solid ${color.cyan}` : '1px solid transparent',
-                  whiteSpace: 'nowrap',
-                }}
-              >
+              <Link to="/portal" style={linkStyle('/portal')}>
                 Portal
               </Link>
+              {profile?.role === 'admin' && (
+                <Link to="/admin/students" style={linkStyle('/admin/students')}>
+                  Students
+                </Link>
+              )}
               <button
                 onClick={handleSignOut}
                 style={{
@@ -109,19 +105,7 @@ export default function Nav() {
               </button>
             </>
           ) : (
-            <Link
-              to="/login"
-              style={{
-                fontFamily: font.mono,
-                fontSize: '13px',
-                letterSpacing: '0.01em',
-                textDecoration: 'none',
-                color: location.pathname === '/login' ? color.cyan : color.muted,
-                paddingBottom: '4px',
-                borderBottom: location.pathname === '/login' ? `1px solid ${color.cyan}` : '1px solid transparent',
-                whiteSpace: 'nowrap',
-              }}
-            >
+            <Link to="/login" style={linkStyle('/login')}>
               Sign In
             </Link>
           )}
@@ -157,37 +141,21 @@ export default function Nav() {
           }}
         >
           {BASE_LINKS.map((link) => (
-            <Link
-              key={link.to}
-              to={link.to}
-              onClick={() => setOpen(false)}
-              style={{
-                fontFamily: font.mono,
-                fontSize: '14px',
-                letterSpacing: '0.01em',
-                textDecoration: 'none',
-                color: location.pathname === link.to ? color.cyan : color.white,
-              }}
-            >
+            <Link key={link.to} to={link.to} onClick={() => setOpen(false)} style={mobileLinkStyle(link.to)}>
               {link.label}
             </Link>
           ))}
 
           {session ? (
             <>
-              <Link
-                to="/portal"
-                onClick={() => setOpen(false)}
-                style={{
-                  fontFamily: font.mono,
-                  fontSize: '14px',
-                  letterSpacing: '0.01em',
-                  textDecoration: 'none',
-                  color: location.pathname === '/portal' ? color.cyan : color.white,
-                }}
-              >
+              <Link to="/portal" onClick={() => setOpen(false)} style={mobileLinkStyle('/portal')}>
                 Portal
               </Link>
+              {profile?.role === 'admin' && (
+                <Link to="/admin/students" onClick={() => setOpen(false)} style={mobileLinkStyle('/admin/students')}>
+                  Students
+                </Link>
+              )}
               <button
                 onClick={handleSignOut}
                 style={{
@@ -206,17 +174,7 @@ export default function Nav() {
               </button>
             </>
           ) : (
-            <Link
-              to="/login"
-              onClick={() => setOpen(false)}
-              style={{
-                fontFamily: font.mono,
-                fontSize: '14px',
-                letterSpacing: '0.01em',
-                textDecoration: 'none',
-                color: location.pathname === '/login' ? color.cyan : color.white,
-              }}
-            >
+            <Link to="/login" onClick={() => setOpen(false)} style={mobileLinkStyle('/login')}>
               Sign In
             </Link>
           )}

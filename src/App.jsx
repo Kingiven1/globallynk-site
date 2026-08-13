@@ -15,6 +15,7 @@ import Contact from './pages/Contact';
 import BookDJ from './pages/BookDJ';
 import Login from './pages/Login';
 import Portal from './pages/Portal';
+import AdminStudents from './pages/AdminStudents';
 import { page } from './styles/tokens';
 
 export default function App() {
@@ -39,6 +40,14 @@ export default function App() {
               element={
                 <ProtectedRoute>
                   <Portal />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/admin/students"
+              element={
+                <ProtectedRoute>
+                  <AdminStudents />
                 </ProtectedRoute>
               }
             />

@@ -3,6 +3,7 @@ import GradientOrb from '../components/GradientOrb';
 import heroPhoto from '../assets/images/481A8469.jpg';
 import winnersPhoto from '../assets/images/winners.jpg';
 import workshopFlyer from '../assets/images/workshopflyer.png';
+import dcWorkshopFlyer from '../assets/images/dcworkshopflyer.png';
 import {
   color, eyebrow, h1, h2, bodyLg, body, card, radius,
   buttonPrimary, buttonGhost, container, section, space, font,
@@ -20,6 +21,21 @@ const PILLARS = [
   { n: '02', title: 'Grow', copy: 'Go deeper in a Multi-Week Cohort — structured learning, accountability, real skill development.', to: '/cohort', cta: 'How the cohort works', accent: color.purple, gradient: `linear-gradient(135deg, ${color.purple}, #C7A5FF)` },
   { n: '03', title: 'Stay Connected', copy: 'Graduation is the beginning. Alumni stay plugged into showcases, collaborations, and future opportunities.', to: '/alumni', cta: 'Meet our alumni', accent: color.pink, gradient: `linear-gradient(135deg, ${color.pink}, #FFA8CC)` },
   { n: '04', title: 'Discover', copy: 'DJ sets, showcases, and cultural experiences — the events that started this whole thing in the first place.', to: '/journey', cta: 'See our journey', accent: color.cyan, gradient: `linear-gradient(135deg, ${color.cyan}, #6FE3EE)` },
+];
+
+const FEATURED_WORKSHOPS = [
+  {
+    city: 'Charlotte, NC',
+    dateLabel: 'Monthly · Next: 10/20',
+    image: workshopFlyer,
+    ticketUrl: 'https://posh.vip/series/intro-to-dj-workshop',
+  },
+  {
+    city: 'Washington, DC',
+    dateLabel: 'September 16',
+    image: dcWorkshopFlyer,
+    ticketUrl: 'https://posh.vip/e/global-lynk-intro-to-dj-workshop-dc',
+  },
 ];
 
 export default function Home() {
@@ -60,43 +76,43 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Featured: Intro to DJ Workshop — split banner, one card per city */}
       <section style={{ ...section, paddingTop: 0 }}>
         <div style={container}>
-          <div
-            style={{
-              ...card,
-              display: 'grid',
-              gridTemplateColumns: '0.85fr 1.15fr',
-              gap: space.xl,
-              alignItems: 'center',
-              padding: space.xl,
-              border: `1px solid ${color.cyanDim}`,
-              boxShadow: `0 0 0 1px ${color.cyanFaint}`,
-            }}
-            className="lynk-featured-grid"
-          >
-            <img
-              src={workshopFlyer}
-              alt="Intro to DJ Workshop flyer"
-              style={{ width: '100%', height: 'auto', borderRadius: radius.md }}
-            />
-            <div>
-              <div style={eyebrow}><span>Most popular · Start here</span></div>
-              <h2 style={{ ...h2, fontSize: 'clamp(26px, 3.5vw, 36px)', marginBottom: space.sm }}>
-                Intro to DJ Workshop
-              </h2>
-              <p style={{ ...bodyLg, marginBottom: space.md }}>
-                The easiest way into GlobalLYNK. One beginner-friendly session in
-                Charlotte, hands-on gear, no experience required — this is where
-                most people start.
-              </p>
-              <div style={{ display: 'flex', gap: space.sm, flexWrap: 'wrap' }}>
-                <a href="https://posh.vip/series/intro-to-dj-workshop" target="_blank" rel="noreferrer" style={buttonPrimary}>
+          <div style={eyebrow}><span>Most popular · Start here</span></div>
+          <h2 style={{ ...h2, fontSize: 'clamp(26px, 3.5vw, 36px)', marginBottom: space.lg }}>
+            Intro to DJ Workshop
+          </h2>
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: space.lg }} className="lynk-featured-split">
+            {FEATURED_WORKSHOPS.map((w) => (
+              <div
+                key={w.city}
+                style={{
+                  ...card,
+                  padding: space.lg,
+                  border: `1px solid ${color.cyanDim}`,
+                  boxShadow: `0 0 0 1px ${color.cyanFaint}`,
+                }}
+              >
+                <img
+                  src={w.image}
+                  alt={`Intro to DJ Workshop — ${w.city}`}
+                  style={{ width: '100%', height: 'auto', borderRadius: radius.md, marginBottom: space.md }}
+                />
+                <div style={{ fontFamily: font.mono, fontSize: '12px', letterSpacing: '0.02em', color: color.cyanDim, marginBottom: '4px' }}>
+                  {w.dateLabel}
+                </div>
+                <h3 style={{ fontFamily: 'Space Grotesk, sans-serif', fontSize: '20px', color: color.white, marginBottom: space.sm }}>
+                  {w.city}
+                </h3>
+                <a href={w.ticketUrl} target="_blank" rel="noreferrer" style={{ ...buttonPrimary, justifyContent: 'center', width: '100%' }}>
                   Get tickets →
                 </a>
-                <Link to="/events" style={buttonGhost}>See all dates</Link>
               </div>
-            </div>
+            ))}
+          </div>
+          <div style={{ marginTop: space.md }}>
+            <Link to="/events" style={buttonGhost}>See all dates</Link>
           </div>
         </div>
       </section>
@@ -192,7 +208,7 @@ export default function Home() {
           .lynk-cultural-grid { grid-template-columns: 1fr !important; }
           .lynk-hero-grid { grid-template-columns: 1fr !important; }
           .lynk-pillars-grid { grid-template-columns: 1fr !important; }
-          .lynk-featured-grid { grid-template-columns: 1fr !important; }
+          .lynk-featured-split { grid-template-columns: 1fr !important; }
         }
         .lynk-pillar-card:hover {
           transform: translateY(-2px);

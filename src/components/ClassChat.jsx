@@ -60,6 +60,42 @@ export default function ClassChat(props) {
       sender_name: profile.full_name || profile.email,
       body,
     });
+
+    // Only notify instructors when a student posts — not the other way
+    // around, since emailing every student on every instructor message
+    // would be too much. Fire-and-forget, doesn't block the UI.
+    if (profile.role === 'student') {
+      notifyInstructors(body);
+    }
+  }
+
+  async function notifyInstructors(body) {
+    try {
+      const { data: instructors } = await supabase
+        .from('profiles')
+        .select('email, full_name')
+        .in('role', ['instructor', 'admin']);
+
+      if (!instructors?.length) return;
+
+      await Promise.all(
+        instructors.map((instructor) =>
+          fetch('/api/notify-message', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              recipientEmail: instructor.email,
+              recipientName: instructor.full_name,
+              senderName: profile.full_name || profile.email,
+              messageBody: body,
+              context: 'class_chat',
+            }),
+          })
+        )
+      );
+    } catch (err) {
+      console.error('Class Chat notification failed to send:', err);
+    }
   }
 
   return (

@@ -2,9 +2,18 @@ import GradientOrb from '../components/GradientOrb';
 import { color, eyebrow, h1, body, buttonPrimary, buttonGhost, container, section, space, font, radius } from '../styles/tokens';
 import cohortFlyer from '../assets/images/cohortflyer.png';
 import workshopFlyer from '../assets/images/workshopflyer.png';
+import dcWorkshopFlyer from '../assets/images/dcworkshopflyer.png';
 import prismFlyer from '../assets/images/prism.png';
 
 const EVENTS = [
+  {
+    date: 'SEP 16',
+    type: 'Workshop',
+    title: 'Intro to DJ Workshop — Washington, DC',
+    copy: 'Learn, connect, create. Led by King Iven & JusJamz. No experience or gear required.',
+    poshUrl: 'https://posh.vip/e/global-lynk-intro-to-dj-workshop-dc',
+    image: dcWorkshopFlyer,
+  },
   {
     date: 'SEP 12',
     type: 'Cohort',
@@ -17,8 +26,8 @@ const EVENTS = [
   {
     date: 'MONTHLY',
     type: 'Workshop',
-    title: 'Intro to DJ Workshop',
-    copy: 'Beginner-friendly, hands-on sessions in Charlotte, NC. Next dates: 8/18, 9/15, 10/20, 11/17, 12/15. No experience or gear required.',
+    title: 'Intro to DJ Workshop — Charlotte, NC',
+    copy: 'Beginner-friendly, hands-on sessions in Charlotte, NC. Next dates: 10/20, 11/17, 12/15. No experience or gear required.',
     poshUrl: 'https://posh.vip/series/intro-to-dj-workshop',
     image: workshopFlyer,
   },

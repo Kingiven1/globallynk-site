@@ -3,7 +3,6 @@ import { color, eyebrow, h1, body, buttonPrimary, buttonGhost, container, sectio
 import cohortFlyer from '../assets/images/cohortflyer.png';
 import workshopFlyer from '../assets/images/workshopflyer.png';
 import dcWorkshopFlyer from '../assets/images/dcworkshopflyer.png';
-import prismFlyer from '../assets/images/prism.png';
 
 const EVENTS = [
   {
@@ -30,14 +29,6 @@ const EVENTS = [
     copy: 'Beginner-friendly, hands-on sessions in Charlotte, NC. Next dates: 10/20, 11/17, 12/15. No experience or gear required.',
     poshUrl: 'https://posh.vip/series/intro-to-dj-workshop',
     image: workshopFlyer,
-  },
-  {
-    date: 'UPCOMING',
-    type: 'Dance Night',
-    title: 'Prism Social — Global Dance',
-    copy: 'A night of sets from GlobalLYNK DJs. Open to everyone, no experience needed to attend.',
-    poshUrl: 'https://posh.vip/e/prism-social-global-dance-',
-    image: prismFlyer,
   },
 ];
 

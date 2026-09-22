@@ -72,6 +72,36 @@ export default function DirectMessages(props) {
       sender_name: profile.full_name || profile.email,
       body,
     });
+
+    // Fire-and-forget notification to the recipient. Doesn't block the UI,
+    // and doesn't depend on `roster` carrying an email — looks it up fresh.
+    notifyRecipient(body);
+  }
+
+  async function notifyRecipient(body) {
+    try {
+      const { data: recipient } = await supabase
+        .from('profiles')
+        .select('email, full_name')
+        .eq('id', recipientId)
+        .single();
+
+      if (!recipient?.email) return;
+
+      await fetch('/api/notify-message', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          recipientEmail: recipient.email,
+          recipientName: recipient.full_name,
+          senderName: profile.full_name || profile.email,
+          messageBody: body,
+          context: 'direct_message',
+        }),
+      });
+    } catch (err) {
+      console.error('Direct Message notification failed to send:', err);
+    }
   }
 
   return (

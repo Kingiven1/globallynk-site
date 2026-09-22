@@ -61,11 +61,15 @@ export default function ClassChat(props) {
       body,
     });
 
-    // Only notify instructors when a student posts — not the other way
-    // around, since emailing every student on every instructor message
-    // would be too much. Fire-and-forget, doesn't block the UI.
+    // Students posting notify the instructors/admins for that cohort.
+    // Instructors/admins posting notify the whole student roster —
+    // instructors post far less often, so this won't spam anyone, and
+    // their messages (schedule changes, reminders) are usually the ones
+    // worth an email. Fire-and-forget either way, doesn't block the UI.
     if (profile.role === 'student') {
       notifyInstructors(body);
+    } else {
+      notifyStudents(body);
     }
   }
 
@@ -86,6 +90,36 @@ export default function ClassChat(props) {
             body: JSON.stringify({
               recipientEmail: instructor.email,
               recipientName: instructor.full_name,
+              senderName: profile.full_name || profile.email,
+              messageBody: body,
+              context: 'class_chat',
+            }),
+          })
+        )
+      );
+    } catch (err) {
+      console.error('Class Chat notification failed to send:', err);
+    }
+  }
+
+  async function notifyStudents(body) {
+    try {
+      const { data: students } = await supabase
+        .from('profiles')
+        .select('email, full_name')
+        .eq('cohort_id', cohortId)
+        .eq('role', 'student');
+
+      if (!students?.length) return;
+
+      await Promise.all(
+        students.map((student) =>
+          fetch('/api/notify-message', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              recipientEmail: student.email,
+              recipientName: student.full_name,
               senderName: profile.full_name || profile.email,
               messageBody: body,
               context: 'class_chat',

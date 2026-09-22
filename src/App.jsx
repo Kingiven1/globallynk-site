@@ -14,6 +14,7 @@ import AlumniDirectory from './pages/AlumniDirectory';
 import Contact from './pages/Contact';
 import BookDJ from './pages/BookDJ';
 import Login from './pages/Login';
+import ResetPassword from './pages/ResetPassword';
 import Portal from './pages/Portal';
 import AdminStudents from './pages/AdminStudents';
 import { page } from './styles/tokens';
@@ -35,6 +36,7 @@ export default function App() {
             <Route path="/contact" element={<Contact />} />
             <Route path="/book-dj" element={<BookDJ />} />
             <Route path="/login" element={<Login />} />
+            <Route path="/reset-password" element={<ResetPassword />} />
             <Route
               path="/portal"
               element={

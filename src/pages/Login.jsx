@@ -5,7 +5,7 @@ import GradientOrb from '../components/GradientOrb';
 import { color, eyebrow, h1, body, buttonPrimary, card, radius, container, space, font } from '../styles/tokens';
 
 export default function Login() {
-  const [mode, setMode] = useState('signin');
+  const [mode, setMode] = useState('signin'); // 'signin' | 'signup' | 'forgot'
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [fullName, setFullName] = useState('');
@@ -13,12 +13,23 @@ export default function Login() {
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const [checkEmail, setCheckEmail] = useState(false);
+  const [resetSent, setResetSent] = useState(false);
   const navigate = useNavigate();
 
   async function handleSubmit(e) {
     e.preventDefault();
     setError('');
     setLoading(true);
+
+    if (mode === 'forgot') {
+      const { error } = await supabase.auth.resetPasswordForEmail(email, {
+        redirectTo: `${window.location.origin}/reset-password`,
+      });
+      setLoading(false);
+      if (error) return setError(error.message);
+      setResetSent(true);
+      return;
+    }
 
     if (mode === 'signup') {
       const { error } = await supabase.auth.signUp({
@@ -41,6 +52,12 @@ export default function Login() {
     navigate('/portal');
   }
 
+  function switchMode(next) {
+    setMode(next);
+    setError('');
+    setResetSent(false);
+  }
+
   if (checkEmail) {
     return (
       <div style={{ position: 'relative', padding: `${space.xxl} 0`, overflow: 'hidden' }}>
@@ -57,13 +74,46 @@ export default function Login() {
     );
   }
 
+  if (resetSent) {
+    return (
+      <div style={{ position: 'relative', padding: `${space.xxl} 0`, overflow: 'hidden' }}>
+        <GradientOrb seed={91} size={380} style={{ position: 'absolute', top: '-100px', left: '-80px', zIndex: 0 }} />
+        <div style={{ ...container, position: 'relative', zIndex: 1, maxWidth: '480px' }}>
+          <div style={eyebrow}><span>Check your email</span></div>
+          <h1 style={{ ...h1, fontSize: '32px' }}>Reset link sent</h1>
+          <p style={{ ...body, marginTop: space.sm }}>
+            If an account exists for <strong style={{ color: color.white }}>{email}</strong>, we sent a
+            password reset link. Click it to set a new password, then come back and sign in.
+          </p>
+          <button
+            onClick={() => switchMode('signin')}
+            style={{
+              background: 'none',
+              border: 'none',
+              color: color.cyan,
+              fontFamily: font.body,
+              fontSize: '14px',
+              cursor: 'pointer',
+              marginTop: space.md,
+              padding: 0,
+            }}
+          >
+            Back to sign in
+          </button>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div style={{ position: 'relative', padding: `${space.xxl} 0`, overflow: 'hidden' }}>
       <GradientOrb seed={91} size={420} style={{ position: 'absolute', top: '-120px', left: '-100px', zIndex: 0 }} />
       <div style={{ ...container, position: 'relative', zIndex: 1, maxWidth: '440px' }}>
-        <div style={eyebrow}><span>{mode === 'signin' ? 'Sign in' : 'Create account'}</span></div>
+        <div style={eyebrow}>
+          <span>{mode === 'signin' ? 'Sign in' : mode === 'signup' ? 'Create account' : 'Reset password'}</span>
+        </div>
         <h1 style={{ ...h1, fontSize: '34px', marginBottom: space.lg }}>
-          {mode === 'signin' ? 'Welcome back.' : 'Join GlobalLYNK.'}
+          {mode === 'signin' ? 'Welcome back.' : mode === 'signup' ? 'Join GlobalLYNK.' : 'Forgot your password?'}
         </h1>
 
         <form onSubmit={handleSubmit} style={{ ...card, padding: space.xl, display: 'flex', flexDirection: 'column', gap: space.sm }}>
@@ -73,8 +123,37 @@ export default function Login() {
               <input className="lynk-input" type="text" placeholder="Access code" value={accessCode} onChange={(e) => setAccessCode(e.target.value)} required style={inputStyle} />
             </>
           )}
+
           <input className="lynk-input" type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} required style={inputStyle} />
-          <input className="lynk-input" type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} required minLength={6} style={inputStyle} />
+
+          {mode !== 'forgot' && (
+            <input className="lynk-input" type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} required minLength={6} style={inputStyle} />
+          )}
+
+          {mode === 'signin' && (
+            <button
+              type="button"
+              onClick={() => switchMode('forgot')}
+              style={{
+                background: 'none',
+                border: 'none',
+                color: color.mutedDim,
+                fontFamily: font.body,
+                fontSize: '13px',
+                cursor: 'pointer',
+                padding: 0,
+                textAlign: 'left',
+              }}
+            >
+              Forgot password?
+            </button>
+          )}
+
+          {mode === 'forgot' && (
+            <p style={{ fontFamily: font.body, fontSize: '13px', color: color.mutedDim }}>
+              Enter the email on your account and we'll send you a link to set a new password.
+            </p>
+          )}
 
           {mode === 'signup' && (
             <p style={{ fontFamily: font.body, fontSize: '13px', color: color.mutedDim }}>
@@ -85,12 +164,18 @@ export default function Login() {
           {error && <p style={{ fontFamily: font.body, fontSize: '13px', color: '#E05252' }}>{error}</p>}
 
           <button type="submit" disabled={loading} style={{ ...buttonPrimary, justifyContent: 'center', marginTop: space.xs }}>
-            {loading ? 'Working…' : mode === 'signin' ? 'Sign in' : 'Create account'}
+            {loading
+              ? 'Working…'
+              : mode === 'signin'
+              ? 'Sign in'
+              : mode === 'signup'
+              ? 'Create account'
+              : 'Send reset link'}
           </button>
         </form>
 
         <button
-          onClick={() => { setMode(mode === 'signin' ? 'signup' : 'signin'); setError(''); }}
+          onClick={() => switchMode(mode === 'signup' ? 'signin' : mode === 'forgot' ? 'signin' : 'signup')}
           style={{
             background: 'none',
             border: 'none',

@@ -3,7 +3,7 @@ import GradientOrb from '../components/GradientOrb';
 import heroPhoto from '../assets/images/481A8469.jpg';
 import winnersPhoto from '../assets/images/winners.jpg';
 import workshopFlyer from '../assets/images/workshopflyer.png';
-import dcWorkshopFlyer from '../assets/images/dcworkshopflyer.png';
+import dcWorkshopFlyer from '../assets/images/dcworkshopflyer2.png';
 import {
   color, eyebrow, h1, h2, bodyLg, body, card, radius,
   buttonPrimary, buttonGhost, container, section, space, font,
@@ -32,9 +32,9 @@ const FEATURED_WORKSHOPS = [
   },
   {
     city: 'Washington, DC',
-    dateLabel: 'September 16',
+    dateLabel: 'October 14',
     image: dcWorkshopFlyer,
-    ticketUrl: 'https://posh.vip/e/global-lynk-intro-to-dj-workshop-dc',
+    ticketUrl: 'https://posh.vip/e/global-lynk-intro-to-dj-workshop-dc-oct',
   },
 ];
 

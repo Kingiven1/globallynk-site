@@ -2,15 +2,15 @@ import GradientOrb from '../components/GradientOrb';
 import { color, eyebrow, h1, body, buttonPrimary, buttonGhost, container, section, space, font, radius } from '../styles/tokens';
 import cohortFlyer from '../assets/images/cohortflyer.png';
 import workshopFlyer from '../assets/images/workshopflyer.png';
-import dcWorkshopFlyer from '../assets/images/dcworkshopflyer.png';
+import dcWorkshopFlyer from '../assets/images/dcworkshopflyer2.png';
 
 const EVENTS = [
   {
-    date: 'SEP 16',
+    date: 'OCT 14',
     type: 'Workshop',
     title: 'Intro to DJ Workshop — Washington, DC',
     copy: 'Learn, connect, create. Led by King Iven & JusJamz. No experience or gear required.',
-    poshUrl: 'https://posh.vip/e/global-lynk-intro-to-dj-workshop-dc',
+    poshUrl: 'https://posh.vip/e/global-lynk-intro-to-dj-workshop-dc-oct',
     image: dcWorkshopFlyer,
   },
   {

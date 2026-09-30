@@ -51,7 +51,7 @@ export default function Nav() {
         position: 'sticky',
         top: 0,
         zIndex: 50,
-        background: 'rgba(13,13,13,0.88)',
+        background: 'rgba(242,236,217,0.88)',
         backdropFilter: 'blur(8px)',
         borderBottom: `1px solid ${color.line}`,
       }}
@@ -66,7 +66,11 @@ export default function Nav() {
         }}
       >
         <Link to="/" style={{ display: 'flex', alignItems: 'center' }}>
-          <img src={logo} alt="GlobalLYNK" style={{ height: '32px', width: 'auto' }} />
+          <img
+            src={logo}
+            alt="GlobalLYNK"
+            style={{ height: '32px', width: 'auto', filter: 'brightness(0)' }}
+          />
         </Link>
 
         <nav style={{ display: 'flex', alignItems: 'center', gap: '26px' }} className="lynk-nav-desktop">

@@ -1,14 +1,14 @@
 export const color = {
-  bg: '#0D0D0D',
-  bgRaised: '#161616',
-  bgRaised2: '#1D1D1D',
-  line: '#2A2A2A',
-  white: '#F5F5F3',
-  muted: '#8C8C88',
-  mutedDim: '#5C5C58',
-  cyan: '#00C2D4',
-  cyanDim: '#0A8A96',
-  cyanFaint: 'rgba(0,194,212,0.08)',
+  bg: '#F2ECD9',        // was near-black; now warm cream (BLACKWEEK-style background)
+  bgRaised: '#FFFFFF',  // card/panel background — white against the cream page bg
+  bgRaised2: '#F7F1E0', // slightly deeper cream, for a second raised layer
+  line: '#E1D9C2',      // soft warm border color instead of dark gray
+  white: '#17170F',     // NOTE: still named "white" (used everywhere as main text color) but now near-black for readability on the light bg — do not rename without also updating every page that imports it
+  muted: '#5F5A4C',     // secondary/body text — warm gray instead of light gray
+  mutedDim: '#8C8672',  // dimmer secondary text
+  cyan: '#2E4BE0',      // NOTE: still named "cyan" (used everywhere as the primary accent) but now BLACKWEEK's royal blue
+  cyanDim: '#1E37B0',   // darker blue, for dim/secondary accent uses
+  cyanFaint: 'rgba(46,75,224,0.08)',
   purple: '#9D5CFF',
   pink: '#FF5CA8',
 };
@@ -96,7 +96,7 @@ export const buttonPrimary = {
   fontFamily: font.mono,
   fontSize: '13px',
   letterSpacing: '0.01em',
-  color: color.bg,
+  color: '#FFFFFF',
   background: color.cyan,
   border: 'none',
   padding: '16px 28px',

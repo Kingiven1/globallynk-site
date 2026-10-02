@@ -10,6 +10,7 @@ const BASE_LINKS = [
   { to: '/cohort', label: 'Cohort' },
   { to: '/journey', label: 'Our Journey' },
   { to: '/alumni', label: 'DJs' },
+  { to: '/culture-exchange', label: 'Culture Exchange' },
   { to: '/contact', label: 'Contact' },
   { to: '/donate', label: 'Donate' },
 ];

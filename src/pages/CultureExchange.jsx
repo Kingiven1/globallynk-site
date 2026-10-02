@@ -149,8 +149,6 @@ const TIMELINE = [
   { date: 'Spring 2027', label: 'Mexico City Culture Exchange.' },
 ];
 
-const TRAVEL_WINDOWS = ['March 18–22', 'April 8–12', 'April 29–May 3', 'May 13–17', 'May 20–24'];
-
 const MEXICO_EXPERIENCE = [
   'Connections with local DJs and creative communities',
   'Music and nightlife experiences',
@@ -581,27 +579,11 @@ export default function CultureExchange() {
             around music, cultural exploration, international creative community and professional growth.
           </p>
 
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: space.xl }} className="ce-mexico-grid">
-            <ul style={{ margin: 0, paddingLeft: '20px', display: 'flex', flexDirection: 'column', gap: '10px' }}>
-              {MEXICO_EXPERIENCE.map((item) => (
-                <li key={item} style={{ ...body, fontSize: '15px' }}>{item}</li>
-              ))}
-            </ul>
-
-            <div style={{ ...card, padding: space.lg }}>
-              <h3 style={{ ...h3, fontSize: '15px', marginBottom: space.sm }}>Proposed 2027 travel windows</h3>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', marginBottom: space.sm }}>
-                {TRAVEL_WINDOWS.map((w) => (
-                  <div key={w} style={{ fontFamily: font.mono, fontSize: '13px', color: color.white }}>{w}</div>
-                ))}
-              </div>
-              <p style={{ ...body, fontSize: '12px', margin: 0, color: color.mutedDim }}>
-                April and May are currently the preferred travel windows. The Tally application asks you
-                to identify every proposed date you're available. The final travel dates and covered trip
-                expenses will be confirmed before the live finals.
-              </p>
-            </div>
-          </div>
+          <ul style={{ margin: 0, paddingLeft: '20px', display: 'flex', flexDirection: 'column', gap: '10px', maxWidth: '520px' }}>
+            {MEXICO_EXPERIENCE.map((item) => (
+              <li key={item} style={{ ...body, fontSize: '15px' }}>{item}</li>
+            ))}
+          </ul>
         </div>
       </section>
 
@@ -759,7 +741,6 @@ export default function CultureExchange() {
           .ce-rounds-grid { grid-template-columns: 1fr !important; }
           .ce-requirements-grid { grid-template-columns: 1fr !important; }
           .ce-eligibility-grid { grid-template-columns: 1fr !important; }
-          .ce-mexico-grid { grid-template-columns: 1fr !important; }
           .ce-sticky-bar { display: block !important; }
         }
       `}</style>

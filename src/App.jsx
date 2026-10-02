@@ -15,6 +15,7 @@ import Contact from './pages/Contact';
 import BookDJ from './pages/BookDJ';
 import Login from './pages/Login';
 import ResetPassword from './pages/ResetPassword';
+import CultureExchange from './pages/CultureExchange';
 import Portal from './pages/Portal';
 import AdminStudents from './pages/AdminStudents';
 import { page } from './styles/tokens';
@@ -37,6 +38,7 @@ export default function App() {
             <Route path="/book-dj" element={<BookDJ />} />
             <Route path="/login" element={<Login />} />
             <Route path="/reset-password" element={<ResetPassword />} />
+            <Route path="/culture-exchange" element={<CultureExchange />} />
             <Route
               path="/portal"
               element={

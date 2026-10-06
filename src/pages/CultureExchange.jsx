@@ -76,7 +76,7 @@ const ROUNDS = [
     tag: 'ROUND 1',
     title: 'APPLICATION + VIDEO',
     dates: 'October 5–19',
-    copy: "Submit your application and one-minute DJ performance through our Tally form. King Iven, DJ K-Mil and DJ Meechie will each review eligible entries independently. An applicant must receive at least two of the three votes to enter the semifinalist pool. Up to 20 semifinalists will advance—up to 10 women and 10 men.",
+    copy: "Submit your application and one-minute DJ performance through our Tally form. King Iven, DJ K-Mil and DJ Meech!e will each review eligible entries independently. An applicant must receive at least two of the three votes to enter the semifinalist pool. Up to 20 semifinalists will advance—up to 10 women and 10 men.",
   },
   {
     tag: 'ROUND 2',
@@ -189,7 +189,7 @@ const FAQS = [
   },
   {
     q: 'Who reviews the first round?',
-    a: "King Iven, DJ K-Mil and DJ Meechie review the eligible submissions independently. An applicant must receive at least two of the three votes to enter the semifinalist pool.",
+    a: "King Iven, DJ K-Mil and DJ Meech!e review the eligible submissions independently. An applicant must receive at least two of the three votes to enter the semifinalist pool.",
   },
   {
     q: 'How are the live finalists selected?',
@@ -410,7 +410,7 @@ export default function CultureExchange() {
           </div>
 
           <p style={{ ...body, fontSize: '13px', marginTop: space.md, maxWidth: '640px' }}>
-            In 2026, DJ K-Mil and DJ Meechie earned the opportunity to represent Global Lynk in Mexico
+            In 2026, DJ K-Mil and DJ Meech!e earned the opportunity to represent Global Lynk in Mexico
             City. They are returning as members of the production team to help us identify and prepare
             the next winners.
           </p>

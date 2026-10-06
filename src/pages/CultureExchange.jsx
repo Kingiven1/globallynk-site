@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import flyer from '../assets/images/tables-turned-flyer.jpg';
+import winnersPhoto from '../assets/images/winners.jpg';
 import {
   color, eyebrow, h1, h2, h3, body, bodyLg, card, radius,
   buttonPrimary, buttonGhost, container, section, space, font,
@@ -394,20 +395,16 @@ export default function CultureExchange() {
               </div>
             </div>
 
-            <div
+            <img
+              src={winnersPhoto}
+              alt="Global Lynk Culture Exchange winners in Mexico City"
               style={{
-                ...card,
+                width: '100%',
                 aspectRatio: '4/3',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                padding: space.md,
+                objectFit: 'cover',
+                borderRadius: radius.lg,
               }}
-            >
-              <span style={{ fontFamily: font.mono, fontSize: '11px', color: color.mutedDim, textAlign: 'center' }}>
-                [ 2026 Mexico City Culture Exchange photo/video ]
-              </span>
-            </div>
+            />
           </div>
 
           <p style={{ ...body, fontSize: '13px', marginTop: space.md, maxWidth: '640px' }}>

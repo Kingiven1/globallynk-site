@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import GradientOrb from '../components/GradientOrb';
+import CultureExchangeFeature from '../components/CultureExchangeFeature';
 import heroPhoto from '../assets/images/481A8469.jpg';
 import winnersPhoto from '../assets/images/winners.jpg';
 import workshopFlyer from '../assets/images/workshopflyer.png';
@@ -75,6 +76,9 @@ export default function Home() {
           />
         </div>
       </section>
+
+      {/* Featured: Tables Turned DJ Competition (Culture Exchange 2027) */}
+      <CultureExchangeFeature />
 
       {/* Featured: Intro to DJ Workshop — split banner, one card per city */}
       <section style={{ ...section, paddingTop: 0 }}>

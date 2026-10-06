@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
+import flyer from '../assets/images/tables-turned-flyer.jpg';
 import {
   color, eyebrow, h1, h2, h3, body, bodyLg, card, radius,
   buttonPrimary, buttonGhost, container, section, space, font,
@@ -22,7 +23,7 @@ const CONFIG = {
   // Set to an imported image once final artwork is ready, e.g.:
   // import flyer from '../assets/images/culture-exchange-flyer.png';
   // then set flyerImage: flyer
-  flyerImage: null,
+  flyerImage: flyer,
 
   // The official Tally application. Paste the form's share URL here
   // (tally.so/r/XXXXXX) — used for both the embed and the fallback
@@ -273,7 +274,7 @@ export default function CultureExchange() {
             {CONFIG.flyerImage ? (
               <img
                 src={CONFIG.flyerImage}
-                alt="Global Lynk Culture Exchange 2027"
+                alt="Tables Turned DJ Competition — Global Lynk Culture Exchange 2027"
                 style={{ width: '100%', height: 'auto', borderRadius: radius.lg, boxShadow: '0 30px 80px rgba(0,0,0,0.15)' }}
               />
             ) : (

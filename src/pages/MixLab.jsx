@@ -1,6 +1,6 @@
 import { useRef } from 'react';
 import GradientOrb from '../components/GradientOrb';
-import MailingListSignup from '../components/MailingListSignup';
+import MixLabInterestForm from '../components/MixLabInterestForm';
 import MixLabLogo from '../components/MixLabLogo';
 import {
   color, font, eyebrow, h1, h2, h3, body, bodyLg, card,
@@ -122,11 +122,9 @@ export default function MixLab() {
             Join the list and we&apos;ll send the official Mix Lab details as soon as they&apos;re ready,
             including how DJs and creatives can get involved.
           </p>
-          <MailingListSignup
-            heading={null}
-            subtext={null}
-            successMessage="You're in. We'll send the official Mix Lab details as soon as they're ready."
-          />
+          <div style={{ ...card, padding: space.lg, textAlign: 'left' }}>
+            <MixLabInterestForm />
+          </div>
         </div>
       </section>
 

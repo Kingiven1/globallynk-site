@@ -89,7 +89,7 @@ export default function MixLabInterestForm() {
       </div>
 
       <div>
-        <label htmlFor="ml-dj" style={labelStyle}>DJ NAME (IF YOU HAVE ONE)</label>
+        <label htmlFor="ml-dj" style={labelStyle}>DJ OR BRAND NAME (IF YOU HAVE ONE)</label>
         <input id="ml-dj" type="text" value={djName} onChange={(e) => setDjName(e.target.value)} style={inputStyle} />
       </div>
 

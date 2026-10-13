@@ -72,10 +72,10 @@ const pill = {
 
 const WHATS_PLANNED = [
   { title: 'Intro to DJ workshops', copy: 'Hands-on, beginner-friendly sessions for anyone curious about DJing.', bg: P.pink },
-  { title: 'Fireside chats & panels', copy: 'Conversations for all creatives on building a life and a career in culture.', bg: P.butter },
-  { title: 'A mental health conversation', copy: 'An honest talk about the pressure of creative work, and how to keep going.', bg: P.mint },
+  { title: 'Fireside chats & panels', copy: 'Conversations for all creatives and entrepreneurs on building a life, a brand and a career in culture.', bg: P.butter },
+  { title: 'A mental health conversation', copy: 'An honest talk about the pressure of creative and entrepreneurial work, and how to keep going.', bg: P.mint },
   { title: 'DJ performances', copy: 'Sets from DJs across the community, celebrating the craft.', bg: P.lilac },
-  { title: 'Social hour', copy: 'Time to meet, connect and build with the people in the room.', bg: P.peach },
+  { title: 'Social hour', copy: 'Time to meet, connect and build with the DJs, creators and entrepreneurs in the room.', bg: P.peach },
 ];
 
 export default function MixLab() {
@@ -136,7 +136,7 @@ export default function MixLab() {
             Art Basel activation <span style={{ color: P.yellow }}>coming soon.</span>
           </h1>
           <p style={{ ...bodyLg, color: P.lilac, marginTop: space.md }}>
-            A day to celebrate DJs and DJ culture.
+            A day to celebrate DJs, Creators and those making moves in the business world.
           </p>
           <p style={{ ...body, color: P.white, marginTop: '4px' }}>
             Presented by {CONFIG.presentedBy}
@@ -167,12 +167,14 @@ export default function MixLab() {
             <span style={{ ...pill, background: P.white }}>WHAT IS THE MIX LAB?</span>
             <h2 style={{ ...h2, color: P.ink, margin: `${space.md} 0 ${space.md}` }}>Where creators build culture.</h2>
             <p style={{ ...bodyLg, color: P.inkSoft, marginBottom: space.sm }}>
-              The Mix Lab is an activation built for DJs and the creative community around them. It&apos;s a
-              day to learn, connect and celebrate DJ culture in Miami during Art Basel week.
+              The Mix Lab is an activation built for DJs, creators and entrepreneurs, and the community
+              around them. It&apos;s a day to learn, connect and celebrate DJ culture and the business of
+              creativity in Miami during Art Basel week.
             </p>
             <p style={{ ...body, color: P.inkSoft, margin: 0 }}>
-              Whether you&apos;ve never touched a controller or you&apos;ve been playing rooms for years, this is
-              designed to be a place where you belong.
+              Whether you&apos;ve never touched a controller, you&apos;re building a brand, or you&apos;ve been
+              playing rooms and running a business for years, this is designed to be a place where you
+              belong.
             </p>
           </div>
         </div>
@@ -226,8 +228,8 @@ export default function MixLab() {
           <span style={{ ...pill, background: P.white }}>STAY IN THE LOOP</span>
           <h2 style={{ ...h2, color: P.ink, margin: `${space.md} 0 ${space.sm}` }}>Be first to know when details drop.</h2>
           <p style={{ ...bodyLg, color: P.inkSoft, marginBottom: space.lg }}>
-            Join the list and we&apos;ll send the official Mix Lab details as soon as they&apos;re ready,
-            including how DJs and creatives can get involved.
+            Join the list and you&apos;ll get the official Mix Lab announcement the moment we drop the
+            details.
           </p>
           <div style={{ ...poster, background: P.white, borderRadius: '24px', padding: space.lg, textAlign: 'left' }}>
             <MixLabInterestForm />
@@ -251,7 +253,7 @@ export default function MixLab() {
           </h2>
           <p style={{ ...bodyLg, color: P.lilac, maxWidth: '560px', margin: `0 auto ${space.lg}` }}>
             We&apos;re building The Mix Lab with brands, venues and community partners who care about DJ
-            culture and the creators behind it. If that&apos;s you, reach out directly.
+            culture, creators and entrepreneurs. If that&apos;s you, reach out directly.
           </p>
           <div style={{ display: 'flex', gap: space.sm, justifyContent: 'center', flexWrap: 'wrap' }}>
             <a href={partnerMailto} style={yellowButton}>

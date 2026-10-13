@@ -20,9 +20,8 @@ const CONFIG = {
   // set this to its path, e.g. '/mix-lab-one-sheet.pdf'.
   onePagerUrl: null,
 
-  // Who the page says is presenting. Add a co-presenter here once the
-  // co-branding is agreed, e.g. 'GlobalLYNK × AmpSpot'.
-  presentedBy: 'GlobalLYNK',
+  // Who the page says is presenting. Shown in the hero as "Presented by ...".
+  presentedBy: 'GlobalLYNK, AmpSpot & NFNTE Capital',
 };
 
 const WHATS_PLANNED = [

@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import GradientOrb from '../components/GradientOrb';
 import CultureExchangeFeature from '../components/CultureExchangeFeature';
+import MixLabBanner from '../components/MixLabBanner';
 import heroPhoto from '../assets/images/481A8469.jpg';
 import winnersPhoto from '../assets/images/winners.jpg';
 import workshopFlyer from '../assets/images/workshopflyer.png';
@@ -42,6 +43,9 @@ const FEATURED_WORKSHOPS = [
 export default function Home() {
   return (
     <div>
+      {/* The Mix Lab (Art Basel Miami) announcement strip */}
+      <MixLabBanner />
+
       <section style={{ position: 'relative', padding: `${space.xxl} 0 ${space.xl}`, overflow: 'hidden' }}>
         <GradientOrb seed={3} size={560} style={{ position: 'absolute', top: '-160px', right: '-120px', zIndex: 0 }} />
         <div

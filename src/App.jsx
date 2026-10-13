@@ -16,6 +16,7 @@ import BookDJ from './pages/BookDJ';
 import Login from './pages/Login';
 import ResetPassword from './pages/ResetPassword';
 import CultureExchange from './pages/CultureExchange';
+import MixLab from './pages/MixLab';
 import Portal from './pages/Portal';
 import AdminStudents from './pages/AdminStudents';
 import { page } from './styles/tokens';
@@ -39,6 +40,7 @@ export default function App() {
             <Route path="/login" element={<Login />} />
             <Route path="/reset-password" element={<ResetPassword />} />
             <Route path="/culture-exchange" element={<CultureExchange />} />
+            <Route path="/mix-lab" element={<MixLab />} />
             <Route
               path="/portal"
               element={

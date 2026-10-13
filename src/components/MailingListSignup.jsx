@@ -2,7 +2,15 @@ import { useState } from 'react';
 import { supabase } from '../lib/supabaseClient';
 import { color, font, radius, space } from '../styles/tokens';
 
-export default function MailingListSignup() {
+// Optional props (all default to the original wording, so existing uses don't change):
+//   heading        - title above the form. Pass null to hide it.
+//   subtext        - line under the title. Pass null to hide it.
+//   successMessage - what people see after joining.
+export default function MailingListSignup({
+  heading = 'Stay in the Lynk',
+  subtext = 'Monthly events and tips, straight to your inbox.',
+  successMessage = "You're in. Watch your inbox for monthly events and tips.",
+}) {
   const [email, setEmail] = useState('');
   const [status, setStatus] = useState('idle');
   const [message, setMessage] = useState('');
@@ -21,18 +29,22 @@ export default function MailingListSignup() {
     }
 
     setStatus('success');
-    setMessage("You're in. Watch your inbox for monthly events and tips.");
+    setMessage(successMessage);
     setEmail('');
   }
 
   return (
     <div>
-      <h3 style={{ fontFamily: 'Space Grotesk, sans-serif', fontSize: '18px', color: color.white, marginBottom: '6px' }}>
-        Stay in the Lynk
-      </h3>
-      <p style={{ fontFamily: font.body, fontSize: '14px', color: color.muted, marginBottom: space.sm }}>
-        Monthly events and tips, straight to your inbox.
-      </p>
+      {heading && (
+        <h3 style={{ fontFamily: 'Space Grotesk, sans-serif', fontSize: '18px', color: color.white, marginBottom: '6px' }}>
+          {heading}
+        </h3>
+      )}
+      {subtext && (
+        <p style={{ fontFamily: font.body, fontSize: '14px', color: color.muted, marginBottom: space.sm }}>
+          {subtext}
+        </p>
+      )}
       <form onSubmit={handleSubmit} style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
         <input
           type="email"

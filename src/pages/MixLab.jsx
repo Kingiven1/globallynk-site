@@ -12,9 +12,13 @@ import {
 // ──────────────────────────────────────────────────────────────────────────
 
 const CONFIG = {
-  // Where sponsors / partners / collaborators reach you. Confirm this is the
-  // inbox you want people writing to.
-  contactEmail: 'thegloballynk@gmail.com',
+  // Where sponsors / partners / collaborators reach you.
+  contactEmail: 'connect@indabooth.com',
+
+  // The downloadable one-sheet. Leave as null and the download button stays
+  // hidden. When the PDF is ready, put it in the project's /public folder and
+  // set this to its path, e.g. '/mix-lab-one-sheet.pdf'.
+  onePagerUrl: null,
 
   // Who the page says is presenting. Add a co-presenter here once the
   // co-branding is agreed, e.g. 'GlobalLYNK × AmpSpot'.
@@ -119,7 +123,11 @@ export default function MixLab() {
             Join the list and we&apos;ll send the official Mix Lab details as soon as they&apos;re ready,
             including how DJs and creatives can get involved.
           </p>
-          <MailingListSignup />
+          <MailingListSignup
+            heading={null}
+            subtext={null}
+            successMessage="You're in. We'll send the official Mix Lab details as soon as they're ready."
+          />
         </div>
       </section>
 
@@ -134,10 +142,21 @@ export default function MixLab() {
             We&apos;re building The Mix Lab with brands, venues and community partners who care about DJ
             culture and the creators behind it. If that&apos;s you, reach out directly.
           </p>
-          <a href={partnerMailto} style={{ ...buttonPrimary, textDecoration: 'none' }}>
-            Email us →
-          </a>
-          <p style={{ ...body, fontSize: '13px', marginTop: space.sm }}>{CONFIG.contactEmail}</p>
+          <div style={{ display: 'flex', gap: space.sm, justifyContent: 'center', flexWrap: 'wrap' }}>
+            <a href={partnerMailto} style={{ ...buttonPrimary, textDecoration: 'none' }}>
+              Email us →
+            </a>
+            {CONFIG.onePagerUrl && (
+              <a href={CONFIG.onePagerUrl} download style={{ ...buttonGhost, textDecoration: 'none' }}>
+                Download the one-sheet
+              </a>
+            )}
+          </div>
+          <p style={{ ...body, fontSize: '13px', marginTop: space.sm }}>
+            <a href={partnerMailto} style={{ color: color.cyan, textDecoration: 'none' }}>
+              {CONFIG.contactEmail}
+            </a>
+          </p>
         </div>
       </section>
     </div>

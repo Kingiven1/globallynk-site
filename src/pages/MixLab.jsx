@@ -71,11 +71,11 @@ const pill = {
 };
 
 const WHATS_PLANNED = [
-  { title: 'Intro to DJ workshops', copy: 'Hands-on, beginner-friendly sessions for anyone curious about DJing.', bg: P.pink },
-  { title: 'Fireside chats & panels', copy: 'Conversations for all creatives and entrepreneurs on building a life, a brand and a career in culture.', bg: P.butter },
-  { title: 'A mental health conversation', copy: 'An honest talk about the pressure of creative and entrepreneurial work, and how to keep going.', bg: P.mint },
+  { title: 'Intro to DJ workshops', copy: 'Hands-on and beginner-friendly. No experience needed, just curiosity.', bg: P.pink },
+  { title: 'Fireside chats & panels', copy: 'Conversations for creative entrepreneurs on building a brand, a business and a career in culture.', bg: P.butter },
+  { title: 'A mental health conversation', copy: 'An honest talk about the pressure of building a creative business, and how to keep going.', bg: P.mint },
   { title: 'DJ performances', copy: 'Sets from DJs across the community, celebrating the craft.', bg: P.lilac },
-  { title: 'Social hour', copy: 'Time to meet, connect and build with the DJs, creators and entrepreneurs in the room.', bg: P.peach },
+  { title: 'Social hour with NFNTE Capital', copy: 'A community-first social hour hosted by NFNTE Capital, built around using your network as capital.', bg: P.peach },
 ];
 
 export default function MixLab() {
@@ -136,7 +136,7 @@ export default function MixLab() {
             Art Basel activation <span style={{ color: P.yellow }}>coming soon.</span>
           </h1>
           <p style={{ ...bodyLg, color: P.lilac, marginTop: space.md }}>
-            A day to celebrate DJs, Creators and those making moves in the business world.
+            A day to celebrate DJ culture, community and creative entrepreneurs.
           </p>
           <p style={{ ...body, color: P.white, marginTop: '4px' }}>
             Presented by {CONFIG.presentedBy}
@@ -167,14 +167,15 @@ export default function MixLab() {
             <span style={{ ...pill, background: P.white }}>WHAT IS THE MIX LAB?</span>
             <h2 style={{ ...h2, color: P.ink, margin: `${space.md} 0 ${space.md}` }}>Where creators build culture.</h2>
             <p style={{ ...bodyLg, color: P.inkSoft, marginBottom: space.sm }}>
-              The Mix Lab is an activation built for DJs, creators and entrepreneurs, and the community
-              around them. It&apos;s a day to learn, connect and celebrate DJ culture and the business of
+              The Mix Lab is an activation built for DJs, creative entrepreneurs and anyone curious about
+              DJ culture. It&apos;s a day to learn, connect and celebrate the music and the business of
               creativity in Miami during Art Basel week.
             </p>
             <p style={{ ...body, color: P.inkSoft, margin: 0 }}>
-              Whether you&apos;ve never touched a controller, you&apos;re building a brand, or you&apos;ve been
-              playing rooms and running a business for years, this is designed to be a place where you
-              belong.
+              Whether you&apos;ve never touched a controller, you&apos;re just launching your creative
+              business, or you&apos;ve been playing rooms and running one for years, this is designed to be
+              a place where you belong. Community is the point: the people you meet here are the network
+              you build with.
             </p>
           </div>
         </div>
@@ -253,7 +254,7 @@ export default function MixLab() {
           </h2>
           <p style={{ ...bodyLg, color: P.lilac, maxWidth: '560px', margin: `0 auto ${space.lg}` }}>
             We&apos;re building The Mix Lab with brands, venues and community partners who care about DJ
-            culture, creators and entrepreneurs. If that&apos;s you, reach out directly.
+            culture and the creative entrepreneurs behind it. If that&apos;s you, reach out directly.
           </p>
           <div style={{ display: 'flex', gap: space.sm, justifyContent: 'center', flexWrap: 'wrap' }}>
             <a href={partnerMailto} style={yellowButton}>

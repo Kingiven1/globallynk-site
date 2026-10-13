@@ -25,7 +25,7 @@ export default function MixLabBanner() {
         }}
       >
         <div style={{ display: 'flex', alignItems: 'center', gap: space.md, flexWrap: 'wrap' }}>
-          <MixLabLogo height={44} />
+          <MixLabLogo height={64} />
           <div>
             <div style={{ fontFamily: font.mono, fontSize: '12px', letterSpacing: '0.02em', color: color.cyanDim, marginBottom: '4px' }}>
               ART BASEL · DECEMBER 2026

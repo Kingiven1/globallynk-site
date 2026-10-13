@@ -46,7 +46,7 @@ export default function MixLab() {
         <GradientOrb seed={11} size={520} style={{ position: 'absolute', top: '-140px', right: '-120px', zIndex: 0 }} />
         <div style={{ ...container, position: 'relative', zIndex: 1, textAlign: 'center', maxWidth: '820px' }}>
           <div style={{ display: 'flex', justifyContent: 'center', marginBottom: space.lg }}>
-            <MixLabLogo height={96} />
+            <MixLabLogo height={180} />
           </div>
 
           <div style={{ ...eyebrow, justifyContent: 'center' }}>

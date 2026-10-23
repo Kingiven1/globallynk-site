@@ -2,8 +2,8 @@ import GradientOrb from '../components/GradientOrb';
 import { color, eyebrow, h1, body, buttonPrimary, buttonGhost, container, section, space, font, radius } from '../styles/tokens';
 import cohortFlyer from '../assets/images/cohortflyer.png';
 import workshopFlyer from '../assets/images/workshopflyer.png';
-import dcWorkshopFlyer from '../assets/images/dc-workshop-nov-flyer.jpg';
-import dallasWorkshopFlyer from '../assets/images/dallas-workshop-nov-flyer.jpg';
+import dcWorkshopFlyer from '../assets/images/dc-nov10-flyer.jpg';
+import dallasWorkshopFlyer from '../assets/images/dallas-nov12-flyer.jpg';
 
 const EVENTS = [
   {

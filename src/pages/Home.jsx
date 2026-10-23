@@ -2,8 +2,8 @@ import { Link } from 'react-router-dom';
 import GradientOrb from '../components/GradientOrb';
 import heroPhoto from '../assets/images/481A8469.jpg';
 import winnersPhoto from '../assets/images/winners.jpg';
-import dcWorkshopFlyer from '../assets/images/dc-workshop-nov-flyer.jpg';
-import dallasWorkshopFlyer from '../assets/images/dallas-workshop-nov-flyer.jpg';
+import dcWorkshopFlyer from '../assets/images/dc-nov10-flyer.jpg';
+import dallasWorkshopFlyer from '../assets/images/dallas-nov12-flyer.jpg';
 import CultureExchangeFeature from '../components/CultureExchangeFeature';
 import MixLabBanner from '../components/MixLabBanner';
 import {

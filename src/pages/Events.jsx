@@ -62,7 +62,7 @@ export default function Events() {
                 key={i}
                 style={{
                   display: 'grid',
-                  gridTemplateColumns: '160px 1fr auto',
+                  gridTemplateColumns: '200px 1fr auto',
                   gap: space.lg,
                   alignItems: 'center',
                   padding: space.md,
@@ -76,7 +76,7 @@ export default function Events() {
                   <img
                     src={ev.image}
                     alt={ev.title}
-                    style={{ width: '100%', aspectRatio: '3/4', objectFit: 'cover', objectPosition: 'top', borderRadius: radius.md }}
+                    style={{ width: '100%', height: 'auto', display: 'block', borderRadius: radius.md }}
                   />
                 ) : (
                   <div

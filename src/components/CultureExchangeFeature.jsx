@@ -5,8 +5,8 @@ import {
   buttonPrimary, buttonGhost, container, section, space,
 } from '../styles/tokens';
 
-// Homepage feature block for the Culture Exchange competition.
-// To retire it after Round 1, just remove <CultureExchangeFeature /> from Home.jsx.
+// Homepage feature block for the Culture Exchange competition (Round 2: public voting).
+// To retire it after voting closes, just remove <CultureExchangeFeature /> from Home.jsx.
 
 export default function CultureExchangeFeature() {
   return (
@@ -23,7 +23,7 @@ export default function CultureExchangeFeature() {
         }}
         className="ce-feature-grid"
       >
-        <Link to="/culture-exchange" style={{ display: 'block' }}>
+        <Link to="/culture-exchange/vote" style={{ display: 'block' }}>
           <img
             src={flyer}
             alt="Tables Turned DJ Competition — Global Lynk Culture Exchange 2027"
@@ -38,21 +38,22 @@ export default function CultureExchangeFeature() {
         </Link>
 
         <div>
-          <div style={eyebrow}><span>Applications open · Oct 5 – Oct 19</span></div>
-          <h2 style={{ ...h2, marginBottom: space.sm }}>Tables Turned. DJs, your turn.</h2>
+          <div style={eyebrow}><span>Public voting is open · Closes Nov 12</span></div>
+          <h2 style={{ ...h2, marginBottom: space.sm }}>Tables Turned. Your vote decides.</h2>
           <p style={{ ...bodyLg, marginBottom: space.sm }}>
-            Global Lynk is searching for two DJs, one woman and one man, to represent our community
-            at the 2027 Culture Exchange in Mexico City. It starts with a one-minute performance video.
+            18 DJs. Five women and five men will advance to the live finals in Charlotte, and the
+            winners head to the 2027 Culture Exchange in Mexico City. Watch the sets, then vote for
+            one woman and one man.
           </p>
           <p style={{ ...body, fontFamily: font.mono, fontSize: '13px', color: color.cyanDim, marginBottom: space.md }}>
-            4 SONGS &nbsp;|&nbsp; 2 GENRES &nbsp;|&nbsp; 1 LIVE MASHUP
+            18 DJS &nbsp;|&nbsp; 1 VOTE PER CATEGORY &nbsp;|&nbsp; CLOSES NOV 12
           </p>
           <div style={{ display: 'flex', gap: space.sm, flexWrap: 'wrap' }}>
-            <Link to="/culture-exchange" style={{ ...buttonPrimary, textDecoration: 'none' }}>
-              APPLY NOW →
+            <Link to="/culture-exchange/vote" style={{ ...buttonPrimary, textDecoration: 'none' }}>
+              VOTE NOW →
             </Link>
             <Link to="/culture-exchange" style={{ ...buttonGhost, textDecoration: 'none' }}>
-              SEE THE RULES
+              HOW IT WORKS
             </Link>
           </div>
         </div>

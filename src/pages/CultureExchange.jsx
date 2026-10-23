@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
+import { Link } from 'react-router-dom';
 import flyer from '../assets/images/tables-turned-flyer.jpg';
 import winnersPhoto from '../assets/images/winners.jpg';
 import {
@@ -19,7 +20,7 @@ const CONFIG = {
   // the competition. Only one phase is active at a time, and only
   // 'applications_open' is fully built right now — the others show a simple
   // placeholder until the voting/finalists/winners sections get built.
-  phase: 'applications_open',
+  phase: 'public_voting',
 
   // Set to an imported image once final artwork is ready, e.g.:
   // import flyer from '../assets/images/culture-exchange-flyer.png';
@@ -53,9 +54,9 @@ const PHASE_HERO = {
   public_voting: {
     eyebrow: 'Global Lynk Culture Exchange 2027',
     headline: 'Vote for the next Culture Exchange DJs.',
-    body: 'Meet the semifinalists and help select the 10 DJs who will compete live in Charlotte.',
+    body: 'Meet the 18 semifinalists, watch their sets, and vote for one woman and one man. Your vote helps decide the 10 DJs who compete live in Charlotte. Voting closes November 12.',
     ctaLabel: 'VOTE NOW',
-    ctaAction: 'scroll-to-apply',
+    ctaAction: 'go-to-vote',
   },
   finalists_announced: {
     eyebrow: 'Global Lynk Culture Exchange 2027',
@@ -77,14 +78,14 @@ const ROUNDS = [
   {
     tag: 'ROUND 1',
     title: 'APPLICATION + VIDEO',
-    dates: 'October 5–19',
+    dates: 'October 5–19 · Closed',
     copy: "Submit your application and one-minute DJ performance through our Tally form. King Iven, DJ K-Mil and DJ Meech!e will each review eligible entries independently. An applicant must receive at least two of the three votes to enter the semifinalist pool. Up to 20 semifinalists will advance—up to 10 women and 10 men.",
   },
   {
     tag: 'ROUND 2',
     title: 'PUBLIC VOTE',
-    dates: 'November 5–12',
-    copy: 'Approved semifinalists are featured on this page for public voting. The public vote determines the 10 live finalists: five women, five men. Finalists are announced November 13.',
+    dates: 'Now – November 12',
+    copy: 'The 18 semifinalists are featured on our voting page. Public votes, combined with a judges\' score, determine the 10 live finalists: five women, five men. Finalists are announced November 13.',
   },
   {
     tag: 'ROUND 3',
@@ -143,9 +144,9 @@ const ELIGIBILITY = [
 const TIMELINE = [
   { date: 'October 5, 2026', label: 'Applications open.' },
   { date: 'October 19, 2026', label: 'Applications and Round 1 submissions close.' },
-  { date: 'October 20–November 4, 2026', label: 'Global Lynk review period.' },
-  { date: 'November 5, 2026', label: 'Semifinalists announced and public voting begins.' },
-  { date: 'November 12, 2026', label: 'Public voting closes.' },
+  { date: 'October 20–23, 2026', label: 'Global Lynk review period.' },
+  { date: 'October 24, 2026', label: 'Semifinalists announced and public voting opens.' },
+  { date: 'November 12, 2026', label: 'Public voting closes at 11:59 PM Eastern.' },
   { date: 'November 13, 2026', label: 'Ten live finalists announced.' },
   { date: 'December 12 or 13, 2026', label: 'Live finals in Charlotte.' },
   { date: 'Spring 2027', label: 'Mexico City Culture Exchange.' },
@@ -162,40 +163,32 @@ const MEXICO_EXPERIENCE = [
 
 const FAQS = [
   {
-    q: 'Where do I submit my application and video?',
-    a: 'Through our official Tally application form, embedded on this page. If it has trouble loading, use the "open in a new window" link below the form.',
+    q: 'How does voting work?',
+    a: 'Watch the semifinalists on the voting page and pick one woman and one man. Enter your name and email, then confirm your votes through the link we email you. Votes only count once confirmed. Voting closes November 12 at 11:59 PM Eastern, and the finalists are announced November 13.',
   },
   {
-    q: 'Do I have to live in Charlotte?',
-    a: 'No. DJs from other cities and markets may apply. Finalists must travel to Charlotte for the live competition at their own expense.',
+    q: 'Can I vote more than once?',
+    a: 'No. Each person gets one vote in the women\'s category and one in the men\'s category. Duplicate or suspicious votes may be removed.',
   },
   {
-    q: 'Do I need a passport?',
-    a: 'Yes. Applicants must possess a valid passport and be legally eligible to travel internationally.',
-  },
-  {
-    q: 'Can I use a premade mashup?',
-    a: 'No. The required mashup or blend must be created live during the recorded performance.',
-  },
-  {
-    q: 'Can I edit my submission video?',
-    a: 'The DJ performance must be shown in one continuous take. Cuts, hidden transitions, prerecorded routines and time manipulation are prohibited.',
-  },
-  {
-    q: 'Can my mix be longer than one minute?',
-    a: 'No. The submitted performance must be exactly one minute.',
-  },
-  {
-    q: "What if my video is too large to upload directly?",
-    a: 'If the application form cannot accept your file size, provide an accessible link instead (Google Drive, Dropbox, Vimeo, or an unlisted YouTube link). Make sure the link does not require us to request access, stays active throughout the competition, and can be viewed or downloaded by the review team.',
-  },
-  {
-    q: 'Who reviews the first round?',
-    a: "King Iven, DJ K-Mil and DJ Meech!e review the eligible submissions independently. An applicant must receive at least two of the three votes to enter the semifinalist pool.",
+    q: 'Will I see the vote totals?',
+    a: 'Vote counts stay hidden until voting closes so every DJ is judged on the music, not the momentum.',
   },
   {
     q: 'How are the live finalists selected?',
-    a: 'The public votes through this page from November 5 through November 12.',
+    a: 'Public votes are combined with a judges\' score. The top five women and top five men advance to the live finals in Charlotte.',
+  },
+  {
+    q: 'Do I have to live in Charlotte?',
+    a: 'No. DJs from other cities and markets may compete. Finalists must travel to Charlotte for the live competition at their own expense.',
+  },
+  {
+    q: 'Do I need a passport?',
+    a: 'Yes. Competitors must possess a valid passport and be legally eligible to travel internationally.',
+  },
+  {
+    q: 'Who reviewed the first round?',
+    a: 'King Iven, DJ K-Mil and DJ Meech!e reviewed the eligible submissions independently. An applicant needed at least two of the three votes to enter the semifinalist pool.',
   },
   {
     q: 'When will the live finals happen?',
@@ -324,13 +317,19 @@ export default function CultureExchange() {
             )}
 
             <div style={{ display: 'flex', gap: space.sm, marginTop: space.lg, flexWrap: 'wrap', alignItems: 'center' }}>
-              <button
-                onClick={phaseContent.ctaAction === 'scroll-to-apply' ? scrollToApply : undefined}
-                disabled={phaseContent.ctaAction === 'none'}
-                style={{ ...buttonPrimary, opacity: phaseContent.ctaAction === 'none' ? 0.6 : 1, cursor: phaseContent.ctaAction === 'none' ? 'default' : 'pointer' }}
-              >
-                {phaseContent.ctaLabel} →
-              </button>
+              {phaseContent.ctaAction === 'go-to-vote' ? (
+                <Link to="/culture-exchange/vote" style={buttonPrimary}>
+                  {phaseContent.ctaLabel} →
+                </Link>
+              ) : (
+                <button
+                  onClick={phaseContent.ctaAction === 'scroll-to-apply' ? scrollToApply : undefined}
+                  disabled={phaseContent.ctaAction === 'none'}
+                  style={{ ...buttonPrimary, opacity: phaseContent.ctaAction === 'none' ? 0.6 : 1, cursor: phaseContent.ctaAction === 'none' ? 'default' : 'pointer' }}
+                >
+                  {phaseContent.ctaLabel} →
+                </button>
+              )}
               {isApplicationsOpen && (
                 <button
                   onClick={scrollToRound1}
@@ -441,6 +440,7 @@ export default function CultureExchange() {
       </section>
 
       {/* ─────────────────────── ROUND 1 REQUIREMENTS ─────────────────────── */}
+      {isApplicationsOpen && (
       <section ref={round1Ref} style={{ ...section, background: color.bgRaised }}>
         <div style={container}>
           <div style={eyebrow}><span>Round 1</span></div>
@@ -507,6 +507,7 @@ export default function CultureExchange() {
           </div>
         </div>
       </section>
+      )}
 
       {/* ─────────────────────── ELIGIBILITY ─────────────────────── */}
       <section style={section}>
@@ -627,13 +628,20 @@ export default function CultureExchange() {
             <div style={{ ...card, padding: space.xl, textAlign: 'center' }}>
               <h3 style={{ ...h3, fontSize: '20px', marginBottom: space.sm }}>
                 {CONFIG.phase === 'applications_closed' && 'Applications are currently closed.'}
-                {CONFIG.phase === 'public_voting' && 'The semifinalist voting gallery is coming soon.'}
+                {CONFIG.phase === 'public_voting' && 'Public voting is open.'}
                 {CONFIG.phase === 'finalists_announced' && 'The finalists showcase is coming soon.'}
                 {CONFIG.phase === 'winners_announced' && 'The winners showcase is coming soon.'}
               </h3>
               <p style={{ ...body, maxWidth: '480px', margin: '0 auto' }}>
-                Check back here, or follow @globallynk for updates on the next phase of the competition.
+                {CONFIG.phase === 'public_voting'
+                  ? 'Watch the sets and vote for one woman and one man. Voting closes November 12.'
+                  : 'Check back here, or follow @globallynk for updates on the next phase of the competition.'}
               </p>
+              {CONFIG.phase === 'public_voting' && (
+                <div style={{ marginTop: space.md }}>
+                  <Link to="/culture-exchange/vote" style={buttonPrimary}>VOTE NOW →</Link>
+                </div>
+              )}
             </div>
           )}
         </div>

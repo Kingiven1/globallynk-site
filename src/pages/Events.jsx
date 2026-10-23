@@ -1,11 +1,22 @@
 import GradientOrb from '../components/GradientOrb';
 import { color, eyebrow, h1, body, buttonPrimary, buttonGhost, container, section, space, font, radius } from '../styles/tokens';
-import cohortFlyer from '../assets/images/cohortflyer.png';
+import tablesTurnedFlyer from '../assets/images/tables-turned-flyer.jpg';
 import workshopFlyer from '../assets/images/workshopflyer.png';
 import dcWorkshopFlyer from '../assets/images/dc-nov10-flyer.jpg';
 import dallasWorkshopFlyer from '../assets/images/dallas-nov12-flyer.jpg';
 
 const EVENTS = [
+  {
+    date: 'VOTING CLOSES NOV 12',
+    type: 'Competition',
+    title: 'Tables Turned — Public Vote',
+    copy: '18 DJs. One vote for a woman, one vote for a man. Watch the sets and help pick the 10 finalists headed to the live finals in Charlotte.',
+    poshUrl: '/culture-exchange/vote',
+    internal: true,
+    ctaLabel: 'Vote now →',
+    primary: true,
+    image: tablesTurnedFlyer,
+  },
   {
     date: 'NOV 10',
     type: 'Workshop',
@@ -21,15 +32,6 @@ const EVENTS = [
     copy: 'Learn the basics, meet working DJs, get hands-on. Led by DJ Nitecrawler & King Iven. Supported by AMP SPOT. No experience or gear required.',
     poshUrl: 'https://posh.vip/e/global-lynk-intro-to-dj-workshop-nov-edit-dallas-tx',
     image: dallasWorkshopFlyer,
-  },
-  {
-    date: 'SEP 12',
-    type: 'Cohort',
-    title: 'Fall 2026 DJ Cohort Begins',
-    copy: '8 weeks, Saturdays 11AM–1PM, Charlotte. Applications are full — join the mailing list for the next cohort.',
-    poshUrl: '/cohort',
-    internal: true,
-    image: cohortFlyer,
   },
   {
     date: 'MONTHLY',
@@ -107,7 +109,7 @@ export default function Events() {
                   <p style={{ ...body, maxWidth: '520px' }}>{ev.copy}</p>
                 </div>
                 {ev.internal ? (
-                  <a href={ev.poshUrl} style={buttonGhost}>Learn more</a>
+                  <a href={ev.poshUrl} style={ev.primary ? buttonPrimary : buttonGhost}>{ev.ctaLabel || 'Learn more'}</a>
                 ) : (
                   <a href={ev.poshUrl} target="_blank" rel="noreferrer" style={buttonPrimary}>RSVP on Posh →</a>
                 )}

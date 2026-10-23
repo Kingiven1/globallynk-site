@@ -167,7 +167,7 @@ export default function CultureExchangeVote() {
   }
 
   const list = order[tab];
-  const withVideo = (c) => !!c.videoId;
+  const withVideo = (c) => !!(c.videoId || c.videoUrl);
 
   return (
     <div style={{ paddingBottom: pickCount && votingOpen ? '110px' : 0 }}>
@@ -374,13 +374,24 @@ export default function CultureExchangeVote() {
                 : { width: 'min(92vw, 760px)', aspectRatio: '16/9', margin: '0 auto' }
             }
           >
-            <iframe
-              title={`${playing.name} set`}
-              src={`https://www.youtube.com/embed/${playing.videoId}?autoplay=1&rel=0&playsinline=1&modestbranding=1`}
-              allow="autoplay; encrypted-media; picture-in-picture"
-              allowFullScreen
-              style={{ width: '100%', height: '100%', border: 0, borderRadius: '12px', background: '#000' }}
-            />
+            {playing.videoUrl ? (
+              <video
+                key={playing.videoUrl}
+                src={playing.videoUrl}
+                controls
+                autoPlay
+                playsInline
+                style={{ width: '100%', height: '100%', borderRadius: '12px', background: '#000', objectFit: 'contain' }}
+              />
+            ) : (
+              <iframe
+                title={`${playing.name} set`}
+                src={`https://www.youtube.com/embed/${playing.videoId}?autoplay=1&rel=0&playsinline=1&modestbranding=1`}
+                allow="autoplay; encrypted-media; picture-in-picture"
+                allowFullScreen
+                style={{ width: '100%', height: '100%', border: 0, borderRadius: '12px', background: '#000' }}
+              />
+            )}
           </div>
           <div style={{ display: 'flex', gap: '10px', justifyContent: 'center', marginTop: '14px', flexWrap: 'wrap' }}>
             {votingOpen && (

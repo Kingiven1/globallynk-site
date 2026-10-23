@@ -1,11 +1,11 @@
 import { Link } from 'react-router-dom';
 import GradientOrb from '../components/GradientOrb';
-import CultureExchangeFeature from '../components/CultureExchangeFeature';
-import MixLabBanner from '../components/MixLabBanner';
 import heroPhoto from '../assets/images/481A8469.jpg';
 import winnersPhoto from '../assets/images/winners.jpg';
-import workshopFlyer from '../assets/images/workshopflyer.png';
-import dcWorkshopFlyer from '../assets/images/dcworkshopflyer2.png';
+import dcWorkshopFlyer from '../assets/images/dc-workshop-nov-flyer.jpg';
+import dallasWorkshopFlyer from '../assets/images/dallas-workshop-nov-flyer.jpg';
+import CultureExchangeFeature from '../components/CultureExchangeFeature';
+import MixLabBanner from '../components/MixLabBanner';
 import {
   color, eyebrow, h1, h2, bodyLg, body, card, radius,
   buttonPrimary, buttonGhost, container, section, space, font,
@@ -27,25 +27,23 @@ const PILLARS = [
 
 const FEATURED_WORKSHOPS = [
   {
-    city: 'Charlotte, NC',
-    dateLabel: 'Monthly · Next: 10/20',
-    image: workshopFlyer,
-    ticketUrl: 'https://posh.vip/series/intro-to-dj-workshop',
+    city: 'Washington, DC',
+    dateLabel: 'Tuesday, November 10',
+    image: dcWorkshopFlyer,
+    ticketUrl: 'https://posh.vip/e/global-lynk-intro-to-dj-workshop-dc-nov-copy',
   },
   {
-    city: 'Washington, DC',
-    dateLabel: 'October 14',
-    image: dcWorkshopFlyer,
-    ticketUrl: 'https://posh.vip/e/global-lynk-intro-to-dj-workshop-dc-oct',
+    city: 'Dallas, TX',
+    dateLabel: 'Thursday, November 12',
+    image: dallasWorkshopFlyer,
+    ticketUrl: 'https://posh.vip/e/global-lynk-intro-to-dj-workshop-nov-edit-dallas-tx',
   },
 ];
 
 export default function Home() {
   return (
     <div>
-      {/* The Mix Lab (Art Basel Miami) announcement strip */}
       <MixLabBanner />
-
       <section style={{ position: 'relative', padding: `${space.xxl} 0 ${space.xl}`, overflow: 'hidden' }}>
         <GradientOrb seed={3} size={560} style={{ position: 'absolute', top: '-160px', right: '-120px', zIndex: 0 }} />
         <div
@@ -81,7 +79,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Featured: Tables Turned DJ Competition (Culture Exchange 2027) */}
       <CultureExchangeFeature />
 
       {/* Featured: Intro to DJ Workshop — split banner, one card per city */}

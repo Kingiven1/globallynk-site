@@ -16,9 +16,11 @@ import BookDJ from './pages/BookDJ';
 import Login from './pages/Login';
 import ResetPassword from './pages/ResetPassword';
 import CultureExchange from './pages/CultureExchange';
+import CultureExchangeVote from './pages/CultureExchangeVote';
 import MixLab from './pages/MixLab';
 import Portal from './pages/Portal';
 import AdminStudents from './pages/AdminStudents';
+import AdminVotes from './pages/AdminVotes';
 import { page } from './styles/tokens';
 
 export default function App() {
@@ -40,6 +42,7 @@ export default function App() {
             <Route path="/login" element={<Login />} />
             <Route path="/reset-password" element={<ResetPassword />} />
             <Route path="/culture-exchange" element={<CultureExchange />} />
+            <Route path="/culture-exchange/vote" element={<CultureExchangeVote />} />
             <Route path="/mix-lab" element={<MixLab />} />
             <Route
               path="/portal"
@@ -54,6 +57,14 @@ export default function App() {
               element={
                 <ProtectedRoute>
                   <AdminStudents />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/admin/votes"
+              element={
+                <ProtectedRoute>
+                  <AdminVotes />
                 </ProtectedRoute>
               }
             />

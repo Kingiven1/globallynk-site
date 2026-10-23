@@ -11,6 +11,9 @@ import {
   buttonPrimary, buttonGhost, container, section, space, font,
 } from '../styles/tokens';
 
+// Set to true to bring the Let's Lynk Radio section back on the homepage.
+const SHOW_RADIO = false;
+
 const RADIO_VOLUMES = [
   { vol: '006', artist: 'Jarzu', genres: 'Afrohouse, Latin, Soca', href: 'https://www.patreon.com/globallynk', cover: null },
   { vol: '005', artist: 'KØR!', genres: 'R&B, Soul, Funk', href: 'https://www.patreon.com/globallynk', cover: null },
@@ -51,7 +54,7 @@ export default function Home() {
           className="lynk-hero-grid"
         >
           <div>
-            <div style={eyebrow}><span>Charlotte, NC — Expanding 2026</span></div>
+            <div style={eyebrow}><span>Now on tour — Charlotte · DC · Dallas &amp; more</span></div>
             <h1 style={{ ...h1, fontSize: 'clamp(36px, 5.5vw, 68px)' }}>
               Where music, culture &amp; <span style={{ color: color.cyan }}>creative community grow together.</span>
             </h1>
@@ -168,6 +171,7 @@ export default function Home() {
         </div>
       </section>
 
+      {SHOW_RADIO && (
       <section style={section}>
         <div style={container}>
           <div style={eyebrow}><span>Let's Lynk Radio</span></div>
@@ -197,6 +201,7 @@ export default function Home() {
           </div>
         </div>
       </section>
+      )}
 
       <section style={{ ...section, paddingBottom: space.xxxl }}>
         <div style={{ ...container, ...card, padding: space.xl, display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between', alignItems: 'center', gap: space.md }}>

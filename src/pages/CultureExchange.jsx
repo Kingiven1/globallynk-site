@@ -1,3 +1,5 @@
+
+
 import { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import flyer from '../assets/images/tables-turned-flyer.jpg';
@@ -54,8 +56,8 @@ const PHASE_HERO = {
   public_voting: {
     eyebrow: 'Global Lynk Culture Exchange 2027',
     headline: 'Vote for the next Culture Exchange DJs.',
-    body: 'Meet the 18 semifinalists, watch their sets, and vote for one woman and one man. Your vote helps decide the 10 DJs who compete live in Charlotte. Voting closes November 12.',
-    ctaLabel: 'VOTE NOW',
+    body: 'Meet the 18 semifinalists, watch their sets, and vote for one woman and one man. Your vote helps decide the 10 DJs who compete live in Charlotte. Voting opens Tuesday, November 3 and closes November 12.',
+    ctaLabel: 'WATCH THE SETS',
     ctaAction: 'go-to-vote',
   },
   finalists_announced: {
@@ -84,7 +86,7 @@ const ROUNDS = [
   {
     tag: 'ROUND 2',
     title: 'PUBLIC VOTE',
-    dates: 'Now – November 12',
+    dates: 'November 3–12',
     copy: 'The 18 semifinalists are featured on our voting page. Public votes, combined with a judges\' score, determine the 10 live finalists: five women, five men. Finalists are announced November 13.',
   },
   {
@@ -144,8 +146,8 @@ const ELIGIBILITY = [
 const TIMELINE = [
   { date: 'October 5, 2026', label: 'Applications open.' },
   { date: 'October 19, 2026', label: 'Applications and Round 1 submissions close.' },
-  { date: 'October 20–23, 2026', label: 'Global Lynk review period.' },
-  { date: 'October 24, 2026', label: 'Semifinalists announced and public voting opens.' },
+  { date: 'October 20–November 2, 2026', label: 'Global Lynk review period.' },
+  { date: 'November 3, 2026', label: 'Semifinalists announced and public voting opens.' },
   { date: 'November 12, 2026', label: 'Public voting closes at 11:59 PM Eastern.' },
   { date: 'November 13, 2026', label: 'Ten live finalists announced.' },
   { date: 'December 12 or 13, 2026', label: 'Live finals in Charlotte.' },
@@ -628,18 +630,18 @@ export default function CultureExchange() {
             <div style={{ ...card, padding: space.xl, textAlign: 'center' }}>
               <h3 style={{ ...h3, fontSize: '20px', marginBottom: space.sm }}>
                 {CONFIG.phase === 'applications_closed' && 'Applications are currently closed.'}
-                {CONFIG.phase === 'public_voting' && 'Public voting is open.'}
+                {CONFIG.phase === 'public_voting' && 'Public voting opens Tuesday, November 3.'}
                 {CONFIG.phase === 'finalists_announced' && 'The finalists showcase is coming soon.'}
                 {CONFIG.phase === 'winners_announced' && 'The winners showcase is coming soon.'}
               </h3>
               <p style={{ ...body, maxWidth: '480px', margin: '0 auto' }}>
                 {CONFIG.phase === 'public_voting'
-                  ? 'Watch the sets and vote for one woman and one man. Voting closes November 12.'
+                  ? 'Watch the sets now and vote for one woman and one man when polls open. Voting closes November 12.'
                   : 'Check back here, or follow @globallynk for updates on the next phase of the competition.'}
               </p>
               {CONFIG.phase === 'public_voting' && (
                 <div style={{ marginTop: space.md }}>
-                  <Link to="/culture-exchange/vote" style={buttonPrimary}>VOTE NOW →</Link>
+                  <Link to="/culture-exchange/vote" style={buttonPrimary}>WATCH THE SETS →</Link>
                 </div>
               )}
             </div>

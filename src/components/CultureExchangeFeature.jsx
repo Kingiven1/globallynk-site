@@ -38,19 +38,19 @@ export default function CultureExchangeFeature() {
         </Link>
 
         <div>
-          <div style={eyebrow}><span>Public voting is open · Closes Nov 12</span></div>
+          <div style={eyebrow}><span>Voting opens Tuesday, Nov 3 · Closes Nov 12</span></div>
           <h2 style={{ ...h2, marginBottom: space.sm }}>Tables Turned. Your vote decides.</h2>
           <p style={{ ...bodyLg, marginBottom: space.sm }}>
             18 DJs. Five women and five men will advance to the live finals in Charlotte, and the
-            winners head to the 2027 Culture Exchange in Mexico City. Watch the sets, then vote for
-            one woman and one man.
+            winners head to the 2027 Culture Exchange in Mexico City. Watch the sets now, then vote for
+            one woman and one man when polls open Tuesday, Nov 3.
           </p>
           <p style={{ ...body, fontFamily: font.mono, fontSize: '13px', color: color.cyanDim, marginBottom: space.md }}>
-            18 DJS &nbsp;|&nbsp; 1 VOTE PER CATEGORY &nbsp;|&nbsp; CLOSES NOV 12
+            18 DJS &nbsp;|&nbsp; OPENS NOV 3 &nbsp;|&nbsp; CLOSES NOV 12
           </p>
           <div style={{ display: 'flex', gap: space.sm, flexWrap: 'wrap' }}>
             <Link to="/culture-exchange/vote" style={{ ...buttonPrimary, textDecoration: 'none' }}>
-              VOTE NOW →
+              WATCH THE SETS →
             </Link>
             <Link to="/culture-exchange" style={{ ...buttonGhost, textDecoration: 'none' }}>
               HOW IT WORKS

@@ -184,7 +184,7 @@ export default function CultureExchangeVote() {
           </p>
 
           {settings && notOpen && (
-            <Notice>Voting opens {formatDate(settings.opens_at)}. You can watch the sets now.</Notice>
+            <Notice>Voting is paused and opens {formatDate(settings.opens_at)}. You can watch the sets now. If you already voted, those votes will not count, and you can vote again when polls open.</Notice>
           )}
           {settings && closed && <Notice>Voting is closed. Thank you for watching and voting!</Notice>}
           {votingOpen && settings?.closes_at && (

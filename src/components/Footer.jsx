@@ -23,7 +23,7 @@ export default function Footer() {
 
       <div style={{ ...container, display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between', gap: space.lg }}>
         <div style={{ maxWidth: '340px' }}>
-          <img src={logo} alt="GlobalLYNK" style={{ height: '28px', width: 'auto', marginBottom: '12px' }} />
+          <img src={logo} alt="GlobalLYNK" style={{ height: '28px', width: 'auto', marginBottom: '12px', filter: 'brightness(0)' }} />
           <p style={{ fontFamily: font.body, fontSize: '14px', color: color.muted, lineHeight: 1.6 }}>
             Creativity is the highest form of wealth.
           </p>

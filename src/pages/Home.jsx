@@ -1,5 +1,4 @@
 import { Link } from 'react-router-dom';
-import GradientOrb from '../components/GradientOrb';
 import heroPhoto from '../assets/images/481A8469.jpg';
 import winnersPhoto from '../assets/images/winners.jpg';
 import {
@@ -70,24 +69,36 @@ export default function Home() {
   return (
     <div>
       {/* ───────────── HERO ───────────── */}
-      <section style={{ position: 'relative', padding: `${space.xxl} 0 ${space.xl}`, overflow: 'hidden' }}>
-        <GradientOrb seed={3} size={560} style={{ position: 'absolute', top: '-160px', right: '-120px', zIndex: 0 }} />
+      <section
+        style={{
+          position: 'relative',
+          padding: `${space.xxl} 0`,
+          overflow: 'hidden',
+          background: [
+            'radial-gradient(60% 70% at 100% 0%, rgba(46,211,230,0.55) 0%, rgba(46,211,230,0) 60%)',
+            'radial-gradient(50% 60% at 0% 100%, rgba(214,51,138,0.45) 0%, rgba(214,51,138,0) 60%)',
+            'radial-gradient(40% 50% at 8% 78%, rgba(242,107,29,0.45) 0%, rgba(242,107,29,0) 60%)',
+            'radial-gradient(45% 55% at 85% 100%, rgba(123,63,228,0.4) 0%, rgba(123,63,228,0) 60%)',
+            '#000',
+          ].join(', '),
+        }}
+      >
         <div
           style={{ ...container, position: 'relative', zIndex: 1, display: 'grid', gridTemplateColumns: '1.1fr 0.9fr', gap: space.xl, alignItems: 'center' }}
           className="lynk-hero-grid"
         >
           <div>
-            <div style={eyebrow}><span>Now on tour — Charlotte · DC · Dallas &amp; more</span></div>
-            <h1 style={{ ...h1, fontSize: 'clamp(36px, 5.5vw, 68px)' }}>
-              Where music, culture &amp; <span style={{ color: color.cyan }}>creative community grow together.</span>
+            <div style={{ ...eyebrow, color: color.tealBright }}><span>Now on tour — Charlotte · DC · Dallas &amp; more</span></div>
+            <h1 style={{ ...h1, color: color.inkText, fontSize: 'clamp(38px, 5.5vw, 68px)' }}>
+              Where music, culture &amp; creative community grow together.
             </h1>
-            <p style={{ ...bodyLg, marginTop: space.md }}>
+            <p style={{ ...bodyLg, color: color.inkMuted, marginTop: space.md }}>
               DJ sets, hands-on workshops, and community experiences designed to spark
               creativity, build real skills, and keep people connected long after the first event.
             </p>
             <div style={{ display: 'flex', gap: space.sm, marginTop: space.lg, flexWrap: 'wrap' }}>
-              <Link to="/events" style={buttonPrimary}>See upcoming events →</Link>
-              <Link to="/cohort" style={buttonGhost}>Explore the cohort</Link>
+              <Link to="/events" style={{ ...buttonPrimary, background: color.tealBright, color: '#000' }}>See upcoming events</Link>
+              <Link to="/cohort" style={{ ...buttonGhost, color: color.tealBright, borderColor: color.tealBright }}>Explore the cohort</Link>
             </div>
           </div>
 
@@ -99,14 +110,14 @@ export default function Home() {
               aspectRatio: '4/5',
               objectFit: 'cover',
               borderRadius: radius.lg,
-              boxShadow: '0 30px 80px rgba(0,0,0,0.45)',
+              boxShadow: '0 30px 80px rgba(0,0,0,0.5)',
             }}
           />
         </div>
       </section>
 
       {/* ───────────── HAPPENING NOW ───────────── */}
-      <section style={{ ...section, paddingTop: 0 }}>
+      <section style={section}>
         <div style={container}>
           <div style={eyebrow}><span>Happening now</span></div>
           <h2 style={{ ...h2, fontSize: 'clamp(26px, 3.5vw, 36px)', marginBottom: space.lg }}>
@@ -121,10 +132,9 @@ export default function Home() {
                   padding: space.lg,
                   display: 'flex',
                   flexDirection: 'column',
-                  border: `1px solid ${color.cyanDim}`,
-                }}
+                                  }}
               >
-                <div style={{ fontFamily: font.mono, fontSize: '12px', letterSpacing: '0.02em', color: color.cyanDim, marginBottom: '8px' }}>
+                <div style={{ fontFamily: font.mono, fontSize: '12px', letterSpacing: '0.02em', color: color.cyan, fontWeight: 600, marginBottom: '8px' }}>
                   {item.eyebrow}
                 </div>
                 <h3 style={{ fontFamily: 'Space Grotesk, sans-serif', fontSize: '26px', color: color.white, marginBottom: '10px' }}>

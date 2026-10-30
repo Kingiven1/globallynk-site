@@ -11,6 +11,7 @@ import logo from '../assets/images/Global-Lynk_Base-Logomark-White@4x.png';
 // ──────────────────────────────────────────────────────────────────────────
 
 const NAV = [
+  { to: '/', label: 'Home' },
   {
     label: 'Learn',
     items: [
@@ -95,8 +96,8 @@ export default function Nav() {
 
   const topStyle = (active) => ({
     fontFamily: font.mono,
-    fontSize: '13px',
-    letterSpacing: '0.01em',
+    fontSize: '14px',
+    letterSpacing: '-0.005em',
     textDecoration: 'none',
     color: active ? color.cyan : color.muted,
     paddingBottom: '4px',
@@ -111,9 +112,10 @@ export default function Nav() {
   });
 
   const featuredStyle = {
-    fontFamily: font.mono,
-    fontSize: '12px',
-    letterSpacing: '0.04em',
+    fontFamily: font.body,
+    fontSize: '13px',
+    fontWeight: 500,
+    letterSpacing: '0',
     textDecoration: 'none',
     color: '#fff',
     background: color.cyan,
@@ -176,7 +178,7 @@ export default function Nav() {
                 border: `1px solid ${color.line}`,
                 borderRadius: '14px',
                 padding: '8px',
-                boxShadow: '0 14px 36px rgba(0,0,0,0.14)',
+                boxShadow: '0 14px 36px rgba(0,0,0,0.12)',
                 display: 'flex',
                 flexDirection: 'column',
               }}
@@ -214,8 +216,9 @@ export default function Nav() {
         position: 'sticky',
         top: 0,
         zIndex: 50,
-        background: 'rgba(242,236,217,0.88)',
-        backdropFilter: 'blur(8px)',
+        background: 'rgba(245,245,247,0.8)',
+        backdropFilter: 'saturate(180%) blur(20px)',
+        WebkitBackdropFilter: 'saturate(180%) blur(20px)',
         borderBottom: `1px solid ${color.line}`,
       }}
     >
@@ -225,7 +228,7 @@ export default function Nav() {
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'space-between',
-          height: '76px',
+          height: '64px',
         }}
       >
         <Link to="/" aria-label="GlobalLYNK home" style={{ display: 'flex', alignItems: 'center' }}>
@@ -308,7 +311,7 @@ export default function Nav() {
             display: 'flex',
             flexDirection: 'column',
             gap: '18px',
-            maxHeight: 'calc(100vh - 76px)',
+            maxHeight: 'calc(100vh - 64px)',
             overflowY: 'auto',
           }}
         >
@@ -376,7 +379,7 @@ export default function Nav() {
       )}
 
       <style>{`
-        .lynk-dd-item:hover, .lynk-dd-item:focus-visible { background: rgba(46,75,224,0.09); }
+        .lynk-dd-item:hover, .lynk-dd-item:focus-visible { background: rgba(8,124,145,0.09); }
         @media (max-width: 900px) {
           .lynk-nav-desktop { display: none !important; }
           .lynk-nav-toggle { display: inline-flex !important; }

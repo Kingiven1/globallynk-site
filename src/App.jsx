@@ -21,6 +21,7 @@ import MixLab from './pages/MixLab';
 import Portal from './pages/Portal';
 import AdminStudents from './pages/AdminStudents';
 import AdminVotes from './pages/AdminVotes';
+import AdminPartners from './pages/AdminPartners';
 import { page } from './styles/tokens';
 
 export default function App() {
@@ -65,6 +66,14 @@ export default function App() {
               element={
                 <ProtectedRoute>
                   <AdminVotes />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/admin/partners"
+              element={
+                <ProtectedRoute>
+                  <AdminPartners />
                 </ProtectedRoute>
               }
             />

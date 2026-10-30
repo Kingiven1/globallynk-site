@@ -1,6 +1,7 @@
 import { useRef } from 'react';
 import MixLabInterestForm from '../components/MixLabInterestForm';
 import MixLabLogo from '../components/MixLabLogo';
+import MixLabPartnership from '../components/MixLabPartnership';
 import {
   font, h1, h2, h3, body, bodyLg,
   buttonPrimary, buttonGhost, container, section, space,
@@ -146,6 +147,12 @@ export default function MixLab() {
             <button onClick={() => scrollTo(signupRef)} style={yellowButton}>
               Get the details first →
             </button>
+            <button
+              onClick={() => document.getElementById('community-partnership')?.scrollIntoView({ behavior: 'smooth', block: 'start' })}
+              style={outlineWhiteButton}
+            >
+              Community partners
+            </button>
             <button onClick={() => scrollTo(partnerRef)} style={outlineWhiteButton}>
               Sponsors &amp; partners
             </button>
@@ -238,6 +245,9 @@ export default function MixLab() {
         </div>
       </section>
 
+      {/* ───────────────────────── COMMUNITY PARTNERSHIP (info + application) ───────────────────────── */}
+      <MixLabPartnership />
+
       {/* ───────────────────────── SPONSORS & PARTNERS ───────────────────────── */}
       <section
         ref={partnerRef}
@@ -254,7 +264,7 @@ export default function MixLab() {
           </h2>
           <p style={{ ...bodyLg, color: P.lilac, maxWidth: '560px', margin: `0 auto ${space.lg}` }}>
             We&apos;re building The Mix Lab with brands, venues and community partners who care about DJ
-            culture and the creative entrepreneurs behind it. If that&apos;s you, reach out directly.
+            culture and the creative entrepreneurs behind it. For larger sponsorships and custom activations, reach out directly.
           </p>
           <div style={{ display: 'flex', gap: space.sm, justifyContent: 'center', flexWrap: 'wrap' }}>
             <a href={partnerMailto} style={yellowButton}>

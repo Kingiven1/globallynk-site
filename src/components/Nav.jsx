@@ -11,6 +11,7 @@ const BASE_LINKS = [
   { to: '/journey', label: 'Our Journey' },
   { to: '/alumni', label: 'DJs' },
   { to: '/culture-exchange', label: 'Culture Exchange' },
+  { to: '/culture-exchange/vote', label: 'Vote', highlight: true },
   { to: '/contact', label: 'Contact' },
   { to: '/donate', label: 'Donate' },
 ];
@@ -27,23 +28,37 @@ export default function Nav() {
     navigate('/');
   }
 
-  const linkStyle = (path) => ({
-    fontFamily: font.mono,
-    fontSize: '13px',
-    letterSpacing: '0.01em',
-    textDecoration: 'none',
-    color: location.pathname === path ? color.cyan : color.muted,
-    paddingBottom: '4px',
-    borderBottom: location.pathname === path ? `1px solid ${color.cyan}` : '1px solid transparent',
-    whiteSpace: 'nowrap',
-  });
+  const linkStyle = (path, highlight) =>
+    highlight
+      ? {
+          fontFamily: font.mono,
+          fontSize: '12px',
+          letterSpacing: '0.04em',
+          textDecoration: 'none',
+          color: '#fff',
+          background: color.cyan,
+          borderRadius: '999px',
+          padding: '8px 16px',
+          whiteSpace: 'nowrap',
+        }
+      : {
+          fontFamily: font.mono,
+          fontSize: '13px',
+          letterSpacing: '0.01em',
+          textDecoration: 'none',
+          color: location.pathname === path ? color.cyan : color.muted,
+          paddingBottom: '4px',
+          borderBottom: location.pathname === path ? `1px solid ${color.cyan}` : '1px solid transparent',
+          whiteSpace: 'nowrap',
+        };
 
-  const mobileLinkStyle = (path) => ({
+  const mobileLinkStyle = (path, highlight) => ({
     fontFamily: font.mono,
     fontSize: '14px',
     letterSpacing: '0.01em',
     textDecoration: 'none',
-    color: location.pathname === path ? color.cyan : color.white,
+    color: highlight ? color.cyan : location.pathname === path ? color.cyan : color.white,
+    fontWeight: highlight ? 700 : 400,
   });
 
   return (
@@ -74,9 +89,9 @@ export default function Nav() {
           />
         </Link>
 
-        <nav style={{ display: 'flex', alignItems: 'center', gap: '26px' }} className="lynk-nav-desktop">
+        <nav style={{ display: 'flex', alignItems: 'center', gap: '20px' }} className="lynk-nav-desktop">
           {BASE_LINKS.map((link) => (
-            <Link key={link.to} to={link.to} style={linkStyle(link.to)}>
+            <Link key={link.to} to={link.to} style={linkStyle(link.to, link.highlight)}>
               {link.label}
             </Link>
           ))}
@@ -89,6 +104,16 @@ export default function Nav() {
               {profile?.role === 'admin' && (
                 <Link to="/admin/students" style={linkStyle('/admin/students')}>
                   Students
+                </Link>
+              )}
+              {profile?.role === 'admin' && (
+                <Link to="/admin/votes" style={linkStyle('/admin/votes')}>
+                  Votes
+                </Link>
+              )}
+              {profile?.role === 'admin' && (
+                <Link to="/admin/partners" style={linkStyle('/admin/partners')}>
+                  Partners
                 </Link>
               )}
               <button
@@ -146,7 +171,7 @@ export default function Nav() {
           }}
         >
           {BASE_LINKS.map((link) => (
-            <Link key={link.to} to={link.to} onClick={() => setOpen(false)} style={mobileLinkStyle(link.to)}>
+            <Link key={link.to} to={link.to} onClick={() => setOpen(false)} style={mobileLinkStyle(link.to, link.highlight)}>
               {link.label}
             </Link>
           ))}
@@ -159,6 +184,16 @@ export default function Nav() {
               {profile?.role === 'admin' && (
                 <Link to="/admin/students" onClick={() => setOpen(false)} style={mobileLinkStyle('/admin/students')}>
                   Students
+                </Link>
+              )}
+              {profile?.role === 'admin' && (
+                <Link to="/admin/votes" onClick={() => setOpen(false)} style={mobileLinkStyle('/admin/votes')}>
+                  Votes
+                </Link>
+              )}
+              {profile?.role === 'admin' && (
+                <Link to="/admin/partners" onClick={() => setOpen(false)} style={mobileLinkStyle('/admin/partners')}>
+                  Partners
                 </Link>
               )}
               <button
@@ -187,7 +222,7 @@ export default function Nav() {
       )}
 
       <style>{`
-        @media (max-width: 900px) {
+        @media (max-width: 1100px) {
           .lynk-nav-desktop { display: none !important; }
           .lynk-nav-toggle { display: inline-flex !important; }
         }

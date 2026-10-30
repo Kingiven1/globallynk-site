@@ -2,51 +2,74 @@ import { Link } from 'react-router-dom';
 import GradientOrb from '../components/GradientOrb';
 import heroPhoto from '../assets/images/481A8469.jpg';
 import winnersPhoto from '../assets/images/winners.jpg';
-import dcWorkshopFlyer from '../assets/images/dc-nov10-flyer.jpg';
-import dallasWorkshopFlyer from '../assets/images/dallas-nov12-flyer.jpg';
-import CultureExchangeFeature from '../components/CultureExchangeFeature';
-import MixLabBanner from '../components/MixLabBanner';
 import {
   color, eyebrow, h1, h2, bodyLg, body, card, radius,
   buttonPrimary, buttonGhost, container, section, space, font,
 } from '../styles/tokens';
 
-// Set to true to bring the Let's Lynk Radio section back on the homepage.
-const SHOW_RADIO = false;
+// ──────────────────────────────────────────────────────────────────────────
+// EDITABLE: "HAPPENING NOW" — the three things we want people to do right now.
+// Keep it to three, ordered by deadline. When something is over, edit or swap
+// its entry here; nothing else on the page needs to change.
+// An action with `to` is an internal link; an action with `href` opens a new tab.
+// ──────────────────────────────────────────────────────────────────────────
 
-const RADIO_VOLUMES = [
-  { vol: '006', artist: 'Jarzu', genres: 'Afrohouse, Latin, Soca', href: 'https://www.patreon.com/globallynk', cover: null },
-  { vol: '005', artist: 'KØR!', genres: 'R&B, Soul, Funk', href: 'https://www.patreon.com/globallynk', cover: null },
-  { vol: '004', artist: 'Chase That Taste', genres: '', href: 'https://youtu.be/YPM00VvEwCo', cover: 'https://img.youtube.com/vi/YPM00VvEwCo/hqdefault.jpg' },
-  { vol: '003', artist: 'DJ Jahmaka', genres: 'Live Set', href: 'https://www.patreon.com/globallynk', cover: null },
+const HAPPENING_NOW = [
+  {
+    key: 'vote',
+    eyebrow: 'Voting opens Tue, Nov 3 · Closes Nov 12',
+    title: 'Tables Turned',
+    copy: '18 DJs compete for the live finals in Charlotte. Watch the sets, then vote for one woman and one man.',
+    actions: [
+      { label: 'Watch & vote →', to: '/culture-exchange/vote', primary: true },
+      { label: 'How it works', to: '/culture-exchange' },
+    ],
+  },
+  {
+    key: 'workshops',
+    eyebrow: 'Nov 10 · Nov 12',
+    title: 'Intro to DJ Workshop',
+    copy: 'Beginner-friendly and hands-on. No experience or gear needed. Pick your city:',
+    actions: [
+      { label: 'Washington, DC · Nov 10', href: 'https://posh.vip/e/global-lynk-intro-to-dj-workshop-dc-nov-copy', primary: true },
+      { label: 'Dallas · Nov 12', href: 'https://posh.vip/e/global-lynk-intro-to-dj-workshop-nov-edit-dallas-tx', primary: true },
+      { label: 'See all dates', to: '/events' },
+    ],
+  },
+  {
+    key: 'mixlab',
+    eyebrow: 'Art Basel · Miami · December',
+    title: 'The Mix Lab',
+    copy: 'A day to celebrate DJ culture, community and creative entrepreneurs. Businesses can join as Community Partners.',
+    actions: [
+      { label: 'Explore The Mix Lab →', to: '/mix-lab', primary: true },
+      { label: 'Become a partner', to: '/mix-lab/partner-application' },
+    ],
+  },
 ];
 
 const PILLARS = [
-  { n: '01', title: 'Learn', copy: 'Beginner-friendly Intro Workshops — hands-on sessions built for curiosity, creativity, and connection.', to: '/events', cta: 'See upcoming workshops', accent: color.cyan, gradient: `linear-gradient(135deg, ${color.cyan}, #6FE3EE)` },
-  { n: '02', title: 'Grow', copy: 'Go deeper in a Multi-Week Cohort — structured learning, accountability, real skill development.', to: '/cohort', cta: 'How the cohort works', accent: color.purple, gradient: `linear-gradient(135deg, ${color.purple}, #C7A5FF)` },
-  { n: '03', title: 'Stay Connected', copy: 'Graduation is the beginning. Alumni stay plugged into showcases, collaborations, and future opportunities.', to: '/alumni', cta: 'Meet our alumni', accent: color.pink, gradient: `linear-gradient(135deg, ${color.pink}, #FFA8CC)` },
-  { n: '04', title: 'Discover', copy: 'DJ sets, showcases, and cultural experiences — the events that started this whole thing in the first place.', to: '/journey', cta: 'See our journey', accent: color.cyan, gradient: `linear-gradient(135deg, ${color.cyan}, #6FE3EE)` },
+  { n: '01', title: 'Learn', copy: 'Beginner-friendly workshops. No experience needed.', to: '/events', cta: 'Upcoming workshops', accent: color.cyan },
+  { n: '02', title: 'Grow', copy: 'An 8-week cohort with real instructors and a real skill by graduation.', to: '/cohort', cta: 'How the cohort works', accent: color.purple },
+  { n: '03', title: 'Stay connected', copy: 'Alumni stay plugged into showcases, collaborations and gigs.', to: '/alumni', cta: 'Meet the DJs', accent: color.pink },
+  { n: '04', title: 'Discover', copy: 'DJ sets, showcases and cultural exchanges around the world.', to: '/journey', cta: 'Our journey', accent: color.cyan },
 ];
 
-const FEATURED_WORKSHOPS = [
-  {
-    city: 'Washington, DC',
-    dateLabel: 'Tuesday, November 10',
-    image: dcWorkshopFlyer,
-    ticketUrl: 'https://posh.vip/e/global-lynk-intro-to-dj-workshop-dc-nov-copy',
-  },
-  {
-    city: 'Dallas, TX',
-    dateLabel: 'Thursday, November 12',
-    image: dallasWorkshopFlyer,
-    ticketUrl: 'https://posh.vip/e/global-lynk-intro-to-dj-workshop-nov-edit-dallas-tx',
-  },
-];
+function Action({ a }) {
+  const style = a.primary
+    ? { ...buttonPrimary, justifyContent: 'center', textDecoration: 'none', width: '100%', boxSizing: 'border-box' }
+    : { ...buttonGhost, justifyContent: 'center', textDecoration: 'none', width: '100%', boxSizing: 'border-box' };
+  return a.href ? (
+    <a href={a.href} target="_blank" rel="noreferrer" style={style}>{a.label}</a>
+  ) : (
+    <Link to={a.to} style={style}>{a.label}</Link>
+  );
+}
 
 export default function Home() {
   return (
     <div>
-      <MixLabBanner />
+      {/* ───────────── HERO ───────────── */}
       <section style={{ position: 'relative', padding: `${space.xxl} 0 ${space.xl}`, overflow: 'hidden' }}>
         <GradientOrb seed={3} size={560} style={{ position: 'absolute', top: '-160px', right: '-120px', zIndex: 0 }} />
         <div
@@ -82,62 +105,53 @@ export default function Home() {
         </div>
       </section>
 
-      <CultureExchangeFeature />
-
-      {/* Featured: Intro to DJ Workshop — split banner, one card per city */}
+      {/* ───────────── HAPPENING NOW ───────────── */}
       <section style={{ ...section, paddingTop: 0 }}>
         <div style={container}>
-          <div style={eyebrow}><span>Most popular · Start here</span></div>
+          <div style={eyebrow}><span>Happening now</span></div>
           <h2 style={{ ...h2, fontSize: 'clamp(26px, 3.5vw, 36px)', marginBottom: space.lg }}>
-            Intro to DJ Workshop
+            Three ways to plug in.
           </h2>
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: space.lg }} className="lynk-featured-split">
-            {FEATURED_WORKSHOPS.map((w) => (
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(270px, 1fr))', gap: space.lg }}>
+            {HAPPENING_NOW.map((item) => (
               <div
-                key={w.city}
+                key={item.key}
                 style={{
                   ...card,
                   padding: space.lg,
+                  display: 'flex',
+                  flexDirection: 'column',
                   border: `1px solid ${color.cyanDim}`,
-                  boxShadow: `0 0 0 1px ${color.cyanFaint}`,
                 }}
               >
-                <img
-                  src={w.image}
-                  alt={`Intro to DJ Workshop — ${w.city}`}
-                  style={{ width: '100%', height: 'auto', borderRadius: radius.md, marginBottom: space.md }}
-                />
-                <div style={{ fontFamily: font.mono, fontSize: '12px', letterSpacing: '0.02em', color: color.cyanDim, marginBottom: '4px' }}>
-                  {w.dateLabel}
+                <div style={{ fontFamily: font.mono, fontSize: '12px', letterSpacing: '0.02em', color: color.cyanDim, marginBottom: '8px' }}>
+                  {item.eyebrow}
                 </div>
-                <h3 style={{ fontFamily: 'Space Grotesk, sans-serif', fontSize: '20px', color: color.white, marginBottom: space.sm }}>
-                  {w.city}
+                <h3 style={{ fontFamily: 'Space Grotesk, sans-serif', fontSize: '26px', color: color.white, marginBottom: '10px' }}>
+                  {item.title}
                 </h3>
-                <a href={w.ticketUrl} target="_blank" rel="noreferrer" style={{ ...buttonPrimary, justifyContent: 'center', width: '100%' }}>
-                  Get tickets →
-                </a>
+                <p style={{ ...body, marginBottom: space.md, flex: 1 }}>{item.copy}</p>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+                  {item.actions.map((a) => <Action key={a.label} a={a} />)}
+                </div>
               </div>
             ))}
-          </div>
-          <div style={{ marginTop: space.md }}>
-            <Link to="/events" style={buttonGhost}>See all dates</Link>
           </div>
         </div>
       </section>
 
+      {/* ───────────── WHAT WE DO ───────────── */}
       <section style={section}>
         <div style={container}>
           <div style={eyebrow}><span>What we do</span></div>
-          <h2 style={{ ...h2, maxWidth: '640px', marginBottom: space.xl }}>Try DJing once. Go deeper if it's for you.</h2>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: space.lg }} className="lynk-pillars-grid">
+          <h2 style={{ ...h2, maxWidth: '640px', marginBottom: space.lg }}>Try DJing once. Go deeper if it's for you.</h2>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: space.lg }} className="lynk-pillars-grid">
             {PILLARS.map((p) => (
-              <div key={p.n} className="lynk-pillar-card" style={{ ...card, padding: space.lg, transition: 'transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease' }}>
-                <div style={{ width: '44px', height: '44px', borderRadius: radius.sm, background: p.gradient, display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: space.md, boxShadow: `0 4px 14px ${p.accent}33` }}>
-                  <span style={{ fontFamily: font.mono, fontSize: '14px', color: color.bg, fontWeight: 600 }}>{p.n}</span>
-                </div>
-                <h3 style={{ fontFamily: 'Space Grotesk, sans-serif', fontSize: '22px', color: color.white, marginBottom: '10px' }}>{p.title}</h3>
-                <p style={{ ...body, marginBottom: space.md }}>{p.copy}</p>
-                <Link to={p.to} style={{ fontFamily: font.mono, fontSize: '12px', letterSpacing: '0.01em', color: p.accent, textDecoration: 'none' }}>
+              <div key={p.n} style={{ borderTop: `2px solid ${p.accent}`, paddingTop: space.sm }}>
+                <div style={{ fontFamily: font.mono, fontSize: '12px', color: p.accent, marginBottom: '6px' }}>{p.n}</div>
+                <h3 style={{ fontFamily: 'Space Grotesk, sans-serif', fontSize: '20px', color: color.white, marginBottom: '6px' }}>{p.title}</h3>
+                <p style={{ ...body, fontSize: '14px', marginBottom: '10px' }}>{p.copy}</p>
+                <Link to={p.to} style={{ fontFamily: font.mono, fontSize: '12px', color: p.accent, textDecoration: 'none' }}>
                   {p.cta} →
                 </Link>
               </div>
@@ -146,7 +160,8 @@ export default function Home() {
         </div>
       </section>
 
-      <section style={section}>
+      {/* ───────────── OUR STORY ───────────── */}
+      <section style={{ ...section, paddingBottom: space.xxxl }}>
         <div style={container}>
           <div style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 1fr) minmax(0, 1fr)', gap: space.xl, alignItems: 'center' }} className="lynk-cultural-grid">
             <div>
@@ -160,69 +175,22 @@ export default function Home() {
             <img
               src={winnersPhoto}
               alt="GlobalLYNK cultural exchange winners in Mexico City"
-              style={{
-                width: '100%',
-                aspectRatio: '4/3',
-                objectFit: 'cover',
-                borderRadius: radius.lg,
-              }}
+              style={{ width: '100%', aspectRatio: '4/3', objectFit: 'cover', borderRadius: radius.lg }}
             />
           </div>
         </div>
       </section>
 
-      {SHOW_RADIO && (
-      <section style={section}>
-        <div style={container}>
-          <div style={eyebrow}><span>Let's Lynk Radio</span></div>
-          <h2 style={{ ...h2, maxWidth: '640px', marginBottom: '8px' }}>Exclusive sets from the GlobalLYNK community and beyond.</h2>
-          <p style={{ ...body, marginBottom: space.xl }}>New volumes drop regularly — full sets, artist by artist.</p>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: space.md }}>
-            {RADIO_VOLUMES.map((r) => {
-              return (
-                <a key={r.vol} href={r.href} target="_blank" rel="noreferrer" style={{ textDecoration: 'none', display: 'block' }}>
-                  {r.cover ? (
-                    <img
-                      src={r.cover}
-                      alt={`${r.artist} — Let's Lynk Radio Vol. ${r.vol}`}
-                      style={{ width: '100%', aspectRatio: '1/1', objectFit: 'cover', borderRadius: radius.md, marginBottom: '10px' }}
-                    />
-                  ) : (
-                    <div style={{ aspectRatio: '1/1', background: color.bgRaised, border: `1px solid ${color.line}`, borderRadius: radius.md, display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: font.mono, fontSize: '11px', color: color.mutedDim, marginBottom: '10px' }}>
-                      Cover art coming soon
-                    </div>
-                  )}
-                  <div style={{ fontFamily: font.mono, fontSize: '11px', color: color.cyanDim, marginBottom: '4px' }}>VOL. {r.vol}</div>
-                  <div style={{ fontFamily: 'Space Grotesk, sans-serif', fontSize: '15px', color: color.white, marginBottom: '2px' }}>{r.artist}</div>
-                  <div style={{ ...body, fontSize: '13px' }}>{r.genres}</div>
-                </a>
-              );
-            })}
-          </div>
-        </div>
-      </section>
-      )}
-
-      <section style={{ ...section, paddingBottom: space.xxxl }}>
-        <div style={{ ...container, ...card, padding: space.xl, display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between', alignItems: 'center', gap: space.md }}>
-          <div>
-            <h2 style={{ ...h2, fontSize: '30px', marginBottom: '8px' }}>First workshop is the easiest way in.</h2>
-            <p style={body}>One day. Try it. See where it takes you.</p>
-          </div>
-          <Link to="/events" style={buttonPrimary}>Find a workshop →</Link>
-        </div>
-      </section>
-
       <style>{`
+        @media (max-width: 900px) {
+          .lynk-pillars-grid { grid-template-columns: repeat(2, 1fr) !important; }
+        }
         @media (max-width: 780px) {
           .lynk-cultural-grid { grid-template-columns: 1fr !important; }
           .lynk-hero-grid { grid-template-columns: 1fr !important; }
-          .lynk-pillars-grid { grid-template-columns: 1fr !important; }
-          .lynk-featured-split { grid-template-columns: 1fr !important; }
         }
-        .lynk-pillar-card:hover {
-          transform: translateY(-2px);
-          box-shadow: 0 8px 24px rgba(0,0,0,0.25);
+        @media (max-width: 520px) {
+          .lynk-pillars-grid { grid-template-columns: 1fr !important; }
         }
       `}</style>
     </div>

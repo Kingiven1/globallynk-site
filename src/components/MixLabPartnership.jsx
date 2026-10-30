@@ -17,7 +17,7 @@ const CONFIG = {
   contactEmail: 'connect@indabooth.com',
   // There is no privacy policy page on the site yet. When one exists, put its
   // path here (for example '/privacy') and the form will link to it.
-  privacyUrl: null,
+  privacyUrl: '/privacy',
 };
 
 // Same Art Basel palette as MixLab.jsx
@@ -628,12 +628,12 @@ export default function MixLabPartnership() {
       {/* ───────────── INFO ───────────── */}
       <section id="community-partnership" style={{ ...section, background: P.butter }}>
         <div style={container}>
-          <span style={{ ...pill, background: P.white }}>COMMUNITY PARTNERSHIP</span>
+          <span style={{ ...pill, background: P.white }}>ART BASEL · COMMUNITY PARTNERSHIP</span>
           <h2 style={{ ...h2, color: P.ink, margin: `${space.md} 0 ${space.sm}`, maxWidth: '720px' }}>
             Become a Community Partner.
           </h2>
           <p style={{ ...bodyLg, color: P.inkSoft, maxWidth: '760px', marginBottom: space.sm }}>
-            Introduce your business to The Mix Lab community during Miami Art Week. Community Partners
+            Introduce your business to The Mix Lab community during Art Basel Miami week. Community Partners
             receive a listing in our mobile-friendly Digital Experience Guide, which attendees can access
             through check-in, QR signage and event communications.
           </p>

@@ -469,6 +469,10 @@ export default function CultureExchangeVote() {
                   <input type="checkbox" checked={form.optIn} onChange={(e) => setForm({ ...form, optIn: e.target.checked })} style={{ marginTop: '3px' }} />
                   Keep me posted on the finals, workshops and events from GlobalLYNK.
                 </label>
+                <p style={{ fontSize: '12px', color: '#5A5A4A', lineHeight: 1.4, margin: '4px 0 0' }}>
+                  We use your details only to confirm your vote and keep the competition fair. See our{' '}
+                  <Link to="/privacy" target="_blank" style={{ color: '#17170F', textDecoration: 'underline' }}>privacy policy</Link>.
+                </p>
               </div>
 
               {error && <p style={{ color: '#B3261E', fontSize: '14px', marginTop: '10px' }}>{error}</p>}

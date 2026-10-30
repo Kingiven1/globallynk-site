@@ -25,7 +25,13 @@ const NAV = [
       { to: '/culture-exchange/vote', label: 'Watch & vote' },
     ],
   },
-  { to: '/mix-lab', label: 'The Mix Lab' },
+  {
+    label: 'Art Basel',
+    items: [
+      { to: '/mix-lab', label: 'The Mix Lab' },
+      { to: '/mix-lab/partner-application', label: 'Become a Community Partner' },
+    ],
+  },
   {
     label: 'About',
     items: [

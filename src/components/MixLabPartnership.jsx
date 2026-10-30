@@ -1,13 +1,17 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { supabase } from '../lib/supabaseClient';
 import {
   font, h2, h3, body, bodyLg, buttonPrimary, buttonGhost, container, section, space,
 } from '../styles/tokens';
 
 // ──────────────────────────────────────────────────────────────────────────
-// The Mix Lab — Community Partnership: info section + 3-step application.
+// The Mix Lab — Community Partnership: info section (default export, shown on the
+// Mix Lab page) + the 3-step application (PartnerApplication, shown on its own page).
 // Applications are sent to /api/partner-apply (saved in Supabase, emails sent).
 // ──────────────────────────────────────────────────────────────────────────
+
+export const APPLY_PATH = '/mix-lab/partner-application';
 
 const CONFIG = {
   contactEmail: 'connect@indabooth.com',
@@ -131,17 +135,9 @@ const REQUIRED = ['business_name', 'contact_name', 'email', 'website', 'location
 const money = (n) => `$${n.toLocaleString('en-US')}`;
 const catLabel = (key) => CATEGORIES.find((c) => c.key === key)?.label || '';
 
-export default function MixLabPartnership() {
-  const formRef = useRef(null);
-  const headingRef = useRef(null);
-  const [step, setStep] = useState(0);
-  const [form, setForm] = useState(EMPTY);
-  const [errors, setErrors] = useState({});
-  const [submitting, setSubmitting] = useState(false);
-  const [serverError, setServerError] = useState('');
-  const [done, setDone] = useState(null); // { ref, status, emailed }
+// Live count of open placements (counts only, no applicant details).
+function useAvailability() {
   const [availability, setAvailability] = useState([]);
-
   useEffect(() => {
     let alive = true;
     (async () => {
@@ -149,11 +145,24 @@ export default function MixLabPartnership() {
         const { data } = await supabase.rpc('mixlab_partner_availability');
         if (alive && Array.isArray(data)) setAvailability(data);
       } catch {
-        /* availability is a nice-to-have; the form still works without it */
+        /* availability is a nice-to-have; everything still works without it */
       }
     })();
     return () => { alive = false; };
   }, []);
+  return availability;
+}
+
+export function PartnerApplication({ initialPackage = '' }) {
+  const formRef = useRef(null);
+  const headingRef = useRef(null);
+  const [step, setStep] = useState(0);
+  const [form, setForm] = useState({ ...EMPTY, package: PACKAGES.some((p) => p.key === initialPackage) ? initialPackage : '' });
+  const [errors, setErrors] = useState({});
+  const [submitting, setSubmitting] = useState(false);
+  const [serverError, setServerError] = useState('');
+  const [done, setDone] = useState(null); // { ref, status, emailed }
+  const availability = useAvailability();
 
   const spotsLeft = (cat, pkg) => {
     const row = availability.find((r) => r.category === cat && r.package === pkg);
@@ -168,11 +177,6 @@ export default function MixLabPartnership() {
   function set(name, value) {
     setForm((f) => ({ ...f, [name]: value }));
     if (errors[name]) setErrors((e) => ({ ...e, [name]: undefined }));
-  }
-
-  function startWithPackage(pkgKey) {
-    set('package', pkgKey);
-    scrollToForm();
   }
 
   function scrollToForm() {
@@ -336,128 +340,13 @@ export default function MixLabPartnership() {
   // ───────────────────────── render ─────────────────────────
   return (
     <>
-      {/* ───────────── INFO ───────────── */}
-      <section id="community-partnership" style={{ ...section, background: P.butter }}>
-        <div style={container}>
-          <span style={{ ...pill, background: P.white }}>COMMUNITY PARTNERSHIP</span>
-          <h2 style={{ ...h2, color: P.ink, margin: `${space.md} 0 ${space.sm}`, maxWidth: '720px' }}>
-            Become a Community Partner.
-          </h2>
-          <p style={{ ...bodyLg, color: P.inkSoft, maxWidth: '760px', marginBottom: space.sm }}>
-            Introduce your business to The Mix Lab community during Miami Art Week. Community Partners
-            receive a listing in our mobile-friendly Digital Experience Guide, which attendees can access
-            through check-in, QR signage and event communications.
-          </p>
-          <p style={{ ...body, color: P.inkSoft, maxWidth: '760px', marginBottom: space.lg }}>
-            A paid directory partnership for small businesses, emerging brands and community organizations.
-            Presented by GlobalLYNK, AmpSpot &amp; NFNTE Capital.
-          </p>
-
-          <h3 style={{ ...h3, color: P.ink, fontSize: '18px', marginBottom: space.sm }}>Four categories</h3>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(210px, 1fr))', gap: space.md, marginBottom: space.xl }}>
-            {CATEGORIES.map((c) => (
-              <div key={c.key} style={{ ...poster, background: c.bg, borderRadius: '18px', padding: space.md }}>
-                <div style={{ fontFamily: 'Space Grotesk, sans-serif', fontSize: '17px', color: P.ink }}>{c.label}</div>
-              </div>
-            ))}
-          </div>
-
-          <h3 style={{ ...h3, color: P.ink, fontSize: '18px', marginBottom: space.sm }}>Two packages</h3>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: space.lg, marginBottom: space.md }}>
-            {PACKAGES.map((p) => (
-              <div key={p.key} style={{ ...poster, background: p.bg, borderRadius: '22px', padding: space.lg, display: 'flex', flexDirection: 'column' }}>
-                <div style={{ fontFamily: font.mono, fontSize: '12px', letterSpacing: '0.04em', color: P.ink }}>{p.name.toUpperCase()}</div>
-                <div style={{ fontFamily: 'Space Grotesk, sans-serif', fontSize: '40px', color: P.ink, margin: '4px 0 12px' }}>{money(p.price)}</div>
-                <ul style={{ margin: '0 0 16px', paddingLeft: '20px', color: P.ink, display: 'flex', flexDirection: 'column', gap: '6px', flex: 1 }}>
-                  {p.benefits.map((b) => (
-                    <li key={b} style={{ fontSize: '15px' }}>{b}</li>
-                  ))}
-                </ul>
-                <button
-                  type="button"
-                  onClick={() => startWithPackage(p.key)}
-                  style={{ ...buttonPrimary, background: P.yellow, color: P.ink, border: `2px solid ${P.ink}`, boxShadow: `4px 4px 0 ${P.ink}`, cursor: 'pointer', justifyContent: 'center' }}
-                >
-                  Apply for {p.name} →
-                </button>
-              </div>
-            ))}
-          </div>
-
-          <p style={{ ...body, color: P.ink, fontSize: '14px', marginBottom: '6px' }}>
-            <strong>Availability:</strong> three Standard placements and one Featured placement per category, 16 placements in all across the four categories.
-          </p>
-          <p style={{ ...body, color: P.inkSoft, fontSize: '14px', marginBottom: space.md }}>
-            Featured partners get top placement within their category. Other businesses can participate in the same category.
-          </p>
-
-          {availability.length > 0 && (
-            <div style={{ overflowX: 'auto', marginBottom: space.md }}>
-              <table style={{ borderCollapse: 'collapse', background: P.white, border: `2px solid ${P.ink}`, borderRadius: '12px', fontSize: '14px', color: P.ink, minWidth: '440px' }}>
-                <caption style={{ textAlign: 'left', fontFamily: font.mono, fontSize: '12px', letterSpacing: '0.03em', padding: '8px 0', color: P.ink }}>PLACEMENTS STILL OPEN</caption>
-                <thead>
-                  <tr>
-                    <th scope="col" style={{ textAlign: 'left', padding: '8px 12px', borderBottom: `2px solid ${P.ink}` }}>Category</th>
-                    <th scope="col" style={{ textAlign: 'left', padding: '8px 12px', borderBottom: `2px solid ${P.ink}` }}>Standard</th>
-                    <th scope="col" style={{ textAlign: 'left', padding: '8px 12px', borderBottom: `2px solid ${P.ink}` }}>Featured</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {CATEGORIES.map((c) => (
-                    <tr key={c.key}>
-                      <th scope="row" style={{ textAlign: 'left', fontWeight: 600, padding: '8px 12px', borderBottom: `1px solid ${P.sky}` }}>{c.label}</th>
-                      {['standard', 'featured'].map((pk) => {
-                        const left = spotsLeft(c.key, pk);
-                        return (
-                          <td key={pk} style={{ padding: '8px 12px', borderBottom: `1px solid ${P.sky}` }}>
-                            {left === null ? '—' : left === 0 ? 'Full — free waitlist' : `${left} open`}
-                          </td>
-                        );
-                      })}
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          )}
-
-          <p style={{ ...body, color: P.inkSoft, fontSize: '14px', maxWidth: '760px', marginBottom: space.md }}>
-            Community Partnerships do not include activation space, speaking opportunities, dedicated social posts,
-            stage mentions or event naming rights. For larger sponsorships or custom activations, contact{' '}
-            <a href={`mailto:${CONFIG.contactEmail}`} style={{ color: P.cobalt }}>{CONFIG.contactEmail}</a>.
-          </p>
-
-          <div style={{ marginBottom: space.lg }}>
-            <button
-              type="button"
-              onClick={scrollToForm}
-              style={{ ...buttonPrimary, background: P.yellow, color: P.ink, border: `2px solid ${P.ink}`, boxShadow: `4px 4px 0 ${P.ink}`, cursor: 'pointer' }}
-            >
-              APPLY TO BECOME A COMMUNITY PARTNER
-            </button>
-          </div>
-
-          <div style={{ ...poster, background: P.white, borderRadius: '18px', padding: space.md }}>
-            <div style={{ fontFamily: font.mono, fontSize: '12px', letterSpacing: '0.04em', color: P.ink, marginBottom: '10px' }}>HOW IT WORKS</div>
-            <ol style={{ display: 'flex', flexWrap: 'wrap', gap: '8px 10px', listStyle: 'none', margin: 0, padding: 0 }}>
-              {FLOW.map((f, i) => (
-                <li key={f} style={{ display: 'flex', alignItems: 'center', gap: '10px', fontSize: '14px', color: P.ink }}>
-                  <span style={{ background: i === 0 ? P.yellow : P.sky, border: `2px solid ${P.ink}`, borderRadius: '999px', padding: '4px 12px' }}>{f}</span>
-                  {i < FLOW.length - 1 && <span aria-hidden="true">→</span>}
-                </li>
-              ))}
-            </ol>
-          </div>
-        </div>
-      </section>
-
       {/* ───────────── APPLICATION FORM ───────────── */}
       <section ref={formRef} id="community-partner-application" style={{ ...section, background: P.lilac }}>
         <div style={{ ...container, maxWidth: '720px' }}>
           <span style={{ ...pill, background: P.white }}>APPLY</span>
-          <h2 ref={headingRef} tabIndex={-1} style={{ ...h2, color: P.ink, margin: `${space.md} 0 ${space.sm}`, outline: 'none' }}>
+          <h1 ref={headingRef} tabIndex={-1} style={{ ...h2, color: P.ink, margin: `${space.md} 0 ${space.sm}`, outline: 'none' }}>
             Community Partner application
-          </h2>
+          </h1>
           <p style={{ ...body, color: P.inkSoft, marginBottom: space.lg }}>
             Takes about five minutes. Submitting is free and does not reserve a placement. No payment is due at this stage.
           </p>
@@ -719,6 +608,132 @@ export default function MixLabPartnership() {
                 </div>
               </form>
             )}
+          </div>
+        </div>
+      </section>
+    </>
+  );
+}
+
+export default function MixLabPartnership() {
+  const availability = useAvailability();
+  const spotsLeft = (cat, pkg) => {
+    const row = availability.find((r) => r.category === cat && r.package === pkg);
+    if (!row) return null;
+    return Math.max(0, row.capacity - row.taken);
+  };
+
+  return (
+    <>
+      {/* ───────────── INFO ───────────── */}
+      <section id="community-partnership" style={{ ...section, background: P.butter }}>
+        <div style={container}>
+          <span style={{ ...pill, background: P.white }}>COMMUNITY PARTNERSHIP</span>
+          <h2 style={{ ...h2, color: P.ink, margin: `${space.md} 0 ${space.sm}`, maxWidth: '720px' }}>
+            Become a Community Partner.
+          </h2>
+          <p style={{ ...bodyLg, color: P.inkSoft, maxWidth: '760px', marginBottom: space.sm }}>
+            Introduce your business to The Mix Lab community during Miami Art Week. Community Partners
+            receive a listing in our mobile-friendly Digital Experience Guide, which attendees can access
+            through check-in, QR signage and event communications.
+          </p>
+          <p style={{ ...body, color: P.inkSoft, maxWidth: '760px', marginBottom: space.lg }}>
+            A paid directory partnership for small businesses, emerging brands and community organizations.
+            Presented by GlobalLYNK, AmpSpot &amp; NFNTE Capital.
+          </p>
+
+          <h3 style={{ ...h3, color: P.ink, fontSize: '18px', marginBottom: space.sm }}>Four categories</h3>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(210px, 1fr))', gap: space.md, marginBottom: space.xl }}>
+            {CATEGORIES.map((c) => (
+              <div key={c.key} style={{ ...poster, background: c.bg, borderRadius: '18px', padding: space.md }}>
+                <div style={{ fontFamily: 'Space Grotesk, sans-serif', fontSize: '17px', color: P.ink }}>{c.label}</div>
+              </div>
+            ))}
+          </div>
+
+          <h3 style={{ ...h3, color: P.ink, fontSize: '18px', marginBottom: space.sm }}>Two packages</h3>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: space.lg, marginBottom: space.md }}>
+            {PACKAGES.map((p) => (
+              <div key={p.key} style={{ ...poster, background: p.bg, borderRadius: '22px', padding: space.lg, display: 'flex', flexDirection: 'column' }}>
+                <div style={{ fontFamily: font.mono, fontSize: '12px', letterSpacing: '0.04em', color: P.ink }}>{p.name.toUpperCase()}</div>
+                <div style={{ fontFamily: 'Space Grotesk, sans-serif', fontSize: '40px', color: P.ink, margin: '4px 0 12px' }}>{money(p.price)}</div>
+                <ul style={{ margin: '0 0 16px', paddingLeft: '20px', color: P.ink, display: 'flex', flexDirection: 'column', gap: '6px', flex: 1 }}>
+                  {p.benefits.map((b) => (
+                    <li key={b} style={{ fontSize: '15px' }}>{b}</li>
+                  ))}
+                </ul>
+                <Link
+                  to={`${APPLY_PATH}?package=${p.key}`}
+                  style={{ ...buttonPrimary, background: P.yellow, color: P.ink, border: `2px solid ${P.ink}`, boxShadow: `4px 4px 0 ${P.ink}`, textDecoration: 'none', justifyContent: 'center' }}
+                >
+                  Apply for {p.name} →
+                </Link>
+              </div>
+            ))}
+          </div>
+
+          <p style={{ ...body, color: P.ink, fontSize: '14px', marginBottom: '6px' }}>
+            <strong>Availability:</strong> three Standard placements and one Featured placement per category, 16 placements in all across the four categories.
+          </p>
+          <p style={{ ...body, color: P.inkSoft, fontSize: '14px', marginBottom: space.md }}>
+            Featured partners get top placement within their category. Other businesses can participate in the same category.
+          </p>
+
+          {availability.length > 0 && (
+            <div style={{ overflowX: 'auto', marginBottom: space.md }}>
+              <table style={{ borderCollapse: 'collapse', background: P.white, border: `2px solid ${P.ink}`, borderRadius: '12px', fontSize: '14px', color: P.ink, minWidth: '440px' }}>
+                <caption style={{ textAlign: 'left', fontFamily: font.mono, fontSize: '12px', letterSpacing: '0.03em', padding: '8px 0', color: P.ink }}>PLACEMENTS STILL OPEN</caption>
+                <thead>
+                  <tr>
+                    <th scope="col" style={{ textAlign: 'left', padding: '8px 12px', borderBottom: `2px solid ${P.ink}` }}>Category</th>
+                    <th scope="col" style={{ textAlign: 'left', padding: '8px 12px', borderBottom: `2px solid ${P.ink}` }}>Standard</th>
+                    <th scope="col" style={{ textAlign: 'left', padding: '8px 12px', borderBottom: `2px solid ${P.ink}` }}>Featured</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {CATEGORIES.map((c) => (
+                    <tr key={c.key}>
+                      <th scope="row" style={{ textAlign: 'left', fontWeight: 600, padding: '8px 12px', borderBottom: `1px solid ${P.sky}` }}>{c.label}</th>
+                      {['standard', 'featured'].map((pk) => {
+                        const left = spotsLeft(c.key, pk);
+                        return (
+                          <td key={pk} style={{ padding: '8px 12px', borderBottom: `1px solid ${P.sky}` }}>
+                            {left === null ? '—' : left === 0 ? 'Full — free waitlist' : `${left} open`}
+                          </td>
+                        );
+                      })}
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          )}
+
+          <p style={{ ...body, color: P.inkSoft, fontSize: '14px', maxWidth: '760px', marginBottom: space.md }}>
+            Community Partnerships do not include activation space, speaking opportunities, dedicated social posts,
+            stage mentions or event naming rights. For larger sponsorships or custom activations, contact{' '}
+            <a href={`mailto:${CONFIG.contactEmail}`} style={{ color: P.cobalt }}>{CONFIG.contactEmail}</a>.
+          </p>
+
+          <div style={{ marginBottom: space.lg }}>
+            <Link
+              to={APPLY_PATH}
+              style={{ ...buttonPrimary, background: P.yellow, color: P.ink, border: `2px solid ${P.ink}`, boxShadow: `4px 4px 0 ${P.ink}`, textDecoration: 'none' }}
+            >
+              APPLY TO BECOME A COMMUNITY PARTNER
+            </Link>
+          </div>
+
+          <div style={{ ...poster, background: P.white, borderRadius: '18px', padding: space.md }}>
+            <div style={{ fontFamily: font.mono, fontSize: '12px', letterSpacing: '0.04em', color: P.ink, marginBottom: '10px' }}>HOW IT WORKS</div>
+            <ol style={{ display: 'flex', flexWrap: 'wrap', gap: '8px 10px', listStyle: 'none', margin: 0, padding: 0 }}>
+              {FLOW.map((f, i) => (
+                <li key={f} style={{ display: 'flex', alignItems: 'center', gap: '10px', fontSize: '14px', color: P.ink }}>
+                  <span style={{ background: i === 0 ? P.yellow : P.sky, border: `2px solid ${P.ink}`, borderRadius: '999px', padding: '4px 12px' }}>{f}</span>
+                  {i < FLOW.length - 1 && <span aria-hidden="true">→</span>}
+                </li>
+              ))}
+            </ol>
           </div>
         </div>
       </section>

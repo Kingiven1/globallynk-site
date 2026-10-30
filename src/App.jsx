@@ -18,6 +18,7 @@ import ResetPassword from './pages/ResetPassword';
 import CultureExchange from './pages/CultureExchange';
 import CultureExchangeVote from './pages/CultureExchangeVote';
 import MixLab from './pages/MixLab';
+import MixLabPartnerApply from './pages/MixLabPartnerApply';
 import Portal from './pages/Portal';
 import AdminStudents from './pages/AdminStudents';
 import AdminVotes from './pages/AdminVotes';
@@ -45,6 +46,7 @@ export default function App() {
             <Route path="/culture-exchange" element={<CultureExchange />} />
             <Route path="/culture-exchange/vote" element={<CultureExchangeVote />} />
             <Route path="/mix-lab" element={<MixLab />} />
+            <Route path="/mix-lab/partner-application" element={<MixLabPartnerApply />} />
             <Route
               path="/portal"
               element={

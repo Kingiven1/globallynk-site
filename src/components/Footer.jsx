@@ -18,7 +18,7 @@ export default function Footer() {
         }}
         className="lynk-footer-top"
       >
-        <MailingListSignup />
+        <MailingListSignup askCity />
       </div>
 
       <div style={{ ...container, display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between', gap: space.lg }}>
@@ -46,11 +46,13 @@ export default function Footer() {
             <FooterLink to="/events">Events</FooterLink>
             <FooterLink to="/cohort">Cohort</FooterLink>
             <FooterLink to="/alumni">DJs</FooterLink>
+            <FooterLink to="/mix-lab">The Mix Lab</FooterLink>
           </div>
           <div>
             <div style={footerLabel}>About</div>
             <FooterLink to="/journey">Our Journey</FooterLink>
             <FooterLink to="/donate">Donate</FooterLink>
+            <FooterLink to="/privacy">Privacy Policy</FooterLink>
           </div>
           <div>
             <div style={footerLabel}>Contact</div>
@@ -63,7 +65,7 @@ export default function Footer() {
       </div>
 
       <div style={{ ...container, marginTop: space.lg, paddingTop: space.md, borderTop: `1px solid ${color.line}`, fontFamily: font.mono, fontSize: '11px', letterSpacing: '0.04em', color: color.mutedDim }}>
-        © 2026 GlobalLYNK × AmpSpot · All Rights Reserved
+        © 2026 GlobalLYNK × AmpSpot · All Rights Reserved · <Link to="/privacy" style={{ color: 'inherit' }}>Privacy</Link>
       </div>
 
       <style>{`

@@ -28,16 +28,16 @@ export default function Cohort() {
           className="lynk-cohort-hero-grid"
         >
           <div>
-            <div style={eyebrow}><span>Cohort — Applications Full</span></div>
+            <div style={eyebrow}><span>Cohort — Join the waitlist</span></div>
             <h1 style={{ ...h1, fontSize: 'clamp(36px, 6vw, 64px)' }}>
               8 weeks. Small class. A real skill by graduation.
             </h1>
             <p style={{ ...bodyLg, marginTop: space.md }}>
-              Our Fall 2026 cohort is officially full — applications are closed for this round.
-              Join the mailing list below and you'll be the first to know when the next cohort opens.
+              Our Fall 2026 cohort is full and wraps October 31. Join the waitlist for the next
+              cohort and tell us your city. You'll be first to know when spots open.
             </p>
             <div style={{ marginTop: space.lg }}>
-              <a href="#stay-tuned" style={buttonGhost}>Get notified for the next cohort ↓</a>
+              <a href="#stay-tuned" style={buttonGhost}>Join the waitlist ↓</a>
             </div>
           </div>
           <img
@@ -68,6 +68,7 @@ export default function Cohort() {
             { label: 'When', value: 'Sat, 11AM–1PM' },
             { label: 'Dates', value: 'Sept 12 – Oct 31' },
             { label: 'Class size', value: 'Full — 15/15' },
+            { label: 'Next cohort', value: 'Waitlist open' },
           ].map((f) => (
             <div key={f.label} style={{ borderLeft: `2px solid ${color.cyan}`, paddingLeft: space.sm }}>
               <div style={{ fontFamily: font.mono, fontSize: '11px', letterSpacing: '0.02em', color: color.mutedDim, marginBottom: '4px' }}>
@@ -138,13 +139,20 @@ export default function Cohort() {
             padding: space.xl,
           }}
         >
-          <div style={eyebrow}><span>Applications closed</span></div>
-          <h2 style={{ ...h2, fontSize: '30px', marginBottom: '8px' }}>Cohort applications are full.</h2>
+          <div style={eyebrow}><span>Next cohort</span></div>
+          <h2 style={{ ...h2, fontSize: '30px', marginBottom: '8px' }}>Join the waitlist for the next cohort.</h2>
           <p style={{ ...body, marginBottom: space.lg }}>
-            15 seats, all claimed for Fall 2026. Join the mailing list and you'll be the first
-            to hear when applications open for the next cohort.
+            Fall 2026 is full. Add your email and city and you'll be first to hear when applications
+            open. Cities are Charlotte, Washington, DC, or tell us where you are.
           </p>
-          <MailingListSignup />
+          <MailingListSignup
+            heading={null}
+            subtext={null}
+            askCity
+            cityRequired
+            buttonLabel="Join the waitlist"
+            successMessage="You're on the waitlist. We'll email you when the next cohort opens."
+          />
         </div>
       </section>
 

@@ -63,6 +63,9 @@ export default function Nav() {
   const navigate = useNavigate();
   const { session, profile, signOut } = useAuth();
   const isAdmin = profile?.role === 'admin';
+  // Partner managers (e.g. Gloria) see only the Partners page under Admin.
+  const isPartnerManager = profile?.role === 'partner_manager';
+  const adminItems = isAdmin ? ADMIN_ITEMS : ADMIN_ITEMS.filter((i) => i.to === '/admin/partners');
 
   // Close menus whenever the page changes
   useEffect(() => {
@@ -257,7 +260,7 @@ export default function Nav() {
               <Link to="/portal" style={topStyle(location.pathname === '/portal')}>
                 Portal
               </Link>
-              {isAdmin && renderDropdown({ label: 'Admin', items: ADMIN_ITEMS })}
+              {(isAdmin || isPartnerManager) && renderDropdown({ label: 'Admin', items: adminItems })}
               <button
                 onClick={handleSignOut}
                 style={{
@@ -343,10 +346,10 @@ export default function Nav() {
               <Link to="/portal" onClick={() => setOpen(false)} style={mobileLink('/portal')}>
                 Portal
               </Link>
-              {isAdmin && (
+              {(isAdmin || isPartnerManager) && (
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
                   <div style={mobileHeading}>Admin</div>
-                  {ADMIN_ITEMS.map((item) => (
+                  {adminItems.map((item) => (
                     <Link key={item.to} to={item.to} onClick={() => setOpen(false)} style={{ ...mobileLink(item.to), paddingLeft: '10px' }}>
                       {item.label}
                     </Link>

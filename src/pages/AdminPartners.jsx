@@ -57,7 +57,8 @@ function mailto(to, subject, bodyText) {
 
 export default function AdminPartners() {
   const { profile } = useAuth();
-  const isAdmin = profile?.role === 'admin';
+  // Admins and partner managers can use this page. (Other admin pages stay admin-only.)
+  const isAdmin = profile?.role === 'admin' || profile?.role === 'partner_manager';
   const [params, setParams] = useSearchParams();
 
   const [rows, setRows] = useState([]);

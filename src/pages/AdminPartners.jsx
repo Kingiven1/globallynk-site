@@ -49,7 +49,10 @@ function randomToken() {
 }
 
 function mailto(to, subject, bodyText) {
-  return `mailto:${encodeURIComponent(to).replace('%40', '@')}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(bodyText)}`;
+  // Opens a pre-filled Gmail compose window in the browser (no email app needed),
+  // and keeps the pieces so the draft can also be copied to the clipboard.
+  const url = `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(to)}&su=${encodeURIComponent(subject)}&body=${encodeURIComponent(bodyText)}`;
+  return { url, to, subject, body: bodyText };
 }
 
 export default function AdminPartners() {
@@ -262,6 +265,25 @@ export default function AdminPartners() {
   );
 }
 
+// Two ways to send a drafted email: open it in Gmail (browser), or copy it to paste anywhere.
+function EmailActions({ draft, label, btn, setMsg }) {
+  async function copy() {
+    const text = `To: ${draft.to}\nSubject: ${draft.subject}\n\n${draft.body}`;
+    try {
+      await navigator.clipboard.writeText(text);
+      setMsg('Email copied. Paste it into any email app.');
+    } catch {
+      setMsg('Could not copy automatically. Use the Gmail button instead.');
+    }
+  }
+  return (
+    <>
+      <a href={draft.url} target="_blank" rel="noreferrer" style={btn}>{label}: open in Gmail ↗</a>
+      <button type="button" onClick={copy} style={btn}>Copy</button>
+    </>
+  );
+}
+
 function Detail({ row, save, taken, setMsg }) {
   const [notes, setNotes] = useState(row.internal_notes || '');
   const [altCat, setAltCat] = useState(row.approved_category || row.category);
@@ -381,7 +403,7 @@ function Detail({ row, save, taken, setMsg }) {
       <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap', marginBottom: space.sm }}>
         <button type="button" disabled={busy} onClick={() => act({ status: 'under_review' }, 'Marked under review.')} style={btn}>Under review</button>
         <button type="button" disabled={busy} onClick={() => act({ status: 'more_info_requested' }, 'Marked: more information requested.')} style={btn}>Request more info</button>
-        <a href={emailMore} style={btn}>Email them ↗</a>
+        <EmailActions draft={emailMore} label="Email them" btn={btn} setMsg={setMsg} />
       </div>
 
       <div style={{ fontFamily: font.mono, fontSize: '12px', color: color.cyanDim, margin: '12px 0 8px' }}>OFFER AN ALTERNATIVE</div>
@@ -394,7 +416,7 @@ function Detail({ row, save, taken, setMsg }) {
           <option value="featured">Featured ({taken(altCat, 'featured', row.id)}/1 taken)</option>
         </select>
         <button type="button" disabled={busy} onClick={offerAlternative} style={btn}>Record alternative</button>
-        <a href={emailAlt} style={btn}>Email the offer ↗</a>
+        <EmailActions draft={emailAlt} label="Email the offer" btn={btn} setMsg={setMsg} />
       </div>
       {row.alt_offered && (
         <label style={{ display: 'flex', gap: '8px', alignItems: 'center', fontSize: '14px', color: color.white, marginBottom: space.sm }}>
@@ -410,11 +432,11 @@ function Detail({ row, save, taken, setMsg }) {
       <div style={{ fontFamily: font.mono, fontSize: '12px', color: color.cyanDim, margin: '12px 0 8px' }}>DECISION</div>
       <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap', marginBottom: space.sm }}>
         <button type="button" disabled={busy || TAKEN.includes(row.status)} onClick={approve} style={primary}>Approve — awaiting payment</button>
-        <a href={emailApproved} style={btn}>Email approval ↗</a>
+        <EmailActions draft={emailApproved} label="Email approval" btn={btn} setMsg={setMsg} />
         <button type="button" disabled={busy} onClick={() => act({ status: 'waitlisted' }, 'Added to waitlist.')} style={btn}>Waitlist</button>
-        <a href={emailWait} style={btn}>Email waitlist ↗</a>
+        <EmailActions draft={emailWait} label="Email waitlist" btn={btn} setMsg={setMsg} />
         <button type="button" disabled={busy} onClick={() => act({ status: 'declined' }, 'Declined.')} style={btn}>Decline</button>
-        <a href={emailDecline} style={btn}>Email decline ↗</a>
+        <EmailActions draft={emailDecline} label="Email decline" btn={btn} setMsg={setMsg} />
         <button type="button" disabled={busy} onClick={() => act({ status: 'withdrawn' }, 'Marked withdrawn.')} style={btn}>Withdrawn</button>
       </div>
 

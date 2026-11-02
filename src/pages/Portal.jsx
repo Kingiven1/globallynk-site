@@ -1,3 +1,4 @@
+import { Navigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import StudentDashboard from './portal/StudentDashboard';
 import InstructorDashboard from './portal/InstructorDashboard';
@@ -15,6 +16,8 @@ export default function Portal() {
     );
   }
 
+  // Mix Lab partner managers only work on partner applications.
+  if (profile.role === 'partner_manager') return <Navigate to="/admin/partners" replace />;
   if (profile.role === 'instructor') return <InstructorDashboard />;
   if (profile.role === 'alumni') return <AlumniDashboard />;
   if (profile.role === 'admin') return <InstructorDashboard />;

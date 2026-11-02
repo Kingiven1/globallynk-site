@@ -57,7 +57,8 @@ function mailto(to, subject, bodyText) {
 
 export default function AdminPartners() {
   const { profile } = useAuth();
-  const isAdmin = profile?.role === 'admin';
+  // Admins and Mix Lab partner managers can review applications (the database allows both).
+  const isAdmin = ['admin', 'partner_manager'].includes(profile?.role);
   const [params, setParams] = useSearchParams();
 
   const [rows, setRows] = useState([]);
@@ -157,7 +158,7 @@ export default function AdminPartners() {
     return (
       <div style={{ ...container, padding: `${space.xxl} 0` }}>
         <h1 style={{ ...h1, fontSize: '32px' }}>Admins only</h1>
-        <p style={body}>Sign in with an admin account to review Community Partner applications.</p>
+        <p style={body}>Sign in with an admin or partner manager account to review Community Partner applications.</p>
       </div>
     );
   }

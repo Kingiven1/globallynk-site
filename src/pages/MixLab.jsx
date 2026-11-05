@@ -2,6 +2,7 @@ import { useRef } from 'react';
 import MixLabInterestForm from '../components/MixLabInterestForm';
 import MixLabLogo from '../components/MixLabLogo';
 import MixLabPartnership from '../components/MixLabPartnership';
+import flyer from '../assets/images/mixlab-flyer.png';
 import {
   font, h1, h2, h3, body, bodyLg,
   buttonPrimary, buttonGhost, container, section, space,
@@ -22,6 +23,10 @@ const CONFIG = {
 
   // Who the page says is presenting. Shown in the hero as "Presented by ...".
   presentedBy: 'GlobalLYNK, AmpSpot & NFNTE Capital',
+
+  // RSVP (Luma) and the full event site with the schedule, lineup and guide.
+  rsvpUrl: 'https://luma.com/2sd53ba8',
+  eventSiteUrl: 'https://www.themixlabglobal.com',
 };
 
 // ──────────────────────────────────────────────────────────────────────────
@@ -131,22 +136,28 @@ export default function MixLab() {
             <MixLabLogo height={180} />
           </div>
 
-          <span style={pill}>ART BASEL · MIAMI · DECEMBER 2026</span>
+          <span style={pill}>ART BASEL MIAMI · THU, DEC 3, 2026</span>
 
           <h1 style={{ ...h1, color: P.white, fontSize: 'clamp(34px, 5.5vw, 64px)', marginTop: space.md }}>
-            Art Basel activation <span style={{ color: P.yellow }}>coming soon.</span>
+            Step inside the <span style={{ color: P.yellow }}>art of DJing.</span>
           </h1>
           <p style={{ ...bodyLg, color: P.lilac, marginTop: space.md }}>
             A day to celebrate DJ culture, community and creative entrepreneurs.
           </p>
           <p style={{ ...body, color: P.white, marginTop: '4px' }}>
-            Presented by {CONFIG.presentedBy}
+            Noon–8 PM ET · The LAB Miami, 400 NW 26th St, Wynwood
+          </p>
+          <p style={{ ...body, color: P.white, marginTop: '4px' }}>
+            Complimentary admission · RSVP required · Presented by {CONFIG.presentedBy}
           </p>
 
           <div style={{ display: 'flex', gap: space.sm, marginTop: space.lg, flexWrap: 'wrap', justifyContent: 'center' }}>
-            <button onClick={() => scrollTo(signupRef)} style={yellowButton}>
-              Get the details first →
-            </button>
+            <a href={CONFIG.rsvpUrl} target="_blank" rel="noreferrer" style={yellowButton}>
+              Request an invitation →
+            </a>
+            <a href={CONFIG.eventSiteUrl} target="_blank" rel="noreferrer" style={outlineWhiteButton}>
+              Schedule &amp; guide ↗
+            </a>
             <button
               onClick={() => document.getElementById('community-partnership')?.scrollIntoView({ behavior: 'smooth', block: 'start' })}
               style={outlineWhiteButton}
@@ -158,6 +169,44 @@ export default function MixLab() {
             </button>
           </div>
         </div>
+      </section>
+
+      {/* ───────────────────────── FLYER + RSVP ───────────────────────── */}
+      <section style={section}>
+        <div
+          style={{ ...container, maxWidth: '980px', display: 'grid', gridTemplateColumns: 'minmax(0, 420px) minmax(0, 1fr)', gap: space.xl, alignItems: 'center' }}
+          className="mlx-flyer-grid"
+        >
+          <img
+            src={flyer}
+            alt="The Mix Lab: Art Basel Miami, Thursday December 3, Wynwood. Request RSVP at themixlabglobal.com"
+            style={{ ...poster, width: '100%', height: 'auto', borderRadius: '22px', display: 'block' }}
+          />
+          <div>
+            <span style={{ ...pill, background: P.white }}>SAVE THE DATE</span>
+            <h2 style={{ ...h2, color: P.ink, margin: `${space.md} 0 ${space.sm}` }}>Thursday, December 3.</h2>
+            <p style={{ ...bodyLg, color: P.inkSoft, marginBottom: space.xs || '8px' }}>
+              Noon–8 PM ET at The LAB Miami, 400 NW 26th St, Wynwood.
+            </p>
+            <p style={{ ...body, color: P.inkSoft, marginBottom: space.md }}>
+              Complimentary admission. RSVP required, and every request is reviewed.
+            </p>
+            <div style={{ display: 'flex', gap: space.sm, flexWrap: 'wrap' }}>
+              <a href={CONFIG.rsvpUrl} target="_blank" rel="noreferrer" style={yellowButton}>
+                Request an invitation →
+              </a>
+              <a
+                href={CONFIG.eventSiteUrl}
+                target="_blank"
+                rel="noreferrer"
+                style={{ ...buttonGhost, color: P.ink, border: `2px solid ${P.ink}`, textDecoration: 'none' }}
+              >
+                Schedule &amp; guide ↗
+              </a>
+            </div>
+          </div>
+        </div>
+        <style>{`@media (max-width: 780px) { .mlx-flyer-grid { grid-template-columns: 1fr !important; } }`}</style>
       </section>
 
       {/* ───────────────────────── WHAT IT IS ───────────────────────── */}
@@ -225,7 +274,16 @@ export default function MixLab() {
           </div>
 
           <p style={{ ...body, color: P.inkSoft, fontSize: '13px', marginTop: space.md }}>
-            Program, lineup and location are still being finalized. Official details will go to the list first.
+            Admission is free, but RSVP is required and every request is reviewed. Choose the Daytime or Night
+            session when you{' '}
+            <a href={CONFIG.rsvpUrl} target="_blank" rel="noreferrer" style={{ color: P.cobalt, fontWeight: 700 }}>
+              request your invitation
+            </a>
+            . Full schedule and lineup are on the{' '}
+            <a href={CONFIG.eventSiteUrl} target="_blank" rel="noreferrer" style={{ color: P.cobalt, fontWeight: 700 }}>
+              event site
+            </a>
+            .
           </p>
         </div>
       </section>
@@ -234,10 +292,9 @@ export default function MixLab() {
       <section ref={signupRef} style={{ ...section, background: P.pink }}>
         <div style={{ ...container, maxWidth: '640px', textAlign: 'center' }}>
           <span style={{ ...pill, background: P.white }}>STAY IN THE LOOP</span>
-          <h2 style={{ ...h2, color: P.ink, margin: `${space.md} 0 ${space.sm}` }}>Be first to know when details drop.</h2>
+          <h2 style={{ ...h2, color: P.ink, margin: `${space.md} 0 ${space.sm}` }}>Get Mix Lab updates.</h2>
           <p style={{ ...bodyLg, color: P.inkSoft, marginBottom: space.lg }}>
-            Join the list and you&apos;ll get the official Mix Lab announcement the moment we drop the
-            details.
+            Join the list for lineup news, arrival details and what&apos;s next from GlobalLYNK.
           </p>
           <div style={{ ...poster, background: P.white, borderRadius: '24px', padding: space.lg, textAlign: 'left' }}>
             <MixLabInterestForm />

@@ -26,22 +26,23 @@ const HAPPENING_NOW = [
   },
   {
     key: 'workshops',
-    eyebrow: 'Nov 10 · Nov 12',
+    eyebrow: 'Nov 12 · Dec 15',
     title: 'Intro to DJ Workshop',
     copy: 'Beginner-friendly and hands-on. No experience or gear needed. Pick your city:',
     actions: [
-      { label: 'Washington, DC · Nov 10', href: 'https://posh.vip/e/global-lynk-intro-to-dj-workshop-dc-nov-copy', primary: true },
       { label: 'Dallas · Nov 12', href: 'https://posh.vip/e/global-lynk-intro-to-dj-workshop-nov-edit-dallas-tx', primary: true },
+      { label: 'Washington, DC · Dec 15', href: 'https://posh.vip/e/global-lynk-intro-to-dj-workshop-dc-nov-copy', primary: true },
       { label: 'See all dates', to: '/events' },
     ],
   },
   {
     key: 'mixlab',
-    eyebrow: 'Art Basel · Miami · December',
+    eyebrow: 'Miami Art Week · Thu, Dec 3 · Wynwood',
     title: 'The Mix Lab',
-    copy: 'A day to celebrate DJ culture, community and creative entrepreneurs. Businesses can join as Community Partners.',
+    copy: 'Free hands-on DJ workshops, talks and live sets at The LAB Miami. Request your invitation, or bring your business in as a Community Partner.',
     actions: [
-      { label: 'Explore The Mix Lab →', to: '/mix-lab', primary: true },
+      { label: 'Request an invitation ↗', href: 'https://luma.com/2sd53ba8', primary: true },
+      { label: 'Explore The Mix Lab →', to: '/mix-lab' },
       { label: 'Become a partner', to: '/mix-lab/partner-application' },
     ],
   },

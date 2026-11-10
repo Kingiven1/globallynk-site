@@ -2,7 +2,7 @@ import GradientOrb from '../components/GradientOrb';
 import { color, eyebrow, h1, body, buttonPrimary, buttonGhost, container, section, space, font, radius } from '../styles/tokens';
 import tablesTurnedFlyer from '../assets/images/tables-turned-flyer.jpg';
 import workshopFlyer from '../assets/images/workshopflyer.png';
-import dcWorkshopFlyer from '../assets/images/dc-nov10-flyer.jpg';
+import dcDecWorkshopFlyer from '../assets/images/dc-dec15-flyer.png';
 import dallasWorkshopFlyer from '../assets/images/dallas-nov12-flyer.jpg';
 
 const EVENTS = [
@@ -18,20 +18,20 @@ const EVENTS = [
     image: tablesTurnedFlyer,
   },
   {
-    date: 'NOV 10',
-    type: 'Workshop',
-    title: 'Intro to DJ Workshop — Washington, DC',
-    copy: 'Learn the basics, meet working DJs, get hands-on. Led by King Iven, DJ Oowwee & DJ Popkorn. No experience or gear required.',
-    poshUrl: 'https://posh.vip/e/global-lynk-intro-to-dj-workshop-dc-nov-copy',
-    image: dcWorkshopFlyer,
-  },
-  {
     date: 'NOV 12',
     type: 'Workshop',
     title: 'Intro to DJ Workshop — Dallas, TX',
     copy: 'Learn the basics, meet working DJs, get hands-on. Led by DJ Nitecrawler & King Iven. Supported by AMP SPOT. No experience or gear required.',
     poshUrl: 'https://posh.vip/e/global-lynk-intro-to-dj-workshop-nov-edit-dallas-tx',
     image: dallasWorkshopFlyer,
+  },
+  {
+    date: 'DEC 15',
+    type: 'Workshop',
+    title: 'Intro to DJ Workshop — Washington, DC',
+    copy: 'Learn the basics, meet working DJs, get hands-on. No experience or gear required.',
+    poshUrl: 'https://posh.vip/e/global-lynk-intro-to-dj-workshop-dc-nov-copy',
+    image: dcDecWorkshopFlyer,
   },
   {
     date: 'MONTHLY',

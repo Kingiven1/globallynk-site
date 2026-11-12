@@ -20,7 +20,8 @@ export default function AdminVotes() {
 
   const [summary, setSummary] = useState(null);
   const [settings, setSettings] = useState(null);
-  const [judges, setJudges] = useState({}); // slug -> score string
+  const [judges, setJudges] = useState({}); // slug -> score string (manual fallback)
+  const [entryStats, setEntryStats] = useState({}); // slug -> { avg, n } from the judges' own logins
   const [msg, setMsg] = useState('');
   const [loading, setLoading] = useState(true);
   const [exporting, setExporting] = useState(false);
@@ -33,10 +34,11 @@ export default function AdminVotes() {
 
   async function load() {
     setLoading(true);
-    const [s, st, j] = await Promise.all([
+    const [s, st, j, je] = await Promise.all([
       supabase.rpc('ce_admin_summary'),
       supabase.from('ce_settings').select('*').eq('id', 1).maybeSingle(),
       supabase.from('ce_judge_scores').select('contestant_slug, score'),
+      supabase.from('ce_judge_entries').select('contestant_slug, score'),
     ]);
     if (s.error) setMsg('Error loading stats: ' + s.error.message);
     setSummary(s.data || null);
@@ -44,6 +46,15 @@ export default function AdminVotes() {
     const map = {};
     (j.data || []).forEach((r) => { map[r.contestant_slug] = r.score == null ? '' : String(r.score); });
     setJudges(map);
+    const stats = {};
+    (je.data || []).forEach((r) => {
+      const e = stats[r.contestant_slug] || { sum: 0, n: 0 };
+      e.sum += Number(r.score);
+      e.n += 1;
+      stats[r.contestant_slug] = e;
+    });
+    Object.keys(stats).forEach((k) => { stats[k] = { avg: stats[k].sum / stats[k].n, n: stats[k].n }; });
+    setEntryStats(stats);
     setLoading(false);
   }
 
@@ -113,14 +124,18 @@ export default function AdminVotes() {
       rows.forEach((r) => {
         r.votePct = (r.confirmed / max) * 100;
         const j = judges[r.slug];
-        r.judge = j === '' || j == null ? null : Number(j);
+        const es = entryStats[r.slug];
+        r.judgeN = es ? es.n : 0;
+        // Judges' own scores (averaged) win; otherwise fall back to a score you typed in.
+        // Judges score 1-10; x10 puts it on the same 0-100 scale as the public vote %.
+        r.judge = es ? es.avg * 10 : (j === '' || j == null ? null : Number(j));
         r.final = (1 - weight) * r.votePct + weight * (r.judge ?? 0);
       });
       rows.sort((a, b) => b.final - a.final);
       out[cat] = rows;
     });
     return out;
-  }, [summary, judges, settings]);
+  }, [summary, judges, settings, entryStats]);
 
   if (!profile) return <Page><p style={body}>Loading…</p></Page>;
   if (!isAdmin) return <Page><p style={body}>Admins only.</p></Page>;
@@ -188,7 +203,7 @@ export default function AdminVotes() {
             <thead>
               <tr>
                 <th style={th}>#</th><th style={th}>DJ</th><th style={th}>Confirmed votes</th>
-                <th style={th}>Waiting on email</th><th style={th}>Vote %</th><th style={th}>Judge score (0-100)</th><th style={th}>Final</th>
+                <th style={th}>Waiting on email</th><th style={th}>Vote %</th><th style={th}>Judges (avg of 1–10)</th><th style={th}>Final</th>
               </tr>
             </thead>
             <tbody>
@@ -200,10 +215,14 @@ export default function AdminVotes() {
                   <td style={td}>{r.pending}</td>
                   <td style={td}>{r.votePct.toFixed(0)}%</td>
                   <td style={td}>
-                    <input type="number" min="0" max="100" value={judges[r.slug] ?? ''}
-                      onChange={(e) => setJudges((p) => ({ ...p, [r.slug]: e.target.value }))}
-                      onBlur={(e) => saveJudge(r.slug, e.target.value)}
-                      style={{ ...inputStyle, width: '90px', marginTop: 0 }} />
+                    {r.judgeN > 0 ? (
+                      <span>{(r.judge / 10).toFixed(1)}/10 <span style={{ opacity: 0.6, fontSize: '12px' }}>({r.judgeN} judge{r.judgeN === 1 ? '' : 's'})</span></span>
+                    ) : (
+                      <input type="number" min="0" max="100" value={judges[r.slug] ?? ''}
+                        onChange={(e) => setJudges((p) => ({ ...p, [r.slug]: e.target.value }))}
+                        onBlur={(e) => saveJudge(r.slug, e.target.value)}
+                        style={{ ...inputStyle, width: '90px', marginTop: 0 }} />
+                    )}
                   </td>
                   <td style={{ ...td, fontWeight: 600 }}>{r.final.toFixed(1)}</td>
                 </tr>

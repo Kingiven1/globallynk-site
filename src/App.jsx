@@ -23,6 +23,7 @@ import Privacy from './pages/Privacy';
 import Portal from './pages/Portal';
 import AdminStudents from './pages/AdminStudents';
 import AdminVotes from './pages/AdminVotes';
+import JudgeScoring from './pages/JudgeScoring';
 import AdminPartners from './pages/AdminPartners';
 import { page } from './styles/tokens';
 
@@ -70,6 +71,14 @@ export default function App() {
               element={
                 <ProtectedRoute>
                   <AdminVotes />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/judge"
+              element={
+                <ProtectedRoute>
+                  <JudgeScoring />
                 </ProtectedRoute>
               }
             />

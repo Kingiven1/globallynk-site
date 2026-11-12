@@ -30,7 +30,7 @@ const EVENTS = [
     type: 'Workshop',
     title: 'Intro to DJ Workshop — Washington, DC',
     copy: 'Learn the basics, meet working DJs, get hands-on. No experience or gear required.',
-    poshUrl: 'https://posh.vip/e/global-lynk-intro-to-dj-workshop-dc-nov-copy',
+    poshUrl: 'https://posh.vip/e/global-lynk-intro-to-dj-workshop-nov-edit-dc-copy',
     image: dcDecWorkshopFlyer,
   },
   {

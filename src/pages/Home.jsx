@@ -31,7 +31,7 @@ const HAPPENING_NOW = [
     copy: 'Beginner-friendly and hands-on. No experience or gear needed. Pick your city:',
     actions: [
       { label: 'Dallas · Nov 12', href: 'https://posh.vip/e/global-lynk-intro-to-dj-workshop-nov-edit-dallas-tx', primary: true },
-      { label: 'Washington, DC · Dec 15', href: 'https://posh.vip/e/global-lynk-intro-to-dj-workshop-dc-nov-copy', primary: true },
+      { label: 'Washington, DC · Dec 15', href: 'https://posh.vip/e/global-lynk-intro-to-dj-workshop-nov-edit-dc-copy', primary: true },
       { label: 'See all dates', to: '/events' },
     ],
   },
